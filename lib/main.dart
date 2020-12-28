@@ -30,10 +30,11 @@ class MyApp extends StatefulWidget {
 }
 
 var pr;
+  SunmiThermalPrinter _printer;
+
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
 
-  SunmiThermalPrinter _printer;
 
   @override
   void initState() {
@@ -94,8 +95,14 @@ home: Directionality(
       // ),
    // );
   }
-mprint() async{
- await _loadTestData();
+
+}
+
+
+mprint(var prn) async{
+      print(prn);
+
+ await _loadTestData(prn);
                     _printer.exec();
 }
   String formatCurrency(num val, [int pad = 10]) =>
@@ -103,11 +110,12 @@ mprint() async{
 
   intl.NumberFormat currencyFormat = intl.NumberFormat.currency(name: 'MYR', symbol: '');
 
-  Future<void> _loadTestData() async {
-    var header = 'Trilobyte';
-    var id = 'ABCD1234';
+  Future<void> _loadTestData(prn) async {
+    print(prn);
+    var header = 'Al-Raya';
+    var id = '${prn['id']}';
     var timestamp = '30-02-2020 23:59:59';
-    var cashier = 'daddycat';
+    var cashier =  '${prn['name']}';
     var itemsHeaderLeft = 'Item';
     var itemsHeaderRight = 'Amount (RM)';
     var items = [
@@ -145,48 +153,52 @@ mprint() async{
       ..bold()
       ..printCenter(header)
       ..bold()
-      ..printLR('Invoice #:', id)
+      ..printLR(' رقم الطلب #:', id)
       ..printLR('Date/Time:', timestamp)
-      ..printLR('Cashier', cashier)
-      ..divider()
-      ..printLR(itemsHeaderLeft, itemsHeaderRight)
-      ..divider()..qr("Hello World");
-    for (var item in items) {
-      String amountStr = formatCurrency(item.afterDiscountValue);
-      _printer
-        ..printLR(
-            item.name.substring(
-                0, math.min(item.name.length, _printer.cpl - amountStr.length)),
-            amountStr)
-        ..println(
-            '  ${currencyFormat.format(item.price)} × ${item.quantity.toString()}');
-      if (item.discount != null) {
-        _printer
-          ..println(
-              '  Discount ${item.discount.endsWith('%') ? item.discount : currencyFormat.format(num.parse(item.discount))}');
-      }
-    }
-    _printer
-      ..divider()
-      ..printLR('Subtotal', formatCurrency(subtotal))
-      ..printLR('Rounding', formatCurrency(roundingCent / 100))
-      ..fontSize(height: 2)
-      ..printLR('Total', formatCurrency(total))
-      ..fontScale()
-      ..divider()
-      ..printLR('CASH', formatCurrency(cash))
-      ..printLR('Change', formatCurrency(change))
-      ..newLine()
-      ..qr('3b.my', moduleSize: 8)
-      ..newLine()
-      ..barcode('EXAMPLE',
-          symbology: BarcodeSymbology.CODE_128,
-          height: 32,
-          textPosition: BarcodeText.Bottom)
-      ..newLine()
-      ..printCenter(footer);
+      ..printLR('اسم الزبون', cashier)
+      ..printLR('رقم الهاتف', '${prn['phone']}')
+       ..printLR('2رقم الهاتف', '${prn['phone2']}')
+        ..printLR('المحافظة', '${prn['government']}')
+                ..printLR('المدينة', '${prn['city']}')
+
+      // ..divider()
+      // ..printLR(itemsHeaderLeft, itemsHeaderRight)
+      ..divider()..qr( '${prn['id']}');
+    // for (var item in items) {
+    //   String amountStr = formatCurrency(item.afterDiscountValue);
+    //   _printer
+    //     ..printLR(
+    //         item.name.substring(
+    //             0, math.min(item.name.length, _printer.cpl - amountStr.length)),
+    //         amountStr)
+    //     ..println(
+    //         '  ${currencyFormat.format(item.price)} × ${item.quantity.toString()}');
+    //   if (item.discount != null) {
+    //     _printer
+    //       ..println(
+    //           '  Discount ${item.discount.endsWith('%') ? item.discount : currencyFormat.format(num.parse(item.discount))}');
+    //   }
+    // }
+    // _printer
+    //   ..divider()
+    //   ..printLR('Subtotal', formatCurrency(subtotal))
+    //   ..printLR('Rounding', formatCurrency(roundingCent / 100))
+    //   ..fontSize(height: 2)
+    //   ..printLR('Total', formatCurrency(total))
+    //   ..fontScale()
+    //   ..divider()
+    //   ..printLR('CASH', formatCurrency(cash))
+    //   ..printLR('Change', formatCurrency(change))
+    //   ..newLine()
+    //   ..qr('3b.my', moduleSize: 8)
+    //   ..newLine()
+    //   ..barcode( '${prn['id']}',
+    //       symbology: BarcodeSymbology.,
+    //       height: 32,
+    //       textPosition: BarcodeText.Bottom)
+    //   ..newLine()
+    //   ..printCenter(footer);
   }
-}
 
 class TestItem {
   final String name;

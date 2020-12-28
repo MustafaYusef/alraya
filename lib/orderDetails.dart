@@ -864,6 +864,37 @@ submit();
                                     fontSize: 18
                                   ),
                                 ),),
+                    if(role==2||role==3
+              //      &&or['status']=='watting'
+                    )       
+                           MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(30)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: sc,
+                                  onPressed: (){
+// submit();
+printb();
+
+                                },child:
+                                loading?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+                                    Colors.white
+                                  ),
+                                ):
+                                 Text("طباعة",
+                                 style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
 SizedBox(
   height: 30,
 ),
@@ -1185,6 +1216,72 @@ new FocusNode()
 
   }
 
+
+
+
+ printb() async {
+     if(loading||loading2)
+     return;
+    FocusScope.of(context).requestFocus(
+new FocusNode()
+    );
+
+    // if (!formKey.currentState.validate()) {
+    //   // If the form is valid, display a snackbar. In the real world,
+    //   // you'd often call a server or save the information in a database.
+
+  
+    // return;
+    // }
+
+  setState(() {
+    loading=true;
+  });
+ 
+  var res = await http.put(
+          //  "$host/users/auth/new"
+            "$host/users/collector/orders/pickup"
+            ,
+            body: {
+              "order_id":"${or['id']}",
+              "multiple":"1"
+            },
+            headers: {
+              "Authorization":token
+            },
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+mprint(or);
+
+    if (res.statusCode==200) {
+  
+// mprint(or);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres['data']["msg"]),));
+
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading = false;
+    });
+
+  }
   
 ///driver reject rajee
   rejectord() async {
