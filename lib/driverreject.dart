@@ -19,7 +19,8 @@ class _DriverRejectState extends State<DriverReject> {
 
    
  BuildContext b;
-
+bool other=false;
+TextEditingController otherc=TextEditingController();
 var or;
 @override
   void initState() {
@@ -95,8 +96,10 @@ left: 10,
 
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                     child:Container(
-                       height: 278,
+                     child:
+        AnimatedContainer(
+                              duration: Duration(milliseconds: 200),
+                    height: other?325:275,
                        width: double.infinity,
 child: Material(
   color: sc,
@@ -196,6 +199,9 @@ child: Material(
     ),
      child: InkWell(
        onTap: (){
+         setState(() {
+           other=!other;
+         });
         //  Navigator.pop(context,"لا يرد");
        },
        child: Padding(
@@ -205,6 +211,69 @@ child: Material(
      ),
    ),
  ),
+ AnimatedOpacity(
+                  duration: Duration(milliseconds: 170),
+                  opacity:other?1:0,
+                                  child: AnimatedContainer(
+                    height: other?60:0,
+                    duration: Duration(milliseconds: 200),
+                    
+                    child:
+                  Row(
+                    children: [
+                      Theme(data: ThemeData(primaryColor: Colors.white,),
+                      
+                                        child: Expanded(
+                                                                                  child: TextField(
+                                            onEditingComplete: (){
+//                                           orders=[];
+//  loading=true;
+//  page=1;
+//  maxCount=-1;
+//  lastPage=false;
+//  timeout=false;
+//  getOrders(true);
+                                            },
+                                            
+                                            style: TextStyle(color: Colors.white),
+                                            controller: otherc,
+                        decoration: InputDecoration(
+                          hintText: "سبب الرفض",
+                          hintStyle: TextStyle(color: mc),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(
+                            color: Colors.white
+                          )),
+                          enabledBorder:  OutlineInputBorder(
+borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(
+                            color: mc,
+                            
+                          )
+                          ),
+                        
+// prefixIcon: Icon(Icons.search,
+// color: Colors.white,
+// // color: Colors.white,
+// )
+// co
+                        ),
+                        ),
+                                        ),
+                      ),
+                 FlatButton(
+                   textColor: mc,
+                   
+                   onPressed:(){
+Navigator.pop(context,"${otherc.text}");
+                 } , child: Text("تم",
+                 style: TextStyle(fontWeight: FontWeight.bold,
+                 fontSize: 18),
+                 ))
+                    ],
+                  ) ,),
+                ),
       ],
     ),
   ),

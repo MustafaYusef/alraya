@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:sunmi_thermal_printer_example/addorder2.dart';
+import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/driverreject.dart';
 import 'package:sunmi_thermal_printer_example/succes.dart';
 
@@ -201,6 +202,7 @@ left: 10,
                                   height: 15,
                                 ),
                              TextFormField(
+                               
                                style: TextStyle(color: Colors.white),
                                      focusNode: namef,
                                      textInputAction: TextInputAction.next,
@@ -220,7 +222,8 @@ left: 10,
                                   controller: name,
                                   
                                 decoration: InputDecoration(
-                                  
+                                    labelText: "اسم الزبون",
+                                  labelStyle: TextStyle(color: Colors.white),
                                   errorStyle:TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold
@@ -289,7 +292,8 @@ left: 10,
                                     controller: phone,
                                   decoration: InputDecoration(
                                     hintText: "رقم الهاتف",
-                                    
+                                      labelText: "رقم الهاتف",
+                                  labelStyle: TextStyle(color: Colors.white),
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
                                   color: Colors.white
@@ -355,7 +359,8 @@ errorStyle: TextStyle(
                                     controller: phone2,
                                     focusNode: phone2f,
                                   decoration: InputDecoration(
-                                    
+                                      labelText: "رقم الهاتف2",
+                                  labelStyle: TextStyle(color: Colors.white),
                                     hintText: "رقم الهاتف 2",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
@@ -420,7 +425,8 @@ errorStyle: TextStyle(
                                     
                                     controller: state,
                                   decoration: InputDecoration(
-                                    
+                                      labelText: "المحافظة",
+                                  labelStyle: TextStyle(color: Colors.white),
                                     hintText: "المحافظة",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
@@ -485,7 +491,8 @@ errorStyle: TextStyle(
                                     
                                     controller: city,
                                   decoration: InputDecoration(
-                                    
+                                      labelText: "المدينة",
+                                  labelStyle: TextStyle(color: Colors.white),
                                     hintText: "المدينة",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
@@ -549,7 +556,8 @@ errorStyle: TextStyle(
                                      },     
                                     controller: address,
                                   decoration: InputDecoration(
-                                    
+                                      labelText: "العنوان",
+                                  labelStyle: TextStyle(color: Colors.white),
                                     hintText: "العنوان",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
@@ -616,7 +624,8 @@ errorStyle: TextStyle(
                                      },
                                     controller: price,
                                   decoration: InputDecoration(
-                                    
+                                      labelText: "السعر",
+                                  labelStyle: TextStyle(color: Colors.white),
                                     hintText: "سعر البضاعة مع التوصيل",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
@@ -685,7 +694,8 @@ errorStyle: TextStyle(
                                        );
                                      },
                                   decoration: InputDecoration(
-                                    
+                                      labelText: "ملاحظات",
+                                  labelStyle: TextStyle(color: Colors.white),
                                     hintText: "ملاحظات",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
@@ -750,7 +760,8 @@ errorStyle: TextStyle(
                                     //  },
                                     controller: orderstate,
                                   decoration: InputDecoration(
-                                    
+                                      labelText: "الحالة",
+                                  labelStyle: TextStyle(color: Colors.white),
                                     // hintText: "سعر البضاعة مع التوصيل",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
@@ -826,7 +837,7 @@ edit();
                                 ),),
 
 
-                                 if(role==1)              MaterialButton(
+                                 if(role==1&&or['status']=='watting')              MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -857,7 +868,7 @@ SizedBox(
   height: 30,
 ),
 
-                     if(role==1)                  MaterialButton(
+                     if(role==1&&or['status']=='watting')                  MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -889,6 +900,9 @@ sc                                  ),
                                   ),
                                 ),),
 
+                                  
+                                  
+                                  
                                   if(role==0)                  MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
@@ -913,6 +927,46 @@ cancelord();
 sc                                  ),
                                 ):
                                  Text("الغاء الطلب",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
+
+
+
+
+
+                                   if((role==2||role==3)&&false)                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+// cancelord();
+Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+ClientLoc(
+  client: or,
+),);}));
+
+// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("خارطة",
                                  style: TextStyle(
                                     color: sc,
                                     fontWeight: FontWeight.bold,
@@ -1153,11 +1207,21 @@ new FocusNode()
   });
  var msg=await Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
  DriverReject(),);}));
+
+ if(msg==null)
+ {
+   setState(() {
+     loading2=false;
+   });
+   return;}
  
-  var res = await http.put(
+  var res = await http.post(
           //  "$host/users/auth/new"
             "$host/users/drivers/orders/rejected/${or['id']}"
             ,
+            body: {
+              "msg":"$msg"
+            },
             headers: {
               "Authorization":token
             },

@@ -8,7 +8,7 @@ import 'main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
+import 'collectorHome.dart';
 class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
@@ -324,6 +324,12 @@ Widget _home;
              case 1:
            _home=DriverHome();
            break;  
+               case 2:
+           _home=CollectorHome();
+           break;
+           case 3:
+           _home=CollectorHome();
+           break; 
          default:
        }
     if (token != null) {
@@ -380,6 +386,12 @@ Widget _home;
              case 1:
            _home=DriverHome();
            break;  
+             case 2:
+           _home=CollectorHome();
+           break;  
+           case 3:
+           _home=CollectorHome();
+           break;
          default:
        }
  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c) {

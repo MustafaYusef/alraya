@@ -3,6 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/addOrder.dart';
+import 'package:sunmi_thermal_printer_example/clientLoc.dart';
+import 'package:sunmi_thermal_printer_example/clientORders.dart';
+import 'package:sunmi_thermal_printer_example/collectorsorders.dart';
 import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
@@ -12,13 +15,13 @@ import 'orderDetails.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 
-class DriverHome extends StatefulWidget {
+class CollectorHome extends StatefulWidget {
   @override
-  _DriverHomeState createState() => _DriverHomeState();
+  _CollectorHomeState createState() => _CollectorHomeState();
 }
 
 var prof;
-class _DriverHomeState extends State<DriverHome> {
+class _CollectorHomeState extends State<CollectorHome> {
 
    ScrollController scr=ScrollController();
 bool search=false;
@@ -161,123 +164,123 @@ Notfs(),);}));
               ),
             ),
           ),
-      Positioned(
-            top: 125,
-            right: 20,
-            left: 20,
-            child: 
-            Container(
-              height: 60,
-              // child: Text("s"),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: (){
-setState(() {
-  ind=0;
-});
-  loading=true;
- page=1;
- maxCount=-1;
- lastPage=false;
- timeout=false;
- getOrders(true);
-                    },
-                    child:       Row(
-                      children: [
-                        SizedBox(
-                          width: 100,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("قيد المعالجة",
-            style: TextStyle(
-              color:ind==0? Colors.white:Colors.grey
-              ,fontWeight: FontWeight.bold,
-              fontSize: 17
-            ),),
-                          ),
-                        ),
-                          VerticalDivider(
-                    color: mc,
-                    thickness: 1.5,
-                  ),
-                      ],
-                    ) ,
-                  ),
+//       Positioned(
+//             top: 125,
+//             right: 20,
+//             left: 20,
+//             child: 
+//             Container(
+//               height: 60,
+//               // child: Text("s"),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                 children: [
+//                   InkWell(
+//                     onTap: (){
+// setState(() {
+//   ind=0;
+// });
+//   loading=true;
+//  page=1;
+//  maxCount=-1;
+//  lastPage=false;
+//  timeout=false;
+//  getOrders(true);
+//                     },
+//                     child:       Row(
+//                       children: [
+//                         SizedBox(
+//                           width: 100,
+//                           child: Padding(
+//                             padding: const EdgeInsets.all(8.0),
+//                             child: Text("قيد المعالجة",
+//             style: TextStyle(
+//               color:ind==0? Colors.white:Colors.grey
+//               ,fontWeight: FontWeight.bold,
+//               fontSize: 17
+//             ),),
+//                           ),
+//                         ),
+//                           VerticalDivider(
+//                     color: mc,
+//                     thickness: 1.5,
+//                   ),
+//                       ],
+//                     ) ,
+//                   ),
                 
-                     InkWell(
-                    onTap: (){
-setState(() {
-  ind=1;
-});
-  loading=true;
- page=1;
- maxCount=-1;
- lastPage=false;
- timeout=false;
- getOrders(true);
-                    },
-                    child:       Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("تم التوصيل",
-            style: TextStyle(
-              color:ind==1? Colors.white:Colors.grey
-              ,fontWeight: FontWeight.bold,
-              fontSize: 17
-            ),),
-                    ) ,
-                  ),
+//                      InkWell(
+//                     onTap: (){
+// setState(() {
+//   ind=1;
+// });
+//   loading=true;
+//  page=1;
+//  maxCount=-1;
+//  lastPage=false;
+//  timeout=false;
+//  getOrders(true);
+//                     },
+//                     child:       Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: Text("تم التوصيل",
+//             style: TextStyle(
+//               color:ind==1? Colors.white:Colors.grey
+//               ,fontWeight: FontWeight.bold,
+//               fontSize: 17
+//             ),),
+//                     ) ,
+//                   ),
                 
-                      InkWell(
-                    onTap: (){
-setState(() {
-  ind=2;
-});
-  loading=true;
- page=1;
- maxCount=-1;
- lastPage=false;
- timeout=false;
- getOrders(true);
+//                       InkWell(
+//                     onTap: (){
+// setState(() {
+//   ind=2;
+// });
+//   loading=true;
+//  page=1;
+//  maxCount=-1;
+//  lastPage=false;
+//  timeout=false;
+//  getOrders(true);
 
-                    },
-                    child:       SizedBox(
-                      width: 100,
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.sp,
-                        children: [
-                            VerticalDivider(
-                      color: mc,
-                      thickness: 1.5,
-                  ),
-                          Expanded(
-                                                      child: Center(
-                                                        child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("راجع",
-            style: TextStyle(
-             color:ind==2? Colors.white:Colors.grey
-              ,fontWeight: FontWeight.bold,
-              fontSize: 17
-            ),),
-                            ),
-                                                      ),
-                          ),
-                        ],
-                      ),
-                    ) ,
-                  ),
-                ],
-              ),
-              // width: double.infinity,
-decoration: BoxDecoration(
-  borderRadius: BorderRadius.circular(100),
-  color: sc
-),
-            )
+//                     },
+//                     child:       SizedBox(
+//                       width: 100,
+//                       child: Row(
+//                         // mainAxisAlignment: MainAxisAlignment.sp,
+//                         children: [
+//                             VerticalDivider(
+//                       color: mc,
+//                       thickness: 1.5,
+//                   ),
+//                           Expanded(
+//                                                       child: Center(
+//                                                         child: Padding(
+//                               padding: const EdgeInsets.all(8.0),
+//                               child: Text("راجع",
+//             style: TextStyle(
+//              color:ind==2? Colors.white:Colors.grey
+//               ,fontWeight: FontWeight.bold,
+//               fontSize: 17
+//             ),),
+//                             ),
+//                                                       ),
+//                           ),
+//                         ],
+//                       ),
+//                     ) ,
+//                   ),
+//                 ],
+//               ),
+//               // width: double.infinity,
+// decoration: BoxDecoration(
+//   borderRadius: BorderRadius.circular(100),
+//   color: sc
+// ),
+//             )
      
-          ),
+//           ),
    
 //               Positioned(
 //            top: 130,
@@ -313,12 +316,12 @@ decoration: BoxDecoration(
 //           // child: Text("asdad"),
 //           ),
        Positioned(
-            top: 190,
+            top: 110,
             left: 0,
             right: 0,
             bottom: 0,
             child: ListView(
-              controller: scr,
+              // controller: scr,
               children: [
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 170),
@@ -376,7 +379,7 @@ color: Colors.white,
          left: 0,
          right: 0,
          height:menu? 
-         215
+         180
          :0,
          child: Container(
            child:Material(
@@ -394,17 +397,17 @@ color: Colors.white,
                ListTile(
                  onTap: (){
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                   Orders(),);}));
+                   Collectorsorders(),);}));
                    
                  },
                  leading: Icon(Icons.history),
-                 title: Text("سجل الطلبات"),
+                 title: Text("طلبات تم جمعها"),
                ),
-               Divider(),
-                 ListTile(
-                 leading: Icon(Icons.chat_outlined),
-                 title: Text("سجل المحادثات"),
-               ),
+              //  Divider(),
+              //    ListTile(
+              //    leading: Icon(Icons.chat_outlined),
+              //    title: Text("سجل المحادثات"),
+              //  ),
                   Divider(),
                  ListTile(
                    onTap: (){
@@ -440,7 +443,7 @@ return Container(
     vertical: 8
   ),
 
-  height: 224,
+  // height: 344,
   decoration: BoxDecoration(
     color: sc,
     borderRadius: BorderRadius.circular(15)
@@ -449,6 +452,14 @@ return Container(
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
 children: [
+   Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Text("${ord['name']}",
+    style: TextStyle(color: Colors.white,
+    fontWeight: FontWeight.bold),
+    ),
+  ),
+  Divider(color: Colors.white,),
   Padding(
     padding: const EdgeInsets.all(14.0),
     child: Text("${ord['phone']}",
@@ -457,9 +468,9 @@ children: [
     ),
   ),
   Divider(color: Colors.white,),
-    Padding(
+   Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['status']}",
+    child: Text("${ord['city']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -467,7 +478,15 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['city']}",
+    child: Text("عدد الطلبات: ${ord['orders_number']}",
+    style: TextStyle(color: Colors.white,
+    fontWeight: FontWeight.bold),
+    ),
+  ),
+  Divider(color: Colors.white,),
+    Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Text("الطلبات التي تم جمعها: ${ord['picked_orders_count']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -476,49 +495,100 @@ children: [
    Align(
      alignment: Alignment.center,
         child: Container(
+          margin: const EdgeInsets.symmetric(
+            vertical: 10
+          ),
   //width: 200,
-  child:   MaterialButton(
-  
+  child:   Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      MaterialButton(
       
-  
-                                //minWidth: double.infinity,
-  
-                                elevation: 0,
-  
-                                shape: RoundedRectangleBorder(
-  
-                                  borderRadius: BorderRadius.vertical(
-  
-                                    bottom: Radius.circular(30)
-  
-                                  )
-  
-                                ),
-  
-                                 height: 50,
-  minWidth: 200,
-                                color: mc,
-  
-                                onPressed: (){
+          
+      
+                                    //minWidth: double.infinity,
+      
+                                    elevation: 0,
+      minWidth: 100,
+                                    shape: RoundedRectangleBorder(
+      
+                                      borderRadius: BorderRadius.horizontal(
+      
+                                        right: Radius.circular(30)
+      
+                                      )
+      
+                                    ),
+      
+                                     height: 50,
+      // minWidth: 200,
+                                    color: mc,
+      
+                                    onPressed: (){
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-OrderDetails(order: ord,),);}));
+ClientOrders(cl: ord,),);}));
 
-  
-  // signIn();
+      
+      // signIn();
 
-                              },child: Text("تفاصيل الطلب",
-  
-                               style: TextStyle(
-  
-                                  color: Colors.white,
-  
-                                  fontWeight: FontWeight.bold,
-  
-                                  fontSize: 14
-  
-                                ),
-  
-                              ),),
+                                  },child: Text("الطلبات",
+      
+                                   style: TextStyle(
+      
+                                      color: Colors.white,
+      
+                                      fontWeight: FontWeight.bold,
+      
+                                      fontSize: 14
+      
+                                    ),
+      
+                                  ),),
+                                    MaterialButton(
+      
+          
+      
+                                    //minWidth: double.infinity,
+      
+                                    elevation: 0,
+      
+                                    shape: RoundedRectangleBorder(
+      
+                                      borderRadius: BorderRadius.horizontal(
+      
+                                        left: Radius.circular(30)
+      
+                                      )
+      
+                                    ),
+      
+                                     height: 50,
+      // minWidth: 200,
+                                    color: mc,
+            minWidth: 100,
+
+                                    onPressed: (){
+Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+ClientLoc(client: ord,),);}));
+
+      
+      // signIn();
+
+                                  },child: Text("خارطة",
+      
+                                   style: TextStyle(
+      
+                                      color: Colors.white,
+      
+                                      fontWeight: FontWeight.bold,
+      
+                                      fontSize: 14
+      
+                                    ),
+      
+                                  ),),
+    ],
+  ),
 ),
    ),
   // Divider(color: Colors.white,),
@@ -634,11 +704,11 @@ orders=[];
     });
     
     String link=
-      "$host/users/drivers/orders/my?limit=10&page=$page&status=$status";
-if(search&&searchc.text.length>0)
-{
-  link+="&search=${searchc.text}";
-}
+      "$host/users/collector/attach/my";
+// if(search&&searchc.text.length>0)
+// {
+//   link+="&search=${searchc.text}";
+// }
 
 // if(selectedSort!=-1)
 // {
@@ -671,9 +741,39 @@ print(pres);
 
     setState(() {
       
-       orders.addAll(pres["data"]["data"]['my_orders']);
+       orders.addAll(pres["data"]['my_attached_client']);
+// orders.addAll([
+//             {
+//                 "id": 12,
+//                 "picked_orders_count": 0,
+//                 "client_id": 4,
+//                 "name": "ksoon",
+//                 "phone": "12222",
+//                 "government": "بغداد",
+//                 "city": "منصور",
+//                 "latitude": "12.2323",
+//                 "longitude": "10.23",
+//                 "orders_number": 4,
+//                 "createdAt": "2020-12-17T13:06:43.933Z"
+//             },
+//             {
+//                 "id": 15,
+//                 "picked_orders_count": 0,
+//                 "client_id": 1,
+//                 "name": "rasheed",
+//                 "phone": "123456",
+//                 "government": "بغداد",
+//                 "city": "منصور",
+//                 "latitude": "12.2323",
+//                 "longitude": "10.23",
+//                 "orders_number": 7,
+//                 "createdAt": "2020-12-20T07:36:42.227Z"
+//             }
+//         ]);
+
+
       print(orders.length);
-    maxCount=pres["data"]['data']["totalItems"];
+    // maxCount=pres["data"]['data']["totalItems"];
     // print(orders[0]);
     // count=pres["data"]["totalItems"];
     loading=false;
