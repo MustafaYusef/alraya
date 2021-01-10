@@ -7,6 +7,7 @@ import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
+import 'checkouts.dart';
 import 'main.dart';
 import 'orderDetails.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -376,7 +377,7 @@ color: Colors.white,
          left: 0,
          right: 0,
          height:menu? 
-         215
+         290
          :0,
          child: Container(
            child:Material(
@@ -405,7 +406,19 @@ color: Colors.white,
                  leading: Icon(Icons.chat_outlined),
                  title: Text("سجل المحادثات"),
                ),
-                  Divider(),
+                              Divider(),
+
+                         ListTile(
+                 onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                   Checkouts(),);}));
+                   
+                 },
+                 leading: Icon(Icons.list),
+                 title: Text("الحسابات"),
+               ),
+               Divider(),
+                  // Divider(),
                  ListTile(
                    onTap: (){
                      setState(() {
@@ -422,7 +435,7 @@ return SignIn();
                      });
                    },
                  leading: Icon(Icons.account_circle),
-                 title: Text("الملف الشخصي"),
+                 title: Text("تسجيل الخروج"),
                ),
              ],
            ),),

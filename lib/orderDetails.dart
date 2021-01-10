@@ -804,8 +804,11 @@ errorStyle: TextStyle(
                                   ),
                                 ),
 
-
-                  if(role==0)              MaterialButton(
+ 
+                  if(role==0
+              //    &&or['status']=='watting'
+                  )
+                                MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -835,7 +838,41 @@ edit();
                                     fontSize: 18
                                   ),
                                 ),),
+SizedBox(
+height: 10,
+),
+      if(role==0&&or['status']!='watting')
+                                MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: mc,
+                                  onPressed: (){
+// signIn();
+editprice();
+// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
 
+                                },child:
+                                loading?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+                                    Colors.white
+                                  ),
+                                ):
+                                 Text("تعديل السعر",
+                                 style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
 
                                  if(role==1&&or['status']=='watting')              MaterialButton(
                                   minWidth: double.infinity,
@@ -879,7 +916,8 @@ submit();
                                   color: sc,
                                   onPressed: (){
 // submit();
-printb();
+// printb();
+showmodal(context);
 
                                 },child:
                                 loading?
@@ -932,8 +970,67 @@ sc                                  ),
                                 ),),
 
                                   
+                                             if(role==3&&or['status']=='collected')                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+collectorsubmitostore();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("تأكيد الاستلام",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
                                   
-                                  
+                                     if(role==3&&or['status']=='rejected')                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+collectorrejectedostore();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("تأكيد راجع",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
+
+
                                   if(role==0)                  MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
@@ -1094,6 +1191,70 @@ new FocusNode()
   }
 
 
+  editprice() async {
+    if(loading||loading2)
+     return;
+    FocusScope.of(context).requestFocus(
+new FocusNode()
+    );
+
+    // if (!formKey.currentState.validate()) {
+    //   // If the form is valid, display a snackbar. In the real world,
+    //   // you'd often call a server or save the information in a database.
+
+  
+    // return;
+    // }
+  var _bod={
+
+"price":"${price.text}",
+
+  };
+  setState(() {
+    loading=true;
+  });
+  print(_bod);
+  var res = await http.post(
+          //  "$host/users/auth/new"
+            "$host/orders/order/price/edit/${or['id']}"
+            ,
+            headers: {
+              "Authorization":token
+            },
+        body:_bod).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+
+    if (res.statusCode==201) {
+  
+
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres['data']["msg"]),));
+
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading = false;
+    });
+
+  }
+
+
    cancelord() async {
      if(loading||loading2)
      return;
@@ -1154,7 +1315,124 @@ new FocusNode()
   }
 
 
+collectorsubmitostore() async {
+     if(loading||loading2)
+     return;
+    FocusScope.of(context).requestFocus(
+new FocusNode()
+    );
 
+    // if (!formKey.currentState.validate()) {
+    //   // If the form is valid, display a snackbar. In the real world,
+    //   // you'd often call a server or save the information in a database.
+
+  
+    // return;
+    // }
+
+  setState(() {
+    loading2=true;
+  });
+ 
+  var res = await http.put(
+          //  "$host/users/auth/new"
+            "$host/users/collector/orders/submit/${or['id']}"
+            ,
+            headers: {
+              "Authorization":token
+            },
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+
+    if (res.statusCode==200) {
+  
+
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres['data']["msg"]),));
+
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading2 = false;
+    });
+
+  }
+
+
+collectorrejectedostore() async {
+     if(loading||loading2)
+     return;
+    FocusScope.of(context).requestFocus(
+new FocusNode()
+    );
+
+    // if (!formKey.currentState.validate()) {
+    //   // If the form is valid, display a snackbar. In the real world,
+    //   // you'd often call a server or save the information in a database.
+
+  
+    // return;
+    // }
+
+  setState(() {
+    loading2=true;
+  });
+ 
+  var res = await http.post(
+          //  "$host/users/auth/new"
+            "$host/users/collector/orders/return/rejected/${or['id']}"
+            ,
+            headers: {
+              "Authorization":token
+            },
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+
+    if (res.statusCode==201) {
+  
+
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres['data']["msg"]),));
+
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading2 = false;
+    });
+
+  }
 
 ///driver submit tasleem
   submit() async {
@@ -1219,7 +1497,7 @@ new FocusNode()
 
 
 
- printb() async {
+ printb(mul) async {
      if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -1238,13 +1516,13 @@ new FocusNode()
     loading=true;
   });
  
-  var res = await http.put(
+  var res = await http.post(
           //  "$host/users/auth/new"
             "$host/users/collector/orders/pickup"
             ,
             body: {
               "order_id":"${or['id']}",
-              "multiple":"1"
+              "multiple":"$mul"
             },
             headers: {
               "Authorization":token
@@ -1263,10 +1541,10 @@ new FocusNode()
 
 
    
-mprint(or);
 
-    if (res.statusCode==200) {
-  
+    if (res.statusCode==201) {
+  mprint(or);
+
 // mprint(or);
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
@@ -1355,6 +1633,88 @@ new FocusNode()
 
   }
 
+
+
+// TextEditingController drphone=TextEditingController();
+TextEditingController drname=TextEditingController();
+
+  showmodal(c,){
+             showDialog(context: c,
+                builder: (context) {
+   // String contentText = "Content of Dialog";
+    return StatefulBuilder(
+      builder: (context, st) {
+        return SizedBox(
+          height: 200,
+          child: AlertDialog(
+            
+            title: Text("مضاعفة الطلب"),
+            content:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+            
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10),
+                    child: TextField(
+                     // maxLines: 6,
+                      //minLines: 2,
+                    
+                      controller: drname,
+                   
+                    keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        
+                        border: OutlineInputBorder(
+ borderRadius: BorderRadius.circular(10)
+
+                        ),
+                        labelText: "مضاعفة الطلب",
+                      ),
+                    ),
+                  ),
+
+            
+              ],
+            ), 
+            actions: <Widget>[
+              FlatButton(
+                textColor: mc,
+                onPressed: () => Navigator.pop(context),
+                child: Text("الغاء"),
+              ),
+              FlatButton(
+                
+                onPressed: () {
+                  // if(loading2)
+                  // return;
+
+             
+                  st(() {
+                    // loading2=true;
+                  });
+              // transfare(drname.text, drphone.text, gov);
+
+printb(drname.text);
+Navigator.of(context).pop();
+           
+                  setState(() {
+                    
+                  });
+                },
+                textColor: sc,
+                child: Text(
+                  // loading2?"Updating...":
+                  "طباعة"),
+              ),
+            ],
+          ),
+        );
+      },
+                                 );
+                 
+               });
+  }
 
   
 }

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,6 +8,7 @@ import 'package:sunmi_thermal_printer_example/addOrder.dart';
 import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/clientORders.dart';
 import 'package:sunmi_thermal_printer_example/collectorsorders.dart';
+import 'package:sunmi_thermal_printer_example/govorders.dart';
 import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
@@ -379,7 +382,7 @@ color: Colors.white,
          left: 0,
          right: 0,
          height:menu? 
-         180
+        role==3?250: 180
          :0,
          child: Container(
            child:Material(
@@ -409,6 +412,21 @@ color: Colors.white,
               //    title: Text("سجل المحادثات"),
               //  ),
                   Divider(),
+            if(role==3)        ListTile(
+                 onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                   GovOrders(),);}));
+                   
+                 },
+                 leading: Icon(Icons.history),
+                 title: Text("المحافظات"),
+               ),
+              //  Divider(),
+              //    ListTile(
+              //    leading: Icon(Icons.chat_outlined),
+              //    title: Text("سجل المحادثات"),
+              //  ),
+                  Divider(),
                  ListTile(
                    onTap: (){
                      setState(() {
@@ -431,10 +449,33 @@ return SignIn();
            ),),
           // color: Colors.white,
          ),
+       ),
+  if(role==3)     Positioned(
+         bottom: 20,
+         left: 20,
+         child: 
+         IconButton(
+           onPressed: ()async{
+String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+                                                    "#ff6666", 
+                                                    "Cancel", 
+                                                    true, 
+                                                    ScanMode.QR);
+                                                    print(barcodeScanRes);
+                                                    getOrdId(barcodeScanRes);
+           },
+           icon: Icon(Icons.qr_code_scanner_rounded,
+           color: Colors.white,),
+         )
+        //  Container(
+        //    color: Colors.green,
+        //    child: Text("adsa"),
+        //  ),
        )
         ],),)
     );
   }
+
 
    Widget orderModel(ord){
 return Container(
@@ -601,6 +642,63 @@ ClientLoc(client: ord,),);}));
 
 bool timeout=false;
 
+
+  getOrdId(orid) async {
+  
+
+
+  setState(() {
+    // loading=true;
+  });
+  var res = await http.get(
+          //  "$host/users/auth/new"
+            "$host/users/orders/order/$orid"
+            //  "$host/users/orders/order/1"
+            ,
+            headers: {
+              "Authorization":token
+            },
+       ).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+
+    if (res.statusCode==200) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      OrderDetails(order:pres['data']['order'] ,),);}));
+      
+  // prof=pres['data']['profile'];
+  // print(prof['is_Active']);
+  // is_Active=prof['is_Active'];
+// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// Success(),);}));
+
+
+  //  Navigator.of(context).pushAndRemoveUntil(
+  //   MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+  //      Home(),);}) , (route) => false);
+    //  Navigator.of(context).pop();
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+    //  Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading = false;
+    });
+
+  }
   getprof() async {
   
 

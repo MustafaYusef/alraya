@@ -312,7 +312,15 @@ print("sign");
     var pres = json.decode(res.body);
     print(pres);
 Widget _home;
-
+if(pres['statusCode']==403)
+{
+    Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    setState(() {
+      loading=false;
+    });
+    return;
+}
     token = pres["data"]['data']["token"];
      role=pres["data"]['data']["role"];
      is_Active=pres["data"]['data']["is_Active"];
@@ -374,6 +382,8 @@ Widget _home;
     // print('Pressed $counter times.');
     if (_tok != null) {
       token = _tok;
+      // token="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGhvbmUiOiIxMjM0NTYyIiwiaWF0IjoxNjA3MzM1Nzg1LCJleHAiOjE3MDA2NDc3ODV9.voubH_10pDPogiXpYgGwuO5P3KLUhQC84e_LoorvJj8";
+      
       role=role;
       // rule= prefs.getInt('role');
       print(token);

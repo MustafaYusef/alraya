@@ -7,6 +7,7 @@ import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
+import 'checkouts.dart';
 import 'main.dart';
 
 class Home extends StatefulWidget {
@@ -134,6 +135,7 @@ Notfs(),);}));
               ),
             ),
           ),
+          
       if(prof!=null&&!is_Active)    Positioned(
             top: 125,
             right: 20,
@@ -236,7 +238,7 @@ Notfs(),);}));
          left: 0,
          right: 0,
          height:menu? 
-         215
+         290
          :0,
          child: Container(
            child:Material(
@@ -261,6 +263,16 @@ Notfs(),);}));
                  title: Text("سجل الطلبات"),
                ),
                Divider(),
+                   ListTile(
+                 onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                   Checkouts(),);}));
+                   
+                 },
+                 leading: Icon(Icons.list),
+                 title: Text("الحسابات"),
+               ),
+               Divider(),
                  ListTile(
                  leading: Icon(Icons.chat_outlined),
                  title: Text("سجل المحادثات"),
@@ -282,7 +294,7 @@ return SignIn();
                      });
                    },
                  leading: Icon(Icons.account_circle),
-                 title: Text("الملف الشخصي"),
+                 title: Text("تسجيل الخروج"),
                ),
              ],
            ),),

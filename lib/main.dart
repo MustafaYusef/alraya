@@ -159,11 +159,11 @@ mprint(var prn) async{
       ..printLR('رقم الهاتف', '${prn['phone']}')
        ..printLR('2رقم الهاتف', '${prn['phone2']}')
         ..printLR('المحافظة', '${prn['government']}')
-                ..printLR('المدينة', '${prn['city']}')
-
+           ..printLR('المدينة', '${prn['city']}')
+..printLR('العنوان', '${prn['address']}')
       // ..divider()
       // ..printLR(itemsHeaderLeft, itemsHeaderRight)
-      ..divider()..qr( '${prn['id']}');
+      ..divider()..qr( '${prn['id']}',moduleSize: 8);
     // for (var item in items) {
     //   String amountStr = formatCurrency(item.afterDiscountValue);
     //   _printer

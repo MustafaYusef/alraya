@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sunmi_thermal_printer_example/addorder2.dart';
+import 'package:sunmi_thermal_printer_example/state.dart';
 import 'package:sunmi_thermal_printer_example/succes.dart';
 
 import 'main.dart';
@@ -20,6 +21,8 @@ class _AddOrderState extends State<AddOrder> {
     TextEditingController city =new TextEditingController();
     TextEditingController address =new TextEditingController();
     TextEditingController price =new TextEditingController();
+        TextEditingController shipprice =new TextEditingController();
+
     TextEditingController notes =new TextEditingController();
 
    final formKey = GlobalKey<FormState>();
@@ -35,7 +38,14 @@ class _AddOrderState extends State<AddOrder> {
   FocusNode passf = FocusNode();
  BuildContext b;
 
+   String cityv;
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  getprof();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -296,7 +306,81 @@ errorStyle: TextStyle(
                                   ),  
                                   ),
                                 ),
-                                    Padding(
+                                 Container(
+              margin:    
+           const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
+
+              decoration: BoxDecoration(
+                // color: Colors.grey[200]
+                // ,
+                borderRadius: BorderRadius.circular(4),
+                border:Border.all(color: Colors.white,
+                width: 4)
+              ),
+              child: Center(
+                child: DropdownButton<String>(
+                  
+                  value: cityv,
+                  icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
+                  iconSize: 24,
+                  elevation: 16,
+                  hint: Text("المحافظة",
+                    style: TextStyle(color: Colors.white),),
+                  style: TextStyle(color: Colors.black),
+                  underline: Container(height: 1, color: Colors.transparent),
+                  onChanged: (String newValue) {
+
+                    print(newValue=="بغداد");
+                    cityv = newValue;
+                    // cities = States.js
+                    //     .firstWhere((item) => item["name"] == newValue)['data'];
+                    setState(() {});
+  //                   if(shippingPrices.length>0)
+  //                   {
+  //  if(city=="بغداد")
+  //    {
+  //      shipPrice=shippingPrices[0]["value"];
+  //    }
+  //    else
+  //    {
+  //             shipPrice=shippingPrices[1]["value"];
+
+  //    }
+  //    if(price.text.length>0)
+  //     setState(() {
+  //                      shipingPrice.text=(int.tryParse(price.text)+shipPrice).toString();
+  //                    });
+  //                    else{
+  //                      setState(() {
+  //                         shipingPrice.text=shipPrice.toString();
+  //                      });
+  //                    }
+  //                   }
+                  
+                  },
+                  items: States.js
+                      .map((f) {
+                        return f["name"];
+                      })
+                      .toList()
+                      .map<DropdownMenuItem<String>>((value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Container(
+                                width: MediaQuery.of(context).size.width - 140,
+                                child: Text(value)),
+                          ),
+                        );
+                      })
+                      .toList(),
+                ),
+              ),
+            ),
+                         if(false)           Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
                                   ),
@@ -361,6 +445,7 @@ errorStyle: TextStyle(
                                   ),  
                                   ),
                                 ),
+                                
                                     Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
@@ -491,7 +576,86 @@ errorStyle: TextStyle(
                                   ),
                                 ),
 
+         Container(
+              margin:    
+           const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
 
+              decoration: BoxDecoration(
+                // color: Colors.grey[200]
+                // ,
+                borderRadius: BorderRadius.circular(4),
+                border:Border.all(color: Colors.white,
+                width: 4)
+              ),
+              child: Center(
+                child: DropdownButton<String>(
+                  
+                  value: shiptype,
+                  icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
+                  iconSize: 24,
+                  elevation: 16,
+                  hint: Text("نوع النقل",
+                    style: TextStyle(color: Colors.white),),
+                  style: TextStyle(color: Colors.black),
+                  underline: Container(height: 1, color: Colors.transparent),
+                  onChanged: (String newValue) {
+
+                    print(newValue=="بغداد");
+                    shiptype = newValue;
+                    var sshipprice=shipingprices.firstWhere((item)=>
+                    item['name']==newValue)['amount'];
+print(sshipprice);
+setState(() {
+  shipprice.text="$sshipprice";
+});
+                    // cities = States.js
+                    //     .firstWhere((item) => item["name"] == newValue)['data'];
+                    setState(() {});
+  //                   if(shippingPrices.length>0)
+  //                   {
+  //  if(city=="بغداد")
+  //    {
+  //      shipPrice=shippingPrices[0]["value"];
+  //    }
+  //    else
+  //    {
+  //             shipPrice=shippingPrices[1]["value"];
+
+  //    }
+  //    if(price.text.length>0)
+  //     setState(() {
+  //                      shipingPrice.text=(int.tryParse(price.text)+shipPrice).toString();
+  //                    });
+  //                    else{
+  //                      setState(() {
+  //                         shipingPrice.text=shipPrice.toString();
+  //                      });
+  //                    }
+  //                   }
+                  
+                  },
+                  items: shipingprices
+                      .map((f) {
+                        return f["name"];
+                      })
+                      .toList()
+                      .map<DropdownMenuItem<String>>((value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Container(
+                                width: MediaQuery.of(context).size.width - 140,
+                                child: Text(value)),
+                          ),
+                        );
+                      })
+                      .toList(),
+                ),
+              ),
+            ),
                                  Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
@@ -514,9 +678,11 @@ errorStyle: TextStyle(
                                        );
                                      },
                                     controller: price,
+
+                                     keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     
-                                    hintText: "سعر البضاعة مع التوصيل",
+                                    hintText: "سعر البضاعة  ",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
                                   color: Colors.white
@@ -558,7 +724,72 @@ errorStyle: TextStyle(
                                   ),
                                 ),
 
+Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
+                                  child:  TextFormField(
+                    style: TextStyle(color: Colors.white),
 
+                                    //  focusNode: pricef,
+                                            validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'الرجاء قم بأدخال السعر';
+                                            }
+                                            return null;
+                                          },
+                                          textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         notesf
+                                       );
+                                     },
+                                    controller: shipprice,
+                                    keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    
+                                    hintText: "سعر التوصيل",
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color:Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
                                  Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
@@ -684,10 +915,13 @@ new FocusNode()
 "phone":"${phone.text}",
 "phone2":"${phone2.text}",
 "government":"${state.text}",
-"city":"${city.text}",
+"city":"${cityv}",
 "price":"${price.text}",
 "address":"${address.text}",
 "notes":"${notes.text}",
+"shinnig_price":"${shipprice.text}",
+
+
 
   };
   setState(() {
@@ -731,6 +965,61 @@ Success(),);}));
    //   EDailog.errorDialog(pres["message"], false, context);
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading = false;
+    });
+
+  }
+
+var shipingprices;
+var shiptype;
+   getprof() async {
+  
+
+
+  setState(() {
+    loading=true;
+  });
+  var res = await http.get(
+          //  "$host/users/auth/new"
+            "$host/users/shippingPrice"
+            ,
+            headers: {
+              "Authorization":token
+            },
+       ).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+
+    if (res.statusCode==200) {
+  shipingprices=pres['data']['get_shippingPrice'];
+
+ 
+// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// Success(),);}));
+
+
+  //  Navigator.of(context).pushAndRemoveUntil(
+  //   MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+  //      Home(),);}) , (route) => false);
+    //  Navigator.of(context).pop();
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+    //  Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text(pres["message"]),));
     }
     setState(() {
       loading = false;
