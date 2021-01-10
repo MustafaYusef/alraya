@@ -121,7 +121,7 @@ left: 10,
                            ), onTap: (){
 // Navigator.pop(context);
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-Notfs(),);}));
+Notfs(notf: prof['notification'],),);}));
 
 
                                     }),

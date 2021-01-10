@@ -7,6 +7,9 @@ import 'dart:convert';
 import 'main.dart';
 
 class Notfs extends StatefulWidget {
+  final notf;
+
+  const Notfs({Key key, this.notf}) : super(key: key);
   @override
   _NotfsState createState() => _NotfsState();
 }
@@ -143,7 +146,7 @@ left: 10,
             right: 0,
             bottom: 0,
             child: ListView(
-              controller: scr,
+           //   controller: scr,
               children: [
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 170),
@@ -189,7 +192,8 @@ color: Colors.white,
                     ),
                   ) ,),
                 ),
-             ...orders.map((e){
+             ...widget.notf.map((e){
+               print(e);
                return orderModel(e);
              }).toList()
 
@@ -204,8 +208,11 @@ return Container(
     horizontal: 15,
     vertical: 8
   ),
-
-  height: 224,
+  padding: const EdgeInsets.symmetric(
+    // horizontal: 15,
+    vertical: 8
+  ),
+  // height: 224,
   decoration: BoxDecoration(
     color: sc,
     borderRadius: BorderRadius.circular(15)
@@ -216,27 +223,27 @@ Column(
 children: [
   Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['phone']}",
+    child: Text("${ord['title']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
   ),
-  Divider(color: Colors.white,),
+  // Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['status']}",
+    child: Text("${ord['bode']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
   ),
-  Divider(color: Colors.white,),
-    Padding(
-    padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['city']}",
-    style: TextStyle(color: Colors.white,
-    fontWeight: FontWeight.bold),
-    ),
-  ),
+  // Divider(color: Colors.white,),
+  //   Padding(
+  //   padding: const EdgeInsets.all(14.0),
+  //   child: Text("${ord['city']}",
+  //   style: TextStyle(color: Colors.white,
+  //   fontWeight: FontWeight.bold),
+  //   ),
+  // ),
 
    Align(
      alignment: Alignment.center,
@@ -262,16 +269,22 @@ children: [
   
                                  height: 50,
   minWidth: 200,
-                                color: sc,
+                                color: mc,
   
                                 onPressed: (){
-Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-OrderDetails(order: ord,),);}));
-
-  
+// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// OrderDetails(order: ord,),);}));
+deletnot(ord['id']);
+// print(ord['id']);
+ 
   // signIn();
 
-                              },child: Text("تفاصيل الطلب",
+                              },child:selectednotf==ord['id']?CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation(
+                                  Colors.white
+                                ),
+                              )
+                              : Text("مسح",
   
                                style: TextStyle(
   
@@ -291,6 +304,8 @@ OrderDetails(order: ord,),);}));
 ),);
 
   }
+
+var selectednotf=-1;
 
    var orders=[];
 bool loading=true;
@@ -372,6 +387,77 @@ print(pres);
     });
 print("clients: $orders") ;  
   }
+
+
+
+   deletnot(or) async {
+ 
+     if(loading)
+     return;
+     
+    FocusScope.of(context).requestFocus(
+new FocusNode()
+    );
+
+    // if (!formKey.currentState.validate()) {
+    //   // If the form is valid, display a snackbar. In the real world,
+    //   // you'd often call a server or save the information in a database.
+
+  
+    // return;
+    // }
+
+  setState(() {
+    loading=true;
+    selectednotf=or;
+  });
+ 
+  var res = await http.delete(
+          //  "$host/users/auth/new"
+            "$host/users/notification/$or"
+            ,
+            headers: {
+              "Authorization":token
+            },
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   List x;
+   
+
+    if (res.statusCode==200) {
+  
+
+    //  Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text(pres['data']["msg"]),));
+
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+    //  Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading = false;
+      selectednotf=-1;
+      
+  widget.notf.removeWhere((element) => element['id']==or);
+
+    });
+
+  }
+
+
 
 }
 
