@@ -319,24 +319,28 @@ errorStyle: TextStyle(
                 border:Border.all(color: Colors.white,
                 width: 4)
               ),
-              child: Center(
-                child: DropdownButton<String>(
-                  
-                  value: cityv,
-                  icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
-                  iconSize: 24,
-                  elevation: 16,
-                  hint: Text("المحافظة",
-                    style: TextStyle(color: Colors.white),),
-                  style: TextStyle(color: Colors.black),
-                  underline: Container(height: 1, color: Colors.transparent),
-                  onChanged: (String newValue) {
+              child: Theme(
+                data: ThemeData(
+                  canvasColor: sc
+                ),
+                              child: Center(
+                  child: DropdownButton<String>(
+                    
+                    value: cityv,
+                    icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
+                    iconSize: 24,
+                    elevation: 16,
+                    hint: Text("المحافظة",
+                      style: TextStyle(color: Colors.white),),
+                    style: TextStyle(color: Colors.white),
+                    underline: Container(height: 1, color: Colors.transparent),
+                    onChanged: (String newValue) {
 
-                    print(newValue=="بغداد");
-                    cityv = newValue;
-                    // cities = States.js
-                    //     .firstWhere((item) => item["name"] == newValue)['data'];
-                    setState(() {});
+                      print(newValue=="بغداد");
+                      cityv = newValue;
+                      // cities = States.js
+                      //     .firstWhere((item) => item["name"] == newValue)['data'];
+                      setState(() {});
   //                   if(shippingPrices.length>0)
   //                   {
   //  if(city=="بغداد")
@@ -358,25 +362,26 @@ errorStyle: TextStyle(
   //                      });
   //                    }
   //                   }
-                  
-                  },
-                  items: States.js
-                      .map((f) {
-                        return f["name"];
-                      })
-                      .toList()
-                      .map<DropdownMenuItem<String>>((value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Container(
-                                width: MediaQuery.of(context).size.width - 140,
-                                child: Text(value)),
-                          ),
-                        );
-                      })
-                      .toList(),
+                    
+                    },
+                    items: States.js
+                        .map((f) {
+                          return f["name"];
+                        })
+                        .toList()
+                        .map<DropdownMenuItem<String>>((value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width - 140,
+                                  child: Text(value)),
+                            ),
+                          );
+                        })
+                        .toList(),
+                  ),
                 ),
               ),
             ),
@@ -589,30 +594,34 @@ errorStyle: TextStyle(
                 border:Border.all(color: Colors.white,
                 width: 4)
               ),
-              child: Center(
-                child: DropdownButton<String>(
-                  
-                  value: shiptype,
-                  icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
-                  iconSize: 24,
-                  elevation: 16,
-                  hint: Text("نوع النقل",
-                    style: TextStyle(color: Colors.white),),
-                  style: TextStyle(color: Colors.black),
-                  underline: Container(height: 1, color: Colors.transparent),
-                  onChanged: (String newValue) {
+              child:Theme(
+                data: ThemeData(
+                  canvasColor: sc
+                ),
+                              child: Center(
+                  child: DropdownButton<String>(
+                    
+                    value: shiptype,
+                    icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
+                    iconSize: 24,
+                    elevation: 16,
+                    hint: Text("نوع النقل",
+                      style: TextStyle(color: Colors.white),),
+                    style: TextStyle(color: Colors.white),
+                    underline: Container(height: 1, color: Colors.transparent),
+                    onChanged: (String newValue) {
 
-                    print(newValue=="بغداد");
-                    shiptype = newValue;
-                    var sshipprice=shipingprices.firstWhere((item)=>
-                    item['name']==newValue)['amount'];
+                      print(newValue=="بغداد");
+                      shiptype = newValue;
+                      var sshipprice=shipingprices.firstWhere((item)=>
+                      item['name']==newValue)['amount'];
 print(sshipprice);
 setState(() {
   shipprice.text="$sshipprice";
 });
-                    // cities = States.js
-                    //     .firstWhere((item) => item["name"] == newValue)['data'];
-                    setState(() {});
+                      // cities = States.js
+                      //     .firstWhere((item) => item["name"] == newValue)['data'];
+                      setState(() {});
   //                   if(shippingPrices.length>0)
   //                   {
   //  if(city=="بغداد")
@@ -634,25 +643,26 @@ setState(() {
   //                      });
   //                    }
   //                   }
-                  
-                  },
-                  items: shipingprices
-                      .map((f) {
-                        return f["name"];
-                      })
-                      .toList()
-                      .map<DropdownMenuItem<String>>((value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Container(
-                                width: MediaQuery.of(context).size.width - 140,
-                                child: Text(value)),
-                          ),
-                        );
-                      })
-                      .toList(),
+                    
+                    },
+                    items: shipingprices
+                        .map((f) {
+                          return f["name"];
+                        })
+                        .toList()
+                        .map<DropdownMenuItem<String>>((value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width - 140,
+                                  child: Text(value)),
+                            ),
+                          );
+                        })
+                        .toList(),
+                  ),
                 ),
               ),
             ),
@@ -682,7 +692,7 @@ setState(() {
                                      keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     
-                                    hintText: "سعر البضاعة  ",
+                                    hintText: "سعر الطلب مع التوصيل  ",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
                                   color: Colors.white
@@ -724,72 +734,72 @@ errorStyle: TextStyle(
                                   ),
                                 ),
 
-Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 15
-                                  ),
-                                  child:  TextFormField(
-                    style: TextStyle(color: Colors.white),
+// Padding(
+//                                   padding: const EdgeInsets.only(
+//                                     bottom: 15
+//                                   ),
+//                                   child:  TextFormField(
+//                     style: TextStyle(color: Colors.white),
 
-                                    //  focusNode: pricef,
-                                            validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'الرجاء قم بأدخال السعر';
-                                            }
-                                            return null;
-                                          },
-                                          textInputAction: TextInputAction.next,
-                                     onEditingComplete: (){
-                                       FocusScope.of(context)
-                                       .requestFocus(
-                                         notesf
-                                       );
-                                     },
-                                    controller: shipprice,
-                                    keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
+//                                     //  focusNode: pricef,
+//                                             validator: (value) {
+//                                             if (value.isEmpty) {
+//                                               return 'الرجاء قم بأدخال السعر';
+//                                             }
+//                                             return null;
+//                                           },
+//                                           textInputAction: TextInputAction.next,
+//                                      onEditingComplete: (){
+//                                        FocusScope.of(context)
+//                                        .requestFocus(
+//                                          notesf
+//                                        );
+//                                      },
+//                                     controller: shipprice,
+//                                     keyboardType: TextInputType.number,
+//                                   decoration: InputDecoration(
                                     
-                                    hintText: "سعر التوصيل",
-                              focusColor: Colors.white,
-                              hintStyle: TextStyle(
-                                  color: Colors.white
-                              ),
-errorStyle: TextStyle(
-                                  color: Colors.white
-                              ),
-                              focusedErrorBorder:  OutlineInputBorder(
+//                                     hintText: "سعر التوصيل",
+//                               focusColor: Colors.white,
+//                               hintStyle: TextStyle(
+//                                   color: Colors.white
+//                               ),
+// errorStyle: TextStyle(
+//                                   color: Colors.white
+//                               ),
+//                               focusedErrorBorder:  OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color:Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                              errorBorder: OutlineInputBorder(
+//                                     borderSide: BorderSide(color:Colors.white
+//                                     ,width: 4),
+//                                     // borderRadius: BorderRadius.vertical(
+//                                     //   top: Radius.circular(30)
+//                                     // )
+//                                   ),
+//                               errorBorder: OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                    focusedBorder:  OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                  ),  
-                                  ),
-                                ),
+//                                     borderSide: BorderSide(color: Colors.white
+//                                     ,width: 4),
+//                                     // borderRadius: BorderRadius.vertical(
+//                                     //   top: Radius.circular(30)
+//                                     // )
+//                                   ),
+//                                     enabledBorder: OutlineInputBorder(
+//                                       borderSide: BorderSide(color: Colors.white
+//                                       ,width: 4),
+//                                       // borderRadius: BorderRadius.vertical(
+//                                       //   top: Radius.circular(30)
+//                                       // )
+//                                     ),
+//                                     focusedBorder:  OutlineInputBorder(
+//                                       borderSide: BorderSide(color: Colors.white
+//                                       ,width: 4),
+//                                       // borderRadius: BorderRadius.vertical(
+//                                       //   top: Radius.circular(30)
+//                                       // )
+//                                     ),
+//                                   ),  
+//                                   ),
+//                                 ),
                                  Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
@@ -914,7 +924,7 @@ new FocusNode()
 "name":"${name.text}",
 "phone":"${phone.text}",
 "phone2":"${phone2.text}",
-"government":"${state.text}",
+"government":"$city",
 "city":"${cityv}",
 "price":"${price.text}",
 "address":"${address.text}",
@@ -952,7 +962,7 @@ new FocusNode()
 
     if (res.statusCode==201) {
   
-Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 Success(),);}));
 
 
@@ -972,7 +982,7 @@ Success(),);}));
 
   }
 
-var shipingprices;
+var shipingprices=[];
 var shiptype;
    getprof() async {
   
@@ -1006,7 +1016,7 @@ var shiptype;
     if (res.statusCode==200) {
   shipingprices=pres['data']['get_shippingPrice'];
 
- 
+ print(shipingprices);
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // Success(),);}));
 

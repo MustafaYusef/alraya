@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'package:image/image.dart' as img;
 
 // import 'package:image/image.dart' as img;
 
@@ -141,7 +142,11 @@ mprint(var prn) async{
     var cash = 10000;
     var change = cash - total;
     var footer = 'Please come again';
-
+ByteData imageBytes = await rootBundle.load('assets/logo.png');
+List<int> values = imageBytes.buffer.asUint8List();
+// img.Image photo;
+// photo = img.decodeImage(values);
+// int pixel = photo.getPixel(5, 0);
     _printer = SunmiThermalPrinter()
       // ..bitmap(img.Image.fromBytes(
       //         36,
@@ -151,19 +156,30 @@ mprint(var prn) async{
       //             .asUint8List())
       //     .getBytes())
       ..bold()
-      ..printCenter(header)
+        ..bitmap(img.Image.fromBytes(
+              36,
+              36,
+              (await rootBundle.load('assets/logo.png'))
+                  .buffer
+                  .asUint8List())
+          .getBytes())
+      // ..printCenter(header)
       ..bold()
       ..printLR(' رقم الطلب #:', id)
-      ..printLR('Date/Time:', timestamp)
+      ..printLR('التاريخ', "${prn['createdAt']}")
       ..printLR('اسم الزبون', cashier)
       ..printLR('رقم الهاتف', '${prn['phone']}')
        ..printLR('2رقم الهاتف', '${prn['phone2']}')
         ..printLR('المحافظة', '${prn['government']}')
            ..printLR('المدينة', '${prn['city']}')
 ..printLR('العنوان', '${prn['address']}')
+..printLR('العسر مع التوصيل', '${prn['price']}')
       // ..divider()
       // ..printLR(itemsHeaderLeft, itemsHeaderRight)
-      ..divider()..qr( '${prn['id']}',moduleSize: 8);
+      ..divider()..qr( '${prn['id']}',moduleSize: 10)
+       ..divider()
+       ..printLR('شركة الراية', "بغداد-المنصور-الداوودي")
+       ;
     // for (var item in items) {
     //   String amountStr = formatCurrency(item.afterDiscountValue);
     //   _printer

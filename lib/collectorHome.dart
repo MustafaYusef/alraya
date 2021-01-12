@@ -130,14 +130,14 @@ left: 10,
                                                                 child: Icon(Icons.notifications,
                                           color: Colors.white,),
                                ),
-                               Positioned(
+                          if(count>0)     Positioned(
                                  right: 0,
                                  top: 3,
                                 child: Container(
                                   width: 12,
                                   height: 12,
                                   child: Center(
-                                    child: Text("1",
+                                    child: Text("$count",
                                     style: TextStyle(color: Colors.white,
                                     fontSize: 10),
                                     
@@ -153,7 +153,7 @@ left: 10,
                            ), onTap: (){
 // Navigator.pop(context);
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-Notfs(),);}));
+Notfs(notf: prof['notification'],),);}));
 
 
                                     }),
@@ -443,7 +443,7 @@ return SignIn();
                      });
                    },
                  leading: Icon(Icons.account_circle),
-                 title: Text("الملف الشخصي"),
+                 title: Text("تسجيل الخروج"),
                ),
              ],
            ),),
@@ -462,9 +462,30 @@ String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
                                                     true, 
                                                     ScanMode.QR);
                                                     print(barcodeScanRes);
-                                                    getOrdId(barcodeScanRes);
+                          getOrdId(barcodeScanRes,false);
            },
            icon: Icon(Icons.qr_code_scanner_rounded,
+           color: Colors.white,),
+         )
+        //  Container(
+        //    color: Colors.green,
+        //    child: Text("adsa"),
+        //  ),
+       ),
+
+
+
+       if(role==3)     Positioned(
+         bottom: 20,
+         left: 75,
+         child: 
+         IconButton(
+           onPressed: ()async{
+showinputmodal(context, "ادخال يدوي");
+                                                    // print(barcodeScanRes);
+                                                    // getOrdId(barcodeScanRes);
+           },
+           icon: Icon(Icons.edit,
            color: Colors.white,),
          )
         //  Container(
@@ -643,17 +664,18 @@ ClientLoc(client: ord,),);}));
 bool timeout=false;
 
 
-  getOrdId(orid) async {
+  getOrdId(orid,man) async {
   
 
 
   setState(() {
     // loading=true;
   });
+  showloadingmodal(context);
   var res = await http.get(
           //  "$host/users/auth/new"
             "$host/users/orders/order/$orid"
-            //  "$host/users/orders/order/1"
+              // "$host/users/orders/order/75"
             ,
             headers: {
               "Authorization":token
@@ -663,6 +685,7 @@ bool timeout=false;
         loading = false;
         timeout = true;
       });
+      Navigator.pop(context);
       return;
     });
 
@@ -670,12 +693,32 @@ bool timeout=false;
     var pres = json.decode(res.body);
     print(pres);
 
+      Navigator.pop(context);
 
    
-
+// var x={};
+// x.keys.length
     if (res.statusCode==200) {
+      if(pres['data']['order']==null)
+     {
+       if(!man)
+showmodal(context,
+"لم يتم ايجاد الطلب");
+       return;
+     }
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-      OrderDetails(order:pres['data']['order'] ,),);}));
+      OrderDetails(order:pres['data']['order'] ,),);})).then((value) {
+         
+         
+      orders=[];
+// bool loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+          getOrders(true);
+          showmodal(context,
+"أضافة طلب اخر؟");
+      });
       
   // prof=pres['data']['profile'];
   // print(prof['is_Active']);
@@ -699,6 +742,8 @@ bool timeout=false;
     });
 
   }
+
+  var count=0;
   getprof() async {
   
 
@@ -726,10 +771,11 @@ bool timeout=false;
     print(pres);
 
 
-   
-
+  //  var x=[];
     if (res.statusCode==200) {
   prof=pres['data']['profile'];
+  count=prof['notification'].length;
+
   print(prof['is_Active']);
   is_Active=prof['is_Active'];
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
@@ -877,5 +923,190 @@ print(pres);
     loading=false;
     });
 print("clients: $orders") ;  
+  }
+
+
+    showmodal(c, String title){
+             showDialog(
+               
+               context: c,
+                builder: (context) {
+   // String contentText = "Content of Dialog";
+    return StatefulBuilder(
+      builder: (context, st) {
+        return SizedBox(
+          height: 200,
+          child: AlertDialog(
+            
+            title: Text("$title"),
+            content:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+       
+
+            
+              ],
+            ), 
+            actions: <Widget>[
+              FlatButton(
+                textColor: mc,
+                onPressed: () => Navigator.pop(context),
+                child: Text("الغاء"),
+              ),
+              FlatButton(
+                
+                onPressed: ()async {
+                  // if(loading2)
+                  // return;
+
+             
+                  st(() {
+                    // loading2=true;
+                  });
+              // transfare(drname.text, drphone.text, gov);
+Navigator.of(context).pop();
+String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+                                                    "#ff6666", 
+                                                    "Cancel", 
+                                                    true, 
+                                                    ScanMode.QR);
+                                                    print(barcodeScanRes);
+                                                    // if(barcodeScanRes.runtimeType)
+                          getOrdId(barcodeScanRes,false);
+
+           
+                  setState(() {
+                    
+                  });
+                },
+                textColor: sc,
+                child: Text(
+                  // loading2?"Updating...":
+                  "محاولة اخرى"),
+              ),
+            ],
+          ),
+        );
+      },
+                                 );
+                 
+               });
+  }
+
+
+    showloadingmodal(c,){
+             showDialog(
+               
+               context: c,
+                builder: (context) {
+   // String contentText = "Content of Dialog";
+    return StatefulBuilder(
+      builder: (context, st) {
+        return SizedBox(
+          height: 200,
+          child: AlertDialog(
+            
+            // title: Text("$title"),
+            content:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+       
+      CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation(mc),
+      )
+            
+              ],
+            ), 
+          
+          ),
+        );
+      },
+                                 );
+                 
+               });
+  }
+
+
+TextEditingController manualid=TextEditingController();
+   showinputmodal(c, String title){
+     manualid.text="";
+             showDialog(
+               
+               context: c,
+                builder: (context) {
+   // String contentText = "Content of Dialog";
+    return StatefulBuilder(
+      builder: (context, st) {
+        return SizedBox(
+          height: 200,
+          child: AlertDialog(
+            
+            title: Text("$title"),
+            content:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+       
+  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10),
+                    child: TextField(
+                     // maxLines: 6,
+                      //minLines: 2,
+                    
+                      controller: manualid,
+                   
+                    keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        
+                        border: OutlineInputBorder(
+ borderRadius: BorderRadius.circular(10)
+
+                        ),
+                        labelText: "رقم الطلب",
+                      ),
+                    ),
+                  ),
+
+            
+              ],
+            ), 
+            actions: <Widget>[
+              FlatButton(
+                textColor: mc,
+                onPressed: () => Navigator.pop(context),
+                child: Text("الغاء"),
+              ),
+              FlatButton(
+                
+                onPressed: ()async {
+                  // if(loading2)
+                  // return;
+
+             
+                  st(() {
+                    // loading2=true;
+                  });
+              // transfare(drname.text, drphone.text, gov);
+// Navigator.of(context).pop();
+
+                           getOrdId(manualid.text,true);
+
+           
+                  setState(() {
+                    
+                  });
+                },
+                textColor: sc,
+                child: Text(
+                  // loading2?"Updating...":
+                  "ادخال"),
+              ),
+            ],
+          ),
+        );
+      },
+                                 );
+                 
+               });
   }
 }

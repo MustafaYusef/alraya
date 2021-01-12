@@ -6,6 +6,7 @@ environment:
   sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
+  image: ^2.1.19
   url_launcher: ^5.7.10
   flutter_barcode_scanner: ^1.0.1
   geolocator: ^6.1.7

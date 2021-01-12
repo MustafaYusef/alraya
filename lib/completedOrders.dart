@@ -6,15 +6,15 @@ import 'dart:convert';
 
 import 'main.dart';
 
-class ClientOrders extends StatefulWidget {
+class CompletedOrders extends StatefulWidget {
   final cl;
 
-  const ClientOrders({Key key, this.cl}) : super(key: key);
+  const CompletedOrders({Key key, this.cl}) : super(key: key);
   @override
-  _ClientOrdersState createState() => _ClientOrdersState();
+  _CompletedOrdersState createState() => _CompletedOrdersState();
 }
 
-class _ClientOrdersState extends State<ClientOrders> {
+class _CompletedOrdersState extends State<CompletedOrders> {
 
   ScrollController scr=ScrollController();
 bool search=false;
@@ -102,7 +102,7 @@ right: 10,
                         )),
                      ),
                   Center(
-                    child:  Text("سجل الطلبات",
+                    child:  Text("سجل الطلبات المنجزة",
             style: TextStyle(
               color: Colors.white
               ,fontWeight: FontWeight.bold,
@@ -216,6 +216,7 @@ return Container(
     // horizontal: 15,
     vertical: 8
   ),
+
   // height: 224,
   decoration: BoxDecoration(
     color: mc,
@@ -339,7 +340,7 @@ orders=[];
     String link=
           // "$host/users/collector/clinet/order/1?limit=11&page=$page";
 
-       "$host/users/collector/clinet/order/${widget.cl['client_id']}?limit=11&page=$page";
+       "$host/users/drivers/orders/my?limit=10&page=$page&is_payed=1";
 if(search&&searchc.text.length>0)
 {
   link+="&search=${searchc.text}";

@@ -224,7 +224,7 @@ Column(
 children: [
   Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['phone']}",
+    child: Text("رقم الهاتف: ${ord['phone']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -232,7 +232,7 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['id']}",
+    child: Text("رقم الطلب: ${ord['id']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -240,7 +240,7 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['city']}",
+    child: Text("المدينة: ${ord['city']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),

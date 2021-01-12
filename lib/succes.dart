@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunmi_thermal_printer_example/addOrder.dart';
 import 'dart:math';
 import 'home.dart';
 import 'main.dart';
@@ -31,6 +32,9 @@ class _SuccessState extends State<Success> {
              ),),
            ),
           ),
+
+
+            
           Positioned(
             // top: 0,
             top:416 ,
@@ -125,6 +129,61 @@ SizedBox(
      // height: 600,
    );}
       ),
+          ),
+           Positioned(
+            // top: 0,
+            bottom:25 ,
+            height: 60,
+            // width: 200,
+            left: 98,
+            right: 98,
+child:     Container(
+  //width: 200,
+  child:   MaterialButton(
+  
+    
+  
+                              //minWidth: double.infinity,
+  
+                              elevation: 0,
+  
+                              shape: RoundedRectangleBorder(
+  
+                                borderRadius: BorderRadius.vertical(
+  
+                                  bottom: Radius.circular(100),
+  top: Radius.circular(100),
+                                )
+  
+                              ),
+  
+                              height: 60,
+  
+                              color: Colors.white,
+  
+                              onPressed: (){
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(builder: (c){return
+     Directionality(textDirection: TextDirection.rtl,child: 
+  AddOrder()
+  ,);}));
+  
+  // signIn();
+  
+                            },child: Text("اضافة طلب جديد",
+  
+                             style: TextStyle(
+  
+                                color: mc,
+  
+                                fontWeight: FontWeight.bold,
+  
+                                fontSize: 14
+  
+                              ),
+  
+                            ),),
+),
           ),
         ],),)
     );

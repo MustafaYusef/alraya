@@ -98,14 +98,14 @@ left: 10,
                                                                 child: Icon(Icons.notifications,
                                           color: Colors.white,),
                                ),
-                               Positioned(
+                              if(count>0)    Positioned(
                                  right: 0,
                                  top: 3,
                                 child: Container(
                                   width: 12,
                                   height: 12,
                                   child: Center(
-                                    child: Text("1",
+                                    child: Text("$count",
                                     style: TextStyle(color: Colors.white,
                                     fontSize: 10),
                                     
@@ -308,7 +308,7 @@ return SignIn();
      bool loading=false;
 
 bool timeout=false;
-
+var count=0;
   getprof() async {
   
 
@@ -341,6 +341,8 @@ bool timeout=false;
     if (res.statusCode==200) {
   prof=pres['data']['profile'];
   print(prof['is_Active']);
+     count=prof['notification'].length;
+
   is_Active=prof['is_Active'];
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // Success(),);}));

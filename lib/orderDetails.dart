@@ -737,7 +737,7 @@ errorStyle: TextStyle(
                                   ),  
                                   ),
                                 ),
-                                   Padding(
+                              if(role!=3&&role!=2)     Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
                                   ),
@@ -874,7 +874,10 @@ editprice();
                                   ),
                                 ),),
 
-                                 if(role==1&&or['status']=='watting')              MaterialButton(
+                                 if(role==1&&(
+                                   or['status']=='watting'||
+                                   or['status']=='driver'||or['status']=='rejected'))  
+                                             MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -894,7 +897,8 @@ submit();
                                     Colors.white
                                   ),
                                 ):
-                                 Text("تسليم",
+                                 Text((or['status']=='rejected')?"اعادة تسليم"
+                                 :"تسليم",
                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -937,7 +941,8 @@ SizedBox(
   height: 30,
 ),
 
-                     if(role==1&&or['status']=='watting')                  MaterialButton(
+                     if(role==1&&(or['status']=='watting'||or['status']=='driver'))     
+                                  MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -1361,7 +1366,7 @@ new FocusNode()
 
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
-
+Navigator.pop(context);
     } else {
      
    //   EDailog.errorDialog(pres["message"], false, context);
@@ -1421,7 +1426,7 @@ new FocusNode()
 
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
-
+Navigator.pop(context);
     } else {
      
    //   EDailog.errorDialog(pres["message"], false, context);
@@ -1481,7 +1486,7 @@ new FocusNode()
 
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
-
+Navigator.pop(context);
     } else {
      
    //   EDailog.errorDialog(pres["message"], false, context);
@@ -1548,7 +1553,7 @@ new FocusNode()
 // mprint(or);
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
-
+Navigator.popUntil(context, (route) => route.isFirst);
     } else {
      
    //   EDailog.errorDialog(pres["message"], false, context);
@@ -1615,12 +1620,12 @@ new FocusNode()
 
    
 
-    if (res.statusCode==200) {
+    if (res.statusCode==201) {
   
 
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
-
+Navigator.pop(context);
     } else {
      
    //   EDailog.errorDialog(pres["message"], false, context);
