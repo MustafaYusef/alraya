@@ -909,9 +909,12 @@ next();
 bool timeout=false;
 
   next() async {
+   
     FocusScope.of(context).requestFocus(
 new FocusNode()
     );
+
+
 
     if (!formKey.currentState.validate()) {
       // If the form is valid, display a snackbar. In the real world,
@@ -920,12 +923,76 @@ new FocusNode()
   
     return;
     }
+
+    if(!phone.text.startsWith("00964"))
+{
+phone.text=phone.text.replaceFirst("00", "+");
+}
+print(phone.text);
+    if(!phone.text.startsWith("+964"))
+{
+  print(true);
+  if(phone.text.startsWith("0"))
+  {
+    phone.text=phone.text.replaceFirst("0", "");
+  }
+  phone.text="+964"+phone.text;
+  print(phone.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+  // return;
+}
+if(phone.text.length!=14)
+{
+   Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
+}
+
+
+
+if(!phone2.text.startsWith("00964"))
+{
+phone2.text=phone2.text.replaceFirst("00", "+");
+}
+print(phone2.text);
+    if(!phone2.text.startsWith("+964"))
+{
+  print(true);
+  if(phone2.text.startsWith("0"))
+  {
+    phone2.text=phone2.text.replaceFirst("0", "");
+  }
+  phone2.text="+964"+phone2.text;
+  print(phone2.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+  // return;
+}
+if(phone2.text.length!=14)
+{
+   Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text("2 الرجاء قم بل تحقق من رقم الهاتف "),));
+    return;
+}
+
+
+  if(price.text.codeUnitAt(0)>=47&&price.text.codeUnitAt(0)<=57)
+  {
+
+  }
+  else
+  {
+ Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text("الرجاء قم بأدخال السعر بل لغة الانكليزية"),));
+    return;
+  }
+
   var _bod={
 "name":"${name.text}",
 "phone":"${phone.text}",
 "phone2":"${phone2.text}",
-"government":"$city",
-"city":"${cityv}",
+"government":"$cityv",
+"city":"${city.text}",
 "price":"${price.text}",
 "address":"${address.text}",
 "notes":"${notes.text}",

@@ -387,7 +387,7 @@ valueColor: AlwaysStoppedAnimation(Colors.white),
          left: 0,
          right: 0,
          height:menu? 
-         290
+         220
          :0,
          child: Container(
            child:Material(
@@ -421,11 +421,11 @@ valueColor: AlwaysStoppedAnimation(Colors.white),
                  leading: Icon(Icons.history),
                  title: Text("سجل الطلبات المنجزة"),
                ),
-               Divider(),
-                 ListTile(
-                 leading: Icon(Icons.chat_outlined),
-                 title: Text("سجل المحادثات"),
-               ),
+              //  Divider(),
+              //    ListTile(
+              //    leading: Icon(Icons.chat_outlined),
+              //    title: Text("سجل المحادثات"),
+              //  ),
                               Divider(),
 
                          ListTile(
@@ -516,8 +516,11 @@ return Container(
     horizontal: 15,
     vertical: 8
   ),
-
-  height: 224,
+  padding: const EdgeInsets.symmetric(
+    // horizontal: 15,
+    vertical: 8
+  ),
+  // height: 224,
   decoration: BoxDecoration(
     color: sc,
     borderRadius: BorderRadius.circular(15)
@@ -526,9 +529,18 @@ return Container(
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
 children: [
+   
+    Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Text("رقم الطلب: ${ord['id']}",
+    style: TextStyle(color: Colors.white,
+    fontWeight: FontWeight.bold),
+    ),
+  ),
+   Divider(color: Colors.white,),
   Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['phone']}",
+    child: Text("رقم الهاتف: ${ord['phone']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -536,7 +548,7 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['status']}",
+    child: Text("الحالة: ${ord['status']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -544,7 +556,7 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['city']}",
+    child: Text("المدينة: ${ord['city']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),

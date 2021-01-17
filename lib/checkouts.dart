@@ -255,6 +255,14 @@ children: [
     ),
   ),
    Divider(color: Colors.white,),
+      Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Text("نسبة الاستقطاع: ${ord['percent']}",
+    style: TextStyle(color: Colors.white,
+    fontWeight: FontWeight.bold),
+    ),
+  ),
+   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
     child: Text("التاريخ: ${ord['createdAt']}",

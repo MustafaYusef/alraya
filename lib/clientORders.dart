@@ -277,7 +277,19 @@ children: [
   
                                 onPressed: (){
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-OrderDetails(order: ord,),);}));
+OrderDetails(order: ord,),);}))
+.then((value) {
+
+
+    orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ timeout=false;
+ getOrders(true);
+
+});
 
   
   // signIn();

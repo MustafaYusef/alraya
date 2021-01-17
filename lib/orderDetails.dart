@@ -25,10 +25,19 @@ class _OrderDetailsState extends State<OrderDetails> {
 
     TextEditingController phone =new TextEditingController();
     TextEditingController phone2 =new TextEditingController();
+
+        TextEditingController clientname =new TextEditingController();
+        TextEditingController clientphone =new TextEditingController();
+
     TextEditingController state =new TextEditingController();
     TextEditingController city =new TextEditingController();
     TextEditingController address =new TextEditingController();
     TextEditingController price =new TextEditingController();
+        TextEditingController shipprice =new TextEditingController();
+        TextEditingController rejectedmsg =new TextEditingController();
+
+        TextEditingController mult =new TextEditingController();
+
     TextEditingController notes =new TextEditingController();
 
    final formKey = GlobalKey<FormState>();
@@ -39,10 +48,13 @@ class _OrderDetailsState extends State<OrderDetails> {
   FocusNode cityf = FocusNode();
   FocusNode addressf = FocusNode();
   FocusNode pricef = FocusNode();
+
+
   FocusNode notesf = FocusNode();
 
   FocusNode passf = FocusNode();
  BuildContext b;
+bool editible;
 
 var or;
 @override
@@ -57,12 +69,19 @@ var or;
         city.text="${or['city']}";
   address.text="${or['address']}";
   price.text="${or['price']}";
+   if(role==0) mult.text="${or['multiple']}";
+   if(role==0) shipprice.text="${or['shipping_price']}";
+   if(role==0&&or['reject_msg']!=null) rejectedmsg.text="${or['reject_msg']}";
+   if(role==1) clientname.text="${or['client']['name']}";
+   if(role==1) clientphone.text="${or['client']['phone']}";
+
+
   name.text="${or['name']}";
 
  notes.text="${or['notes']}";
   orderid.text="${or['id']}";
  orderstate.text="${or['status']}";
-
+editible=role==0;
 
   }
   @override
@@ -151,7 +170,7 @@ left: 10,
                                                 // },
                                                 
                                   controller: orderid,
-                                  
+                                  enabled: editible,
                                 decoration: InputDecoration(
                                   
                                   errorStyle:TextStyle(
@@ -167,6 +186,14 @@ left: 10,
                                 color: Colors.white
                               ),
                               focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(30)
+                                    )
+                                  ),
+                                        disabledBorder:  OutlineInputBorder(
                                 
                                     borderSide: BorderSide(color: Colors.white
                                     ,width: 4),
@@ -202,7 +229,7 @@ left: 10,
                                   height: 15,
                                 ),
                              TextFormField(
-                               
+                                 enabled: editible,
                                style: TextStyle(color: Colors.white),
                                      focusNode: namef,
                                      textInputAction: TextInputAction.next,
@@ -222,6 +249,14 @@ left: 10,
                                   controller: name,
                                   
                                 decoration: InputDecoration(
+                                     disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                     labelText: "اسم الزبون",
                                   labelStyle: TextStyle(color: Colors.white),
                                   errorStyle:TextStyle(
@@ -273,6 +308,7 @@ left: 10,
                                     vertical: 15
                                   ),
                                   child:  TextFormField(
+                                      enabled: editible,
                                     style: TextStyle(color: Colors.white),
                                           textInputAction: TextInputAction.next,
                                      onEditingComplete: (){
@@ -290,7 +326,14 @@ left: 10,
                                           },
                                     keyboardType: TextInputType.phone,
                                     controller: phone,
-                                  decoration: InputDecoration(
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                     hintText: "رقم الهاتف",
                                       labelText: "رقم الهاتف",
                                   labelStyle: TextStyle(color: Colors.white),
@@ -339,6 +382,7 @@ errorStyle: TextStyle(
                                     bottom: 15
                                   ),
                                   child:  TextFormField(
+                                      enabled: editible,
                     style: TextStyle(color: Colors.white),
 
                                     // focusNode: passf,
@@ -362,6 +406,161 @@ errorStyle: TextStyle(
                                       labelText: "رقم الهاتف2",
                                   labelStyle: TextStyle(color: Colors.white),
                                     hintText: "رقم الهاتف 2",
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
+       Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 15
+                                  ),
+                                  child:  TextFormField(  enabled: editible,
+                                    style: TextStyle(color: Colors.white),
+                                          textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         phone2f
+                                       );
+                                     },
+                                    //  focusNode:phonef ,
+                                            validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'الرجاء قم بأدخال رقم الهاتف';
+                                            }
+                                            return null;
+                                          },
+                                    keyboardType: TextInputType.phone,
+                                    controller: clientname,
+                                  decoration: InputDecoration(
+                                       disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    // hintText: "رقم الهاتف",
+                                      labelText: "اسم العميل",
+                                  labelStyle: TextStyle(color: Colors.white),
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
+                                       Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 15
+                                  ),
+                                  child:  TextFormField(  enabled: editible,
+                                    style: TextStyle(color: Colors.white),
+                                          textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         phone2f
+                                       );
+                                     },
+                                     focusNode:phonef ,
+                                            validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'الرجاء قم بأدخال رقم الهاتف';
+                                            }
+                                            return null;
+                                          },
+                                    keyboardType: TextInputType.phone,
+                                    controller: clientphone,
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    // hintText: "رقم الهاتف",
+                                      labelText: "رقم هاتف العميل",
+                                  labelStyle: TextStyle(color: Colors.white),
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
                                   color: Colors.white
@@ -406,7 +605,7 @@ errorStyle: TextStyle(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
                                   ),
-                                  child:  TextFormField(
+                                  child:  TextFormField(  enabled: editible,
                     style: TextStyle(color: Colors.white),
           textInputAction: TextInputAction.next,
                                      onEditingComplete: (){
@@ -424,7 +623,14 @@ errorStyle: TextStyle(
                                           },
                                     
                                     controller: state,
-                                  decoration: InputDecoration(
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                       labelText: "المحافظة",
                                   labelStyle: TextStyle(color: Colors.white),
                                     hintText: "المحافظة",
@@ -472,7 +678,7 @@ errorStyle: TextStyle(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
                                   ),
-                                  child:  TextFormField(
+                                  child:  TextFormField(  enabled: editible,
                     style: TextStyle(color: Colors.white),
           textInputAction: TextInputAction.next,
                                      onEditingComplete: (){
@@ -490,7 +696,14 @@ errorStyle: TextStyle(
                                           },
                                     
                                     controller: city,
-                                  decoration: InputDecoration(
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                       labelText: "المدينة",
                                   labelStyle: TextStyle(color: Colors.white),
                                     hintText: "المدينة",
@@ -538,6 +751,7 @@ errorStyle: TextStyle(
                                     bottom: 15
                                   ),
                                   child:  TextFormField(
+                                      enabled: editible,
                     style: TextStyle(color: Colors.white),
 
                                      focusNode: addressf,
@@ -555,7 +769,14 @@ errorStyle: TextStyle(
                                        );
                                      },     
                                     controller: address,
-                                  decoration: InputDecoration(
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                       labelText: "العنوان",
                                   labelStyle: TextStyle(color: Colors.white),
                                     hintText: "العنوان",
@@ -606,6 +827,7 @@ errorStyle: TextStyle(
                                     bottom: 15
                                   ),
                                   child:  TextFormField(
+                                      enabled: editible,
                     style: TextStyle(color: Colors.white),
 
                                      focusNode: pricef,
@@ -623,8 +845,165 @@ errorStyle: TextStyle(
                                        );
                                      },
                                     controller: price,
-                                  decoration: InputDecoration(
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                       labelText: "السعر",
+                                  labelStyle: TextStyle(color: Colors.white),
+                                    hintText: "سعر البضاعة مع التوصيل",
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color:Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
+
+ if(role==0)      Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
+                                  child:  TextFormField(
+                                      enabled: editible,
+                    style: TextStyle(color: Colors.white),
+
+                                    //  focusNode: pricef,
+                                            validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'الرجاء قم بأدخال السعر';
+                                            }
+                                            return null;
+                                          },
+                                          textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         notesf
+                                       );
+                                     },
+                                    controller: shipprice,
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                      labelText: "سعر التوصيل",
+                                  labelStyle: TextStyle(color: Colors.white),
+                                    hintText: "سعر البضاعة مع التوصيل",
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color:Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
+
+      if(role==0)      Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
+                                  child:  TextFormField(
+                                      enabled: editible,
+                    style: TextStyle(color: Colors.white),
+
+                                     focusNode: pricef,
+                                            validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'الرجاء قم بأدخال السعر';
+                                            }
+                                            return null;
+                                          },
+                                          textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         notesf
+                                       );
+                                     },
+                                    controller: mult,
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                      labelText: "مضاعفة",
                                   labelStyle: TextStyle(color: Colors.white),
                                     hintText: "سعر البضاعة مع التوصيل",
                               focusColor: Colors.white,
@@ -674,6 +1053,7 @@ errorStyle: TextStyle(
                                     bottom: 15
                                   ),
                                   child:  TextFormField(
+                                      enabled: editible,
                     style: TextStyle(color: Colors.white),
 
                                      focusNode: notesf,
@@ -693,7 +1073,14 @@ errorStyle: TextStyle(
                                          FocusNode()
                                        );
                                      },
-                                  decoration: InputDecoration(
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                       labelText: "ملاحظات",
                                   labelStyle: TextStyle(color: Colors.white),
                                     hintText: "ملاحظات",
@@ -742,6 +1129,7 @@ errorStyle: TextStyle(
                                     bottom: 15
                                   ),
                                   child:  TextFormField(
+                                      enabled: editible,
                     style: TextStyle(color: Colors.white),
 
                                     //  focusNode: pricef,
@@ -759,8 +1147,89 @@ errorStyle: TextStyle(
                                     //    );
                                     //  },
                                     controller: orderstate,
-                                  decoration: InputDecoration(
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                                       labelText: "الحالة",
+                                  labelStyle: TextStyle(color: Colors.white),
+                                    // hintText: "سعر البضاعة مع التوصيل",
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color:Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
+     if(role!=3&&role!=2 &&or['reject_msg']!=null&&or['reject_msg'].length>0)     Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
+                                  child:  TextFormField(
+                                      enabled: editible,
+                    style: TextStyle(color: Colors.white),
+
+                                    //  focusNode: pricef,
+                                          //   validator: (value) {
+                                          //   if (value.isEmpty) {
+                                          //     return 'الرجاء قم بأدخال السعر';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                          textInputAction: TextInputAction.next,
+                                    //  onEditingComplete: (){
+                                    //    FocusScope.of(context)
+                                    //    .requestFocus(
+                                    //      notesf
+                                    //    );
+                                    //  },
+                                    controller: rejectedmsg,
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                      labelText: "سبب الرفض",
                                   labelStyle: TextStyle(color: Colors.white),
                                     // hintText: "سعر البضاعة مع التوصيل",
                               focusColor: Colors.white,
@@ -855,12 +1324,13 @@ height: 10,
                                   color: mc,
                                   onPressed: (){
 // signIn();
-editprice();
+// editprice();
+editPricemodal(context);
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // AddOrder2(),);}));
 
                                 },child:
-                                loading?
+                                priceloading?
                                 CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation(
                                     Colors.white
@@ -905,6 +1375,35 @@ submit();
                                     fontSize: 18
                                   ),
                                 ),),
+                                                   if(role==3&&or['status']=='collected')                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+collectorsubmitostore();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("تأكيد الاستلام",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
                     if(role==2||role==3
               //      &&or['status']=='watting'
                     )       
@@ -921,7 +1420,13 @@ submit();
                                   onPressed: (){
 // submit();
 // printb();
+if(or['status']=='watting')
 showmodal(context);
+else
+{
+  mprint(or);
+}
+
 
                                 },child:
                                 loading?
@@ -930,7 +1435,9 @@ showmodal(context);
                                     Colors.white
                                   ),
                                 ):
-                                 Text("طباعة",
+                                 Text(or['status']=='watting'
+                                 ?"طباعة"
+                                 :"اعادة طباعة",
                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -975,35 +1482,7 @@ sc                                  ),
                                 ),),
 
                                   
-                                             if(role==3&&or['status']=='collected')                  MaterialButton(
-                                  minWidth: double.infinity,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(100),
-                                      top: Radius.circular(100)
-                                    )
-                                  ),
-                                  height: 60,
-                                  color: Colors.white,
-                                  onPressed: (){
-// signIn();
-collectorsubmitostore();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-// AddOrder2(),);}));
-
-                                },child:
-                                loading2?
-                                CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(
-sc                                  ),
-                                ):
-                                 Text("تأكيد الاستلام",
-                                 style: TextStyle(
-                                    color: sc,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),
-                                ),),
+                          
                                   
                                      if(role==3&&or['status']=='rejected')                  MaterialButton(
                                   minWidth: double.infinity,
@@ -1196,8 +1675,9 @@ new FocusNode()
   }
 
 
+bool priceloading=false;
   editprice() async {
-    if(loading||loading2)
+    if(loading||loading2||priceloading)
      return;
     FocusScope.of(context).requestFocus(
 new FocusNode()
@@ -1212,11 +1692,11 @@ new FocusNode()
     // }
   var _bod={
 
-"price":"${price.text}",
+"price":"${editidprice.text}",
 
   };
   setState(() {
-    loading=true;
+    priceloading=true;
   });
   print(_bod);
   var res = await http.post(
@@ -1228,7 +1708,7 @@ new FocusNode()
             },
         body:_bod).timeout(Duration(seconds: 30), onTimeout: () {
       setState(() {
-        loading = false;
+        priceloading = false;
         timeout = true;
       });
       return;
@@ -1254,7 +1734,7 @@ new FocusNode()
     SnackBar(content: Text(pres["message"]),));
     }
     setState(() {
-      loading = false;
+      priceloading = false;
     });
 
   }
@@ -1553,7 +2033,7 @@ new FocusNode()
 // mprint(or);
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
-Navigator.popUntil(context, (route) => route.isFirst);
+Navigator.pop(context);
     } else {
      
    //   EDailog.errorDialog(pres["message"], false, context);
@@ -1669,7 +2149,14 @@ TextEditingController drname=TextEditingController();
                    
                     keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        
+                           disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
                         border: OutlineInputBorder(
  borderRadius: BorderRadius.circular(10)
 
@@ -1711,6 +2198,100 @@ Navigator.of(context).pop();
                 child: Text(
                   // loading2?"Updating...":
                   "طباعة"),
+              ),
+            ],
+          ),
+        );
+      },
+                                 );
+                 
+               });
+  }
+
+  
+
+
+
+
+
+  TextEditingController editidprice=TextEditingController();
+
+  editPricemodal(c,){
+             showDialog(context: c,
+                builder: (context) {
+   // String contentText = "Content of Dialog";
+    return StatefulBuilder(
+      builder: (context, st) {
+        return SizedBox(
+          height: 200,
+          child: AlertDialog(
+            
+            title: Text("تعديل السعر"),
+            content:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+            
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10),
+                    child: TextField(
+                     // maxLines: 6,
+                      //minLines: 2,
+                    
+                      controller: editidprice,
+                   
+                    keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                           disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                        border: OutlineInputBorder(
+ borderRadius: BorderRadius.circular(10)
+
+                        ),
+                        labelText: "السعر الجديد",
+                      ),
+                    ),
+                  ),
+
+            
+              ],
+            ), 
+            actions: <Widget>[
+              FlatButton(
+                textColor: mc,
+                onPressed: () => Navigator.pop(context),
+                child: Text("الغاء"),
+              ),
+              FlatButton(
+                
+                onPressed: () {
+                  // if(loading2)
+                  // return;
+
+             
+                  st(() {
+                    // loading2=true;
+                  });
+              // transfare(drname.text, drphone.text, gov);
+
+// printb(drname.text);
+editprice();
+Navigator.of(context).pop();
+           
+                  setState(() {
+                    
+                  });
+                },
+                textColor: sc,
+                child: Text(
+                  // loading2?"Updating...":
+                  "تعديل"),
               ),
             ],
           ),

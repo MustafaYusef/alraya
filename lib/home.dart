@@ -272,11 +272,11 @@ Notfs(notf: prof['notification'],),);}));
                  leading: Icon(Icons.list),
                  title: Text("الحسابات"),
                ),
-               Divider(),
-                 ListTile(
-                 leading: Icon(Icons.chat_outlined),
-                 title: Text("سجل المحادثات"),
-               ),
+              //  Divider(),
+              //    ListTile(
+              //    leading: Icon(Icons.chat_outlined),
+              //    title: Text("سجل المحادثات"),
+              //  ),
                   Divider(),
                  ListTile(
                    onTap: (){

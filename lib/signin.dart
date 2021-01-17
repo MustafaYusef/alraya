@@ -75,6 +75,7 @@ class _SignInState extends State<SignIn> {
                       TextFormField(
                         style: TextStyle(color: Colors.white),
 keyboardType: TextInputType.phone,
+
                            focusNode: namef,
                                       validator: (value) {
                                         if (value.isEmpty) {
@@ -85,6 +86,10 @@ keyboardType: TextInputType.phone,
                                       
                         controller: name,
                       decoration: InputDecoration(
+                         helperText: "...9647712+",
+                                    helperStyle: TextStyle(
+                                  color: Colors.white
+                              ) ,
                         errorStyle:TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold
@@ -266,8 +271,36 @@ signIn();
 FocusScope.of(context).requestFocus(
 FocusNode()
 );
+
 if(loading)
 return;
+
+
+// if(!name.text.startsWith("00964"))
+// {
+// name.text=name.text.replaceFirst("00", "+");
+// }
+// print(name.text);
+//     if(!name.text.startsWith("+964"))
+// {
+//   print(true);
+//   if(name.text.startsWith("0"))
+//   {
+//     name.text=name.text.replaceFirst("0", "");
+//   }
+//   name.text="+964"+name.text;
+//   print(name.text);
+//     // Scaffold.of(b).showSnackBar(
+//     // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+//   // return;
+// }
+// if(name.text.length!=14)
+// {
+//    Scaffold.of(b).showSnackBar(
+//     SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
+// }
+
+
 print("sign");
      if (!formKey.currentState.validate()) {
       // If the form is valid, display a snackbar. In the real world,

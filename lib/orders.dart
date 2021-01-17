@@ -209,8 +209,12 @@ return Container(
     horizontal: 15,
     vertical: 8
   ),
+  padding: const EdgeInsets.symmetric(
+    // horizontal: 15,
+    vertical: 8
+  ),
 
-  height: 224,
+  // height: 224,
   decoration: BoxDecoration(
     color: mc,
     borderRadius: BorderRadius.circular(15)
@@ -221,7 +225,7 @@ Column(
 children: [
   Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['phone']}",
+    child: Text("رقم الهاتف: ${ord['phone']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -229,7 +233,7 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['status']}",
+    child: Text(" الحالة: ${ord['status']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),
@@ -237,7 +241,7 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['city']}",
+    child: Text("المدينة: ${ord['city']}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),

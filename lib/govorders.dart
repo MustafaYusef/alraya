@@ -253,7 +253,7 @@ children: [
   //   ),
   // ),
 
-   Align(
+   if(ord['government']!="بغداد") Align(
      alignment: Alignment.center,
         child: Container(
   //width: 200,
@@ -465,8 +465,10 @@ TextEditingController drname=TextEditingController();
                   st(() {
                     // loading2=true;
                   });
-              transfare(drname.text, drphone.text, gov);
 
+
+              transfare(drname.text, drphone.text, gov);
+// Navigator.pop(context);
 
            
                   setState(() {
@@ -539,7 +541,13 @@ new FocusNode()
 
      Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(pres['data']["msg"]),));
-
+      orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ timeout=false;
+getOrders(true);
     } else {
      
    //   EDailog.errorDialog(pres["message"], false, context);
