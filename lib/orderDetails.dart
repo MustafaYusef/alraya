@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:sunmi_thermal_printer_example/addorder2.dart';
 import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/driverreject.dart';
 import 'package:sunmi_thermal_printer_example/succes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'main.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +57,15 @@ class _OrderDetailsState extends State<OrderDetails> {
   FocusNode passf = FocusNode();
  BuildContext b;
 bool editible;
+
+_launchURL(url) async {
+  // const url = 'https://flutter.dev';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 var or;
 @override
@@ -138,7 +149,7 @@ left: 10,
                            child:
                               Icon(Icons.arrow_back_ios_rounded,
                                         color: Colors.white,),
-                                      )
+                                      ),
                                   ],
                                 ),
                             )),
@@ -307,154 +318,235 @@ left: 10,
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 15
                                   ),
-                                  child:  TextFormField(
-                                      enabled: editible,
-                                    style: TextStyle(color: Colors.white),
-                                          textInputAction: TextInputAction.next,
-                                     onEditingComplete: (){
-                                       FocusScope.of(context)
-                                       .requestFocus(
-                                         phone2f
-                                       );
-                                     },
-                                     focusNode:phonef ,
-                                            validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'الرجاء قم بأدخال رقم الهاتف';
-                                            }
-                                            return null;
-                                          },
-                                    keyboardType: TextInputType.phone,
-                                    controller: phone,
-                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                  child:  Stack(
+                                    children: [
+                                      TextFormField(
+                                          
+                                            enabled: editible,
+                                          style: TextStyle(color: Colors.white),
+                                                textInputAction: TextInputAction.next,
+                                           onEditingComplete: (){
+                                             FocusScope.of(context)
+                                             .requestFocus(
+                                               phone2f
+                                             );
+                                           },
+                                           focusNode:phonef ,
+                                                  validator: (value) {
+                                                  if (value.isEmpty) {
+                                                    return 'الرجاء قم بأدخال رقم الهاتف';
+                                                  }
+                                                  return null;
+                                                },
+                                                
+                                          keyboardType: TextInputType.phone,
+                                          controller: phone,
+                                        decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                    hintText: "رقم الهاتف",
-                                      labelText: "رقم الهاتف",
-                                  labelStyle: TextStyle(color: Colors.white),
+                                          borderSide: BorderSide(color: Colors.white
+                                          ,width: 4),
+                                          // borderRadius: BorderRadius.vertical(
+                                          //   top: Radius.circular(30)
+                                          // )
+                                        ),
+                                        // suffixIcon: IconButton(icon: Icon(Icons.call,
+                                        // color: Colors.white,),
+                                        // onPressed: (){
+                                      
+                                        // },),
+                                          hintText: "رقم الهاتف",
+                                            labelText: "رقم الهاتف",
+                                        labelStyle: TextStyle(color: Colors.white),
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
-                                  color: Colors.white
+                                        color: Colors.white
                               ),
 errorStyle: TextStyle(
-                                  color: Colors.white
+                                        color: Colors.white
                               ),
                               focusedErrorBorder:  OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
+                                          borderSide: BorderSide(color: Colors.white
+                                          ,width: 4),
+                                          // borderRadius: BorderRadius.vertical(
+                                          //   top: Radius.circular(30)
+                                          // )
+                                        ),
                               errorBorder: OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                    focusedBorder:  OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                  ),  
+                                          borderSide: BorderSide(color: Colors.white
+                                          ,width: 4),
+                                          // borderRadius: BorderRadius.vertical(
+                                          //   top: Radius.circular(30)
+                                          // )
+                                        ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.white
+                                            ,width: 4),
+                                            // borderRadius: BorderRadius.vertical(
+                                            //   top: Radius.circular(30)
+                                            // )
+                                          ),
+                                          focusedBorder:  OutlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.white
+                                            ,width: 4),
+                                            // borderRadius: BorderRadius.vertical(
+                                            //   top: Radius.circular(30)
+                                            // )
+                                          ),
+                                        ),  
+                                        ),
+                                      Positioned(
+left: 0,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.message),
+                                        onPressed: (){
+
+                                          var xl;
+                                           if (Platform.isAndroid) {
+      // add the [https]
+      xl= "https://wa.me/${or['phone']}/?text= "; // new line
+    } else {
+      // add the [https]
+      xl= "https://api.whatsapp.com/send?phone=${or['phone']}&text= "; // new line
+    }
+    _launchURL(xl);
+                                        },
+                                        ),
+                                      ),
+
+                                        Positioned(
+left: 40,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.call),
+                                        onPressed: (){
+
+                                        _launchURL("tel:${or['phone']}");
+                                        },
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                     Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
                                   ),
-                                  child:  TextFormField(
-                                      enabled: editible,
+                                  child:  Stack(
+                                    children: [
+                                      TextFormField(
+                                          enabled: editible,
                     style: TextStyle(color: Colors.white),
 
-                                    // focusNode: passf,
-                                          //   validator: (value) {
-                                          //   if (value.isEmpty) {
-                                          //     return 'الرجاء قم بأدخال  كلمة المرور';
-                                          //   }
-                                          //   return null;
-                                          // },
-                                       keyboardType: TextInputType.phone,
-                                             textInputAction: TextInputAction.next,
-                                     onEditingComplete: (){
-                                       FocusScope.of(context)
-                                       .requestFocus(
-                                         statf
-                                       );
-                                     },
-                                    controller: phone2,
-                                    focusNode: phone2f,
-                                  decoration: InputDecoration(
-                                      labelText: "رقم الهاتف2",
-                                  labelStyle: TextStyle(color: Colors.white),
-                                    hintText: "رقم الهاتف 2",
+                                        // focusNode: passf,
+                                              //   validator: (value) {
+                                              //   if (value.isEmpty) {
+                                              //     return 'الرجاء قم بأدخال  كلمة المرور';
+                                              //   }
+                                              //   return null;
+                                              // },
+                                           keyboardType: TextInputType.phone,
+                                                 textInputAction: TextInputAction.next,
+                                         onEditingComplete: (){
+                                           FocusScope.of(context)
+                                           .requestFocus(
+                                             statf
+                                           );
+                                         },
+                                        controller: phone2,
+                                        focusNode: phone2f,
+                                      decoration: InputDecoration(
+                                          labelText: "رقم الهاتف2",
+                                      labelStyle: TextStyle(color: Colors.white),
+                                        hintText: "رقم الهاتف 2",
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
-                                  color: Colors.white
+                                      color: Colors.white
                               ),
 errorStyle: TextStyle(
-                                  color: Colors.white
+                                      color: Colors.white
                               ),
                               focusedErrorBorder:  OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                    disabledBorder:  OutlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.white
+                                        ,width: 4),
+                                        // borderRadius: BorderRadius.vertical(
+                                        //   top: Radius.circular(30)
+                                        // )
+                                      ),
+                                        disabledBorder:  OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
+                                        borderSide: BorderSide(color: Colors.white
+                                        ,width: 4),
+                                        // borderRadius: BorderRadius.vertical(
+                                        //   top: Radius.circular(30)
+                                        // )
+                                      ),
                               errorBorder: OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                    focusedBorder:  OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                  ),  
+                                        borderSide: BorderSide(color: Colors.white
+                                        ,width: 4),
+                                        // borderRadius: BorderRadius.vertical(
+                                        //   top: Radius.circular(30)
+                                        // )
+                                      ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white
+                                          ,width: 4),
+                                          // borderRadius: BorderRadius.vertical(
+                                          //   top: Radius.circular(30)
+                                          // )
+                                        ),
+                                        focusedBorder:  OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white
+                                          ,width: 4),
+                                          // borderRadius: BorderRadius.vertical(
+                                          //   top: Radius.circular(30)
+                                          // )
+                                        ),
+                                      ),  
+                                      ),
+                                                     Positioned(
+left: 0,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.message),
+                                        onPressed: (){
+
+                                          var xl;
+                                           if (Platform.isAndroid) {
+      // add the [https]
+      xl= "https://wa.me/${or['phone2']}/?text= "; // new line
+    } else {
+      // add the [https]
+      xl= "https://api.whatsapp.com/send?phone=${or['phone2']}&text= "; // new line
+    }
+    _launchURL(xl);
+                                        },
+                                        ),
+                                      ),
+
+                                        Positioned(
+left: 40,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.call),
+                                        onPressed: (){
+
+                                        _launchURL("tel:${or['phone2']}");
+                                        },
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-       Padding(
+   if(role!=0)    Padding(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 15
                                   ),
@@ -528,77 +620,114 @@ errorStyle: TextStyle(
                                   ),  
                                   ),
                                 ),
-                                       Padding(
+                           if(role!=0)             Padding(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 15
                                   ),
-                                  child:  TextFormField(  enabled: editible,
-                                    style: TextStyle(color: Colors.white),
-                                          textInputAction: TextInputAction.next,
-                                     onEditingComplete: (){
-                                       FocusScope.of(context)
-                                       .requestFocus(
-                                         phone2f
-                                       );
-                                     },
-                                     focusNode:phonef ,
-                                            validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'الرجاء قم بأدخال رقم الهاتف';
-                                            }
-                                            return null;
-                                          },
-                                    keyboardType: TextInputType.phone,
-                                    controller: clientphone,
-                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                  child:  Stack(
+                                    children: [
+                                      TextFormField(  enabled: editible,
+                                        style: TextStyle(color: Colors.white),
+                                              textInputAction: TextInputAction.next,
+                                         onEditingComplete: (){
+                                           FocusScope.of(context)
+                                           .requestFocus(
+                                             phone2f
+                                           );
+                                         },
+                                         focusNode:phonef ,
+                                                validator: (value) {
+                                                if (value.isEmpty) {
+                                                  return 'الرجاء قم بأدخال رقم الهاتف';
+                                                }
+                                                return null;
+                                              },
+                                        keyboardType: TextInputType.phone,
+                                        controller: clientphone,
+                                      decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                    // hintText: "رقم الهاتف",
-                                      labelText: "رقم هاتف العميل",
-                                  labelStyle: TextStyle(color: Colors.white),
+                                        borderSide: BorderSide(color: Colors.white
+                                        ,width: 4),
+                                        // borderRadius: BorderRadius.vertical(
+                                        //   top: Radius.circular(30)
+                                        // )
+                                      ),
+                                        // hintText: "رقم الهاتف",
+                                          labelText: "رقم هاتف العميل",
+                                      labelStyle: TextStyle(color: Colors.white),
                               focusColor: Colors.white,
                               hintStyle: TextStyle(
-                                  color: Colors.white
+                                      color: Colors.white
                               ),
 errorStyle: TextStyle(
-                                  color: Colors.white
+                                      color: Colors.white
                               ),
                               focusedErrorBorder:  OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
+                                        borderSide: BorderSide(color: Colors.white
+                                        ,width: 4),
+                                        // borderRadius: BorderRadius.vertical(
+                                        //   top: Radius.circular(30)
+                                        // )
+                                      ),
                               errorBorder: OutlineInputBorder(
                                 
-                                    borderSide: BorderSide(color: Colors.white
-                                    ,width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                    focusedBorder:  OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white
-                                      ,width: 4),
-                                      // borderRadius: BorderRadius.vertical(
-                                      //   top: Radius.circular(30)
-                                      // )
-                                    ),
-                                  ),  
+                                        borderSide: BorderSide(color: Colors.white
+                                        ,width: 4),
+                                        // borderRadius: BorderRadius.vertical(
+                                        //   top: Radius.circular(30)
+                                        // )
+                                      ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white
+                                          ,width: 4),
+                                          // borderRadius: BorderRadius.vertical(
+                                          //   top: Radius.circular(30)
+                                          // )
+                                        ),
+                                        focusedBorder:  OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white
+                                          ,width: 4),
+                                          // borderRadius: BorderRadius.vertical(
+                                          //   top: Radius.circular(30)
+                                          // )
+                                        ),
+                                      ),  
+                                      ),
+                                                     Positioned(
+left: 0,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.message),
+                                        onPressed: (){
+
+                                          var xl;
+                                           if (Platform.isAndroid) {
+      // add the [https]
+      xl= "https://wa.me/${or['client']['phone']}/?text= "; // new line
+    } else {
+      // add the [https]
+      xl= "https://api.whatsapp.com/send?phone=${or['client']['phone']}&text= "; // new line
+    }
+    _launchURL(xl);
+                                        },
+                                        ),
+                                      ),
+
+                                        Positioned(
+left: 40,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.call),
+                                        onPressed: (){
+
+                                        _launchURL("tel:${or['client']['phone']}");
+                                        },
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                     Padding(

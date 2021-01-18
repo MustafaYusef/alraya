@@ -238,7 +238,7 @@ Notfs(notf: prof['notification'],),);}));
          left: 0,
          right: 0,
          height:menu? 
-         290
+         220
          :0,
          child: Container(
            child:Material(

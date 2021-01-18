@@ -399,65 +399,67 @@ valueColor: AlwaysStoppedAnimation(Colors.white),
              elevation: 4,
              color: Colors.white,
              child: 
-           Column(
-             children: [
-               SizedBox(height: 15,),
-              //  ListTile(
-              //    onTap: (){
-              //      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-              //      Orders(),);}));
-                   
-              //    },
-              //    leading: Icon(Icons.history),
-              //    title: Text("سجل الطلبات"),
-              //  ),
-              //  Divider(),
-                       ListTile(
-                 onTap: (){
-                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                   CompletedOrders(),);}));
-                   
-                 },
-                 leading: Icon(Icons.history),
-                 title: Text("سجل الطلبات المنجزة"),
-               ),
-              //  Divider(),
-              //    ListTile(
-              //    leading: Icon(Icons.chat_outlined),
-              //    title: Text("سجل المحادثات"),
-              //  ),
-                              Divider(),
-
+           SingleChildScrollView(
+                        child: Column(
+               children: [
+                 SizedBox(height: 15,),
+                //  ListTile(
+                //    onTap: (){
+                //      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                //      Orders(),);}));
+                     
+                //    },
+                //    leading: Icon(Icons.history),
+                //    title: Text("سجل الطلبات"),
+                //  ),
+                //  Divider(),
                          ListTile(
-                 onTap: (){
-                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                   Checkouts(),);}));
-                   
-                 },
-                 leading: Icon(Icons.list),
-                 title: Text("الحسابات"),
-               ),
-               Divider(),
-                  // Divider(),
-                 ListTile(
                    onTap: (){
-                     setState(() {
-                       token=null;
-                       role=null;
-                     });
-                     SharedPreferences.getInstance().then((s) {
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     CompletedOrders(),);}));
+                     
+                   },
+                   leading: Icon(Icons.history),
+                   title: Text("سجل الطلبات المنجزة"),
+                 ),
+                //  Divider(),
+                //    ListTile(
+                //    leading: Icon(Icons.chat_outlined),
+                //    title: Text("سجل المحادثات"),
+                //  ),
+                                Divider(),
+
+                           ListTile(
+                   onTap: (){
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     Checkouts(),);}));
+                     
+                   },
+                   leading: Icon(Icons.list),
+                   title: Text("الحسابات"),
+                 ),
+                 Divider(),
+                    // Divider(),
+                   ListTile(
+                     onTap: (){
+                       setState(() {
+                         token=null;
+                         role=null;
+                       });
+                       SharedPreferences.getInstance().then((s) {
      s.setString('token', null);
      s.setInt('role', null);
      Navigator.pushAndRemoveUntil(context, 
      MaterialPageRoute(builder: (c){
 return SignIn();
      }), (route) => false);
-                     });
-                   },
-                 leading: Icon(Icons.account_circle),
-                 title: Text("تسجيل الخروج"),
-               ),
-             ],
+                       });
+                     },
+                   leading: Icon(Icons.account_circle),
+                   title: Text("تسجيل الخروج"),
+                 ),
+               ],
+             ),
            ),),
           // color: Colors.white,
          ),

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:sunmi_thermal_printer_example/checkdetails.dart';
 import 'package:sunmi_thermal_printer_example/orderDetails.dart';
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
@@ -306,11 +307,13 @@ children: [
                                 color: sc,
   
                                 onPressed: (){
-// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-// OrderDetails(order: ord,),);}));
-launch("https://alraai.altathamun.com/files/${ord['file']}");
+Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+CheckoutDetails(id: ord['id'],),);}));
+// launch("https://alraai.altathamun.com/files/${ord['file']}");
   // showmodal(context,"${ord['government']}");
   // signIn();
+  
+  
 
                               },child: Text("تفاصيل",
   
