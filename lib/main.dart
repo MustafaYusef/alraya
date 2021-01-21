@@ -113,7 +113,7 @@ mprint(var prn) async{
 
   Future<void> _loadTestData(prn) async {
     print(prn);
-    var header = 'Al-Raya';
+    var header = 'شركة الرايه للبريد  السريع';
     var id = '${prn['id']}';
     var timestamp = '30-02-2020 23:59:59';
     var cashier =  '${prn['name']}';
@@ -156,29 +156,37 @@ List<int> values = imageBytes.buffer.asUint8List();
       //             .asUint8List())
       //     .getBytes())
       ..bold()
-        ..bitmap(img.Image.fromBytes(
-              36,
-              36,
-              (await rootBundle.load('assets/logo.png'))
-                  .buffer
-                  .asUint8List())
-          .getBytes())
-      // ..printCenter(header)
+      ..fontScale(2)
+      
+      // ..bitmap(img.Image.fromBytes(
+        //       36,
+        //       36,
+        //       (await rootBundle.load('assets/logo.png'))
+        //           .buffer
+        //           .asUint8List())
+        //   .getBytes())
+      ..printCenter(header)
       ..bold()
+       ..fontScale(1)
       ..printLR(' رقم الطلب #:', id)
       ..printLR('التاريخ', "${prn['createdAt']}")
       ..printLR('اسم الزبون', cashier)
       ..printLR('رقم الهاتف', '${prn['phone']}')
-       ..printLR('2رقم الهاتف', '${prn['phone2']}')
+       ..printLR('الرقم الاحتياطي', '${prn['phone2']}')
         ..printLR('المحافظة', '${prn['government']}')
            ..printLR('المدينة', '${prn['city']}')
 ..printLR('العنوان', '${prn['address']}')
-..printLR('العسر مع التوصيل', '${prn['price']}')
+..printLR('السعر مع التوصيل', '${prn['price']}')
+..divider()
+..printLR('اسم العميل', '${prn['client']['name']}')
+..printLR('رقم الهاتف', '${prn['client']['phone']}')
       // ..divider()
       // ..printLR(itemsHeaderLeft, itemsHeaderRight)
       ..divider()..qr( '${prn['id']}',moduleSize: 10)
        ..divider()
-       ..printLR('شركة الراية', "بغداد-المنصور-الداوودي")
+       ..printCenter(header)
+       ..printRight("العنوان: بغداد-المنصور-الداوودي")
+       ..printRight("رقم الهاتف:  07806447000")
        ;
     // for (var item in items) {
     //   String amountStr = formatCurrency(item.afterDiscountValue);

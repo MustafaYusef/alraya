@@ -74,6 +74,7 @@ var or;
     super.initState();
     or=widget.order;
   print(or );
+  print(or['status']);
   phone.text="${or['phone']}";
     phone2.text="${or['phone2']}";
       state.text="${or['government']}";
@@ -405,12 +406,32 @@ bottom: 0,
                                         onPressed: (){
 
                                           var xl;
-                                           if (Platform.isAndroid) {
+                                        
+                                             var pho=or['phone'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+  print(true);
+  if(pho.startsWith("0"))
+  {
+    pho=pho.replaceFirst("0", "");
+  }
+  pho="+964"+pho;
+  // print(phone.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+  // return;
+}
+   if (Platform.isAndroid) {
       // add the [https]
-      xl= "https://wa.me/${or['phone']}/?text= "; // new line
+      xl= "https://wa.me/$pho/?text= "; // new line
     } else {
       // add the [https]
-      xl= "https://api.whatsapp.com/send?phone=${or['phone']}&text= "; // new line
+      xl= "https://api.whatsapp.com/send?phone=$pho&text= "; // new line
     }
     _launchURL(xl);
                                         },
@@ -425,7 +446,22 @@ bottom: 0,
                                         icon: Icon(Icons.call),
                                         onPressed: (){
 
-                                        _launchURL("tel:${or['phone']}");
+ var pho=or['phone'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+  print(true);
+  if(pho.startsWith("0"))
+  {
+    pho=pho.replaceFirst("0", "");
+  }
+  pho="+964"+pho;
+}
+                                        _launchURL("tel:$pho");
                                         },
                                         ),
                                       )
@@ -519,12 +555,34 @@ bottom: 0,
                                         onPressed: (){
 
                                           var xl;
+
+                                                                   var pho=or['phone2'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+  print(true);
+  if(pho.startsWith("0"))
+  {
+    pho=pho.replaceFirst("0", "");
+  }
+  pho="+964"+pho;
+  // print(phone.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+  // return;
+}
+
                                            if (Platform.isAndroid) {
+  
       // add the [https]
-      xl= "https://wa.me/${or['phone2']}/?text= "; // new line
+      xl= "https://wa.me/$pho/?text= "; // new line
     } else {
       // add the [https]
-      xl= "https://api.whatsapp.com/send?phone=${or['phone2']}&text= "; // new line
+      xl= "https://api.whatsapp.com/send?phone=$pho&text= "; // new line
     }
     _launchURL(xl);
                                         },
@@ -538,8 +596,26 @@ bottom: 0,
                                         child: IconButton(color: Colors.white,
                                         icon: Icon(Icons.call),
                                         onPressed: (){
-
-                                        _launchURL("tel:${or['phone2']}");
+                         var pho=or['phone2'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+  print(true);
+  if(pho.startsWith("0"))
+  {
+    pho=pho.replaceFirst("0", "");
+  }
+  pho="+964"+pho;
+  // print(phone.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+  // return;
+}
+                                        _launchURL("tel:$pho");
                                         },
                                         ),
                                       )
@@ -703,12 +779,32 @@ bottom: 0,
                                         onPressed: (){
 
                                           var xl;
+
+                                        var pho=or['client']['phone'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+  print(true);
+  if(pho.startsWith("0"))
+  {
+    pho=pho.replaceFirst("0", "");
+  }
+  pho="+964"+pho;
+  // print(phone.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+  // return;
+}
                                            if (Platform.isAndroid) {
       // add the [https]
-      xl= "https://wa.me/${or['client']['phone']}/?text= "; // new line
+      xl= "https://wa.me/$pho/?text= "; // new line
     } else {
       // add the [https]
-      xl= "https://api.whatsapp.com/send?phone=${or['client']['phone']}&text= "; // new line
+      xl= "https://api.whatsapp.com/send?phone=$pho&text= "; // new line
     }
     _launchURL(xl);
                                         },
@@ -722,8 +818,26 @@ bottom: 0,
                                         child: IconButton(color: Colors.white,
                                         icon: Icon(Icons.call),
                                         onPressed: (){
-
-                                        _launchURL("tel:${or['client']['phone']}");
+                                   var pho=or['client']['phone'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+  print(true);
+  if(pho.startsWith("0"))
+  {
+    pho=pho.replaceFirst("0", "");
+  }
+  pho="+964"+pho;
+  // print(phone.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+  // return;
+}
+                                        _launchURL("tel:$pho");
                                         },
                                         ),
                                       )
@@ -1504,35 +1618,8 @@ submit();
                                     fontSize: 18
                                   ),
                                 ),),
-                                                   if(role==3&&or['status']=='collected')                  MaterialButton(
-                                  minWidth: double.infinity,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(100),
-                                      top: Radius.circular(100)
-                                    )
-                                  ),
-                                  height: 60,
-                                  color: Colors.white,
-                                  onPressed: (){
-// signIn();
-collectorsubmitostore();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-// AddOrder2(),);}));
-
-                                },child:
-                                loading2?
-                                CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(
-sc                                  ),
-                                ):
-                                 Text("تأكيد الاستلام",
-                                 style: TextStyle(
-                                    color: sc,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),
-                                ),),
+                                               
+                                               
                     if(role==2||role==3
               //      &&or['status']=='watting'
                     )       
@@ -1574,6 +1661,41 @@ else
                                   ),
                                 ),),
 SizedBox(
+  height: 20,
+),
+
+                                
+                                                   if(role==3&&or['status']=='collected')                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+collectorsubmitostore();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("تأكيد الاستلام",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),
+                                ),
+SizedBox(
   height: 30,
 ),
 
@@ -1612,8 +1734,40 @@ sc                                  ),
 
                                   
                           
-                                  
-                                     if(role==3&&or['status']=='rejected')                  MaterialButton(
+                                             if(role==3&&
+                                     (or['status']=='rejected_store'
+                                    ))                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+collectorreturntocostumer();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("ارجاع للزبون",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
+                                     if(role==3&&
+                                     (or['status']=='rejected'
+                                     ||or['status']=='return_from_secend_store'))                  MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -2048,6 +2202,69 @@ Navigator.pop(context);
 
   }
 
+
+
+collectorreturntocostumer() async {
+     if(loading||loading2)
+     return;
+    FocusScope.of(context).requestFocus(
+new FocusNode()
+    );
+
+    // if (!formKey.currentState.validate()) {
+    //   // If the form is valid, display a snackbar. In the real world,
+    //   // you'd often call a server or save the information in a database.
+
+  
+    // return;
+    // }
+
+  setState(() {
+    loading2=true;
+  });
+ 
+  var res = await http.post(
+          //  "$host/users/auth/new"
+   "$host/users/collector/collector/orders/return/client/rejected/${or['id']}"
+            ,
+            headers: {
+              "Authorization":token
+            },
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+      return;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+
+    if (res.statusCode==201) {
+  
+
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres['data']["msg"]),));
+Navigator.pop(context);
+    } else {
+     
+   //   EDailog.errorDialog(pres["message"], false, context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading2 = false;
+    });
+
+  }
+
+
+
 ///driver submit tasleem
   submit() async {
      if(loading||loading2)
@@ -2155,9 +2372,9 @@ new FocusNode()
 
 
    
-
+mprint(or);
     if (res.statusCode==201) {
-  mprint(or);
+    
 
 // mprint(or);
      Scaffold.of(b).showSnackBar(

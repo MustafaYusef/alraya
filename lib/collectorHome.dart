@@ -9,6 +9,7 @@ import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/clientORders.dart';
 import 'package:sunmi_thermal_printer_example/collectorsorders.dart';
 import 'package:sunmi_thermal_printer_example/govorders.dart';
+import 'package:sunmi_thermal_printer_example/nonet.dart';
 import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
@@ -463,6 +464,7 @@ String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
                                                     ScanMode.QR);
                                                     print(barcodeScanRes);
                           getOrdId(barcodeScanRes,false);
+                          //  getOrdId(136,false);
            },
            icon: Icon(Icons.qr_code_scanner_rounded,
            color: Colors.white,),
@@ -716,6 +718,8 @@ showmodal(context,
  maxCount=-1;
  lastPage=false;
           getOrders(true);
+
+          if(!man)
           showmodal(context,
 "أضافة طلب اخر؟");
       });
@@ -747,6 +751,7 @@ showmodal(context,
   getprof() async {
   
 
+timeout=false;
 
   setState(() {
     loading=true;
@@ -763,6 +768,19 @@ showmodal(context,
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getprof();
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getprof();
+      });
+      timeout=true;
       return;
     });
 

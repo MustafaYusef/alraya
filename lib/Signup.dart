@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/home.dart';
@@ -9,6 +10,8 @@ import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'package:sunmi_thermal_printer_example/state.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
+
+import 'nonet.dart';
 //AIzaSyAbZOvdb_fUdBlC_ER2JpzhtQSwXN-NwGg
 class SignUp extends StatefulWidget {
   @override
@@ -37,6 +40,18 @@ var city;
 
 LatLng pos;
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+        Geolocator.getCurrentPosition().then((p){
+
+pos=LatLng(p.latitude,p.longitude);
+   });
+   
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -552,15 +567,16 @@ errorStyle: TextStyle(
   
     return;
     }
-   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-       MapSample(),);}))
-                                    .then((value) {
-setState(() {
-  pos=value;
-});
-signup();
-                                    });
-                                    
+//    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+//        MapSample(),);}))
+//                                     .then((value) {
+// setState(() {
+//   pos=value;
+// });
+//                                     });
+
+                                 signup();
+   
 // signIn();
                                 },child:loading?
                                 CircularProgressIndicator(
@@ -597,28 +613,13 @@ bool timeout=false;
     FocusScope.of(context).requestFocus(
 
     );
-if(!phone.text.startsWith("00964"))
-{
-phone.text=phone.text.replaceFirst("00", "+");
-}
-print(phone.text);
-    if(!phone.text.startsWith("+964"))
-{
-  print(true);
-  if(phone.text.startsWith("0"))
-  {
-    phone.text=phone.text.replaceFirst("0", "");
-  }
-  phone.text="+964"+phone.text;
-  print(phone.text);
-    // Scaffold.of(b).showSnackBar(
-    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
-  // return;
-}
-if(phone.text.length!=14)
+
+if(phone.text.length!=11)
 {
    Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
+return;
+
 }
 
 if(pos==null)
@@ -653,12 +654,13 @@ if(pos==null)
 // "longitude":"10.23",
 // "latitude":"12.2323"
         };
+        print(pos);
         if(pos!=null){
       
          _bod["latitude"]="${pos.latitude}";
           _bod["longitude"]="${pos.longitude}";
         }
-
+print(_bod);
           var res = await http.post(
           //  "$host/users/auth/new"
             "https://alraai.altathamun.com/users/auth/new"
@@ -667,6 +669,10 @@ if(pos==null)
       setState(() {
         loading = false;
         timeout = true;
+      });
+         Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        // getprof();
       });
       return;
     });

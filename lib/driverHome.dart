@@ -10,6 +10,7 @@ import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
 import 'checkouts.dart';
 import 'main.dart';
+import 'nonet.dart';
 import 'orderDetails.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
@@ -634,10 +635,12 @@ bool timeout=false;
   getprof() async {
   
 
+timeout=false;
 
   setState(() {
     loading=true;
   });
+  print("gettinghome");
   var res = await http.get(
           //  "$host/users/auth/new"
             "$host/users/auth/profile"
@@ -645,18 +648,32 @@ bool timeout=false;
             headers: {
               "Authorization":token
             },
-       ).timeout(Duration(seconds: 30), onTimeout: () {
+       ).timeout(Duration(seconds: 3), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+        print("timeout!");
+
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getprof();
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getprof();
+      });
+      timeout=true;
       return;
     });
-
      if (timeout) return;
     var pres = json.decode(res.body);
     print(pres);
-
+print("done");
 
    
 

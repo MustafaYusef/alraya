@@ -212,8 +212,11 @@ return Container(
     horizontal: 15,
     vertical: 8
   ),
-
-  height: 224,
+ padding: const EdgeInsets.symmetric(
+    horizontal: 15,
+    vertical: 8
+  ),
+  // height: 224,
   decoration: BoxDecoration(
     color: mc,
     borderRadius: BorderRadius.circular(15)

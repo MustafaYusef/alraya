@@ -311,6 +311,7 @@ bool timeout=false;
 var count=0;
   getprof() async {
   
+timeout=false;
 
 
   setState(() {

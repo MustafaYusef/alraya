@@ -188,12 +188,12 @@ left: 10,
                                        );
                                      },
                                      focusNode:phonef ,
-                                            validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'الرجاء قم بأدخال رقم الهاتف';
-                                            }
-                                            return null;
-                                          },
+                                          //   validator: (value) {
+                                          //   if (value.isEmpty) {
+                                          //     return 'الرجاء قم بأدخال رقم الهاتف';
+                                          //   }
+                                          //   return null;
+                                          // },
                                     keyboardType: TextInputType.phone,
                                     controller: phone,
                                   decoration: InputDecoration(
@@ -523,12 +523,12 @@ errorStyle: TextStyle(
                     style: TextStyle(color: Colors.white),
 
                                      focusNode: addressf,
-                                            validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'الرجاء قم بأدخال العنوان';
-                                            }
-                                            return null;
-                                          },
+                                          //   validator: (value) {
+                                          //   if (value.isEmpty) {
+                                          //     return 'الرجاء قم بأدخال العنوان';
+                                          //   }
+                                          //   return null;
+                                          // },
                                      textInputAction: TextInputAction.next,
                                      onEditingComplete: (){
                                        FocusScope.of(context)
@@ -924,58 +924,69 @@ new FocusNode()
     return;
     }
 
-    if(!phone.text.startsWith("00964"))
-{
-phone.text=phone.text.replaceFirst("00", "+");
-}
-print(phone.text);
-    if(!phone.text.startsWith("+964"))
-{
-  print(true);
-  if(phone.text.startsWith("0"))
-  {
-    phone.text=phone.text.replaceFirst("0", "");
-  }
-  phone.text="+964"+phone.text;
-  print(phone.text);
-    // Scaffold.of(b).showSnackBar(
-    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
-  // return;
-}
-if(phone.text.length!=14)
+//     if(!phone.text.startsWith("00964"))
+// {
+// phone.text=phone.text.replaceFirst("00", "+");
+// }
+// print(phone.text);
+//     if(!phone.text.startsWith("+964"))
+// {
+//   print(true);
+//   if(phone.text.startsWith("0"))
+//   {
+//     phone.text=phone.text.replaceFirst("0", "");
+//   }
+//   phone.text="+964"+phone.text;
+//   print(phone.text);
+//     // Scaffold.of(b).showSnackBar(
+//     // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+//   // return;
+// }
+// if(phone.text.length!=14)
+// {
+//    Scaffold.of(b).showSnackBar(
+//     SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
+// }
+
+
+
+// if(!phone2.text.startsWith("00964"))
+// {
+// phone2.text=phone2.text.replaceFirst("00", "+");
+// }
+// print(phone2.text);
+//     if(!phone2.text.startsWith("+964"))
+// {
+//   print(true);
+//   if(phone2.text.startsWith("0"))
+//   {
+//     phone2.text=phone2.text.replaceFirst("0", "");
+//   }
+//   phone2.text="+964"+phone2.text;
+//   print(phone2.text);
+//     // Scaffold.of(b).showSnackBar(
+//     // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+//   // return;
+// }
+// if(phone2.text.length!=14)
+// {
+//    Scaffold.of(b).showSnackBar(
+//     SnackBar(content: Text("2 الرجاء قم بل تحقق من رقم الهاتف "),));
+//     return;
+// }
+
+if(phone.text.length!=11)
 {
    Scaffold.of(b).showSnackBar(
     SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
+return;
 }
-
-
-
-if(!phone2.text.startsWith("00964"))
-{
-phone2.text=phone2.text.replaceFirst("00", "+");
-}
-print(phone2.text);
-    if(!phone2.text.startsWith("+964"))
-{
-  print(true);
-  if(phone2.text.startsWith("0"))
-  {
-    phone2.text=phone2.text.replaceFirst("0", "");
-  }
-  phone2.text="+964"+phone2.text;
-  print(phone2.text);
-    // Scaffold.of(b).showSnackBar(
-    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
-  // return;
-}
-if(phone2.text.length!=14)
+if(phone2.text.length>0&& phone2.text.length!=11)
 {
    Scaffold.of(b).showSnackBar(
-    SnackBar(content: Text("2 الرجاء قم بل تحقق من رقم الهاتف "),));
-    return;
+    SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
+return;
 }
-
-
   if(price.text.codeUnitAt(0)>=47&&price.text.codeUnitAt(0)<=57)
   {
 

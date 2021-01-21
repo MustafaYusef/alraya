@@ -1,14 +1,18 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:sunmi_thermal_printer_example/Signup.dart';
 import 'package:sunmi_thermal_printer_example/driverHome.dart';
 import 'package:sunmi_thermal_printer_example/home.dart';
+import 'package:sunmi_thermal_printer_example/nonet.dart';
 
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'collectorHome.dart';
+import 'package:connectivity/connectivity.dart';
+
 class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
@@ -28,7 +32,28 @@ class _SignInState extends State<SignIn> {
   void initState() {
     // TODO: implement initState
     super.initState();
- getLogin();
+checknet();
+ 
+  }
+
+  checknet() async {
+//     var connectivityResult = await (Connectivity().checkConnectivity());
+
+// if (connectivityResult == ConnectivityResult.none) {
+//   Navigator.of(context).push(MaterialPageRoute(builder:
+//    (c){return Directionality(textDirection: TextDirection.rtl,child: NoNet(),);})).then((value) 
+//   {
+//     checknet();
+//   });
+  
+//   // I am connected to a mobile network.
+// }
+// else
+
+// {
+   getLogin();
+
+// }
   }
   @override
   Widget build(BuildContext context) {
@@ -339,7 +364,20 @@ print("sign");
         loading = false;
         timeout = true;
       });
+         Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        // getprof();
+      });
       return;
+    }).catchError((e){
+setState(() {
+        loading = false;
+        timeout = true;
+      });
+    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        // getprof();
+      });
     });
     if (timeout) return;
     var pres = json.decode(res.body);
