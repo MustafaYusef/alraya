@@ -165,7 +165,8 @@ List<int> values = imageBytes.buffer.asUint8List();
         //           .buffer
         //           .asUint8List())
         //   .getBytes())
-      ..printCenter(header)
+      ..printCenter("شركة الراية")
+      ..printCenter("للتوصيل السريع")
       ..bold()
        ..fontScale(1)
       ..printLR(' رقم الطلب #:', id)
@@ -177,6 +178,9 @@ List<int> values = imageBytes.buffer.asUint8List();
            ..printLR('المدينة', '${prn['city']}')
 ..printLR('العنوان', '${prn['address']}')
 ..printLR('السعر مع التوصيل', '${prn['price']}')
+..divider('${prn['notes']}')
+..printCenter("ملاحظات")
+..printRight()
 ..divider()
 ..printLR('اسم العميل', '${prn['client']['name']}')
 ..printLR('رقم الهاتف', '${prn['client']['phone']}')
@@ -184,7 +188,7 @@ List<int> values = imageBytes.buffer.asUint8List();
       // ..printLR(itemsHeaderLeft, itemsHeaderRight)
       ..divider()..qr( '${prn['id']}',moduleSize: 10)
        ..divider()
-       ..printCenter(header)
+       ..printCenter("شركة الراية للتوصيل السريع")
        ..printRight("العنوان: بغداد-المنصور-الداوودي")
        ..printRight("رقم الهاتف:  07806447000")
        ;

@@ -240,6 +240,14 @@ padding:  const EdgeInsets.symmetric(
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
 children: [
+   Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Text("رقم الكشف: ${ord['id']}",
+    style: TextStyle(color: Colors.white,
+    fontWeight: FontWeight.bold),
+    ),
+  ),
+  Divider(color: Colors.white,),
   Padding(
     padding: const EdgeInsets.all(14.0),
     child: Text("عدد الطلبات: ${ord['orders_number']}",

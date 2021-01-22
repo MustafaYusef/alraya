@@ -9,6 +9,7 @@ import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
 import 'checkouts.dart';
 import 'main.dart';
+import 'nonet.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -238,7 +239,7 @@ Notfs(notf: prof['notification'],),);}));
          left: 0,
          right: 0,
          height:menu? 
-         220
+        350
          :0,
          child: Container(
            child:Material(
@@ -261,6 +262,26 @@ Notfs(notf: prof['notification'],),);}));
                  },
                  leading: Icon(Icons.history),
                  title: Text("سجل الطلبات"),
+               ),
+               Divider(),
+                ListTile(
+                 onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                   Orders(status: "finished",),);}));
+                   
+                 },
+                 leading: Icon(Icons.done),
+                 title: Text("الطلبات المنجزة"),
+               ),
+                      ListTile(
+                 onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                   Orders(status: "rejected_client",),);}));
+                   
+                 },
+                 leading: Icon(Icons.assignment_return
+                 ),
+                 title: Text("طلبات الراجع"),
                ),
                Divider(),
                    ListTile(
@@ -329,6 +350,19 @@ timeout=false;
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getprof();
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getprof();
+      });
+      timeout=true;
       return;
     });
 

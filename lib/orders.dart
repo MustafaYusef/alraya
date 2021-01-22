@@ -5,8 +5,12 @@ import 'package:sunmi_thermal_printer_example/orderDetails.dart';
 import 'dart:convert';
 
 import 'main.dart';
+import 'nonet.dart';
 
 class Orders extends StatefulWidget {
+  final status;
+
+  const Orders({Key key, this.status}) : super(key: key);
   @override
   _OrdersState createState() => _OrdersState();
 }
@@ -39,6 +43,7 @@ print(orders.length);
 });
 
   }
+  var ind=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,13 +147,135 @@ left: 10,
               ),
             ),
           ),
+           if(widget.status==null)   Positioned(
+            top: 125,
+            right: 20,
+            left: 20,
+            child: 
+            Container(
+              height: 60,
+              // child: Text("s"),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: (){
+setState(() {
+  ind=0;
+});
+  loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ timeout=false;
+ getOrders(true);
+                    },
+                    child:       Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("قيد المعالجة",
+            style: TextStyle(
+              color:ind==0? Colors.white:Colors.grey
+              ,fontWeight: FontWeight.bold,
+              fontSize: 17
+            ),),
+                          ),
+                        ),
+                          VerticalDivider(
+                    color: sc,
+                    thickness: 1.5,
+                  ),
+                      ],
+                    ) ,
+                  ),
+                
+                     InkWell(
+                    onTap: (){
+setState(() {
+  ind=1;
+});
+  loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ timeout=false;
+ getOrders(true);
+                    },
+                    child:       Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("تم التوصيل",
+            style: TextStyle(
+              color:ind==1? Colors.white:Colors.grey
+              ,fontWeight: FontWeight.bold,
+              fontSize: 17
+            ),),
+                    ) ,
+                  ),
+                
+                      InkWell(
+                    onTap: (){
+setState(() {
+  ind=2;
+});
+  loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ timeout=false;
+ getOrders(true);
+
+                    },
+                    child:       SizedBox(
+                      width: 100,
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.sp,
+                        children: [
+                            VerticalDivider(
+                      color: sc,
+                      thickness: 1.5,
+                  ),
+                          Expanded(
+                                                      child: Center(
+                                                        child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("راجع",
+            style: TextStyle(
+             color:ind==2? Colors.white:Colors.grey
+              ,fontWeight: FontWeight.bold,
+              fontSize: 17
+            ),),
+                            ),
+                                                      ),
+                          ),
+                        ],
+                      ),
+                    ) ,
+                  ),
+                ],
+              ),
+              // width: double.infinity,
+decoration: BoxDecoration(
+  borderRadius: BorderRadius.circular(100),
+  color: mc
+),
+            )
+     
+          ),
           Positioned(
-            top: 90,
+            top:widget.status!=null?
+            130
+            : 190,
             left: 0,
             right: 0,
             bottom: 0,
             child: ListView(
               controller: scr,
+              padding: EdgeInsets.symmetric(
+                vertical: 0
+              ),
               children: [
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 170),
@@ -194,11 +321,29 @@ color: Colors.white,
                     ),
                   ) ,),
                 ),
-             ...orders.map((e){
+          if(!loading)   ...orders.map((e){
                return orderModel(e);
-             }).toList()
-
-            ],),
+             }).toList(),
+if(loading)
+Padding(
+  padding: const EdgeInsets.only(
+    top: 25
+  ),
+  child:   Center(
+  
+    child:   CircularProgressIndicator(
+  
+    
+  
+      valueColor: AlwaysStoppedAnimation(Colors.white),
+  
+    
+  
+    ),
+  
+  ),
+)
+       ],),
           )
       ],),
     );
@@ -316,6 +461,24 @@ var maxCount=-1;
 bool lastPage=false;
 var timeout=false;
    void getOrders(bool first)async{
+         String status;
+  if(widget.status==null)   switch (ind) {
+       case 0:
+         status="watting";
+         break;
+           case 1:
+         status="delivered";
+         
+         break;
+          case 2:
+         status="rejected";
+         
+         break;
+       default:
+     }
+     else{
+       status=widget.status;
+     }
      timeout=false;
    //  if(first)
 //       Connectivity().checkConnectivity().then((c){
@@ -343,7 +506,7 @@ orders=[];
     });
     
     String link=
-      "$host/orders/client/orders/my?limit=11&page=$page";
+      "$host/orders/client/orders/my?limit=11&page=$page&status=$status";
 if(search&&searchc.text.length>0)
 {
   link+="&search=${searchc.text}";
@@ -360,15 +523,31 @@ if(search&&searchc.text.length>0)
 var res= 
 await http.get(
   link,headers: {"Authorization":token}
-).timeout(
-Duration(seconds: 45,),onTimeout:(){
-setState(() {
-  timeout=true;
-loading=false;
-});
-return ;
-}
-);
+).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getOrders(true);
+         orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getOrders(true);
+      });
+      timeout=true;
+      return;
+    });
 if(timeout)
 return;
  if(first)

@@ -5,6 +5,7 @@ import 'package:sunmi_thermal_printer_example/orderDetails.dart';
 import 'dart:convert';
 
 import 'main.dart';
+import 'nonet.dart';
 
 class Collectorsorders extends StatefulWidget {
   final cl;
@@ -277,7 +278,14 @@ children: [
   
                                 onPressed: (){
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-OrderDetails(order: ord,),);}));
+OrderDetails(order: ord,),);})).then((value) {
+   orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
+});
 
   
   // signIn();
@@ -356,15 +364,37 @@ orders=[];
 var res= 
 await http.get(
   link,headers: {"Authorization":token}
-).timeout(
-Duration(seconds: 45,),onTimeout:(){
-setState(() {
-  timeout=true;
-loading=false;
-});
-return ;
-}
-);
+).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getOrders(true);
+         orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+                     orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+      
+        getOrders(true);
+      });
+      timeout=true;
+      return;
+    });
 if(timeout)
 return;
  if(first)

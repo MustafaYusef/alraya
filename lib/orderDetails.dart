@@ -1518,7 +1518,10 @@ errorStyle: TextStyle(
 
  
                   if(role==0
-              //    &&or['status']=='watting'
+                  &&(or['status']!='delivered'
+                  &&or['status']!='rejected_client'
+                  &&or['status']!='finished'
+                  &&or['status']!='canceled')
                   )
                                 MaterialButton(
                                   minWidth: double.infinity,
@@ -1553,7 +1556,11 @@ edit();
 SizedBox(
 height: 10,
 ),
-      if(role==0&&or['status']!='watting')
+      if(role==0&&(or['status']!='delivered'
+                  &&or['status']!='rejected_client'
+                  &&or['status']!='finished'
+                  &&or['status']!='watting'
+                   &&or['status']!='canceled'))
                                 MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
@@ -1637,7 +1644,8 @@ submit();
 // submit();
 // printb();
 if(or['status']=='watting')
-showmodal(context);
+printb(null);
+// showmodal(context);
 else
 {
   mprint(or);
@@ -1663,7 +1671,39 @@ else
 SizedBox(
   height: 20,
 ),
+   if(role==2||role==3
+                   &&or['status']=='watting'
+                    )                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+// collectorsubmitostore();// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+showmodal(context);
 
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("طباعة مع تعديل السعر",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),
+                                ),
                                 
                                                    if(role==3&&or['status']=='collected')                  MaterialButton(
                                   minWidth: double.infinity,
@@ -1798,7 +1838,7 @@ sc                                  ),
                                 ),),
 
 
-                                  if(role==0)                  MaterialButton(
+                                  if(role==0&&or['status']=='watting')                  MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -2353,7 +2393,7 @@ new FocusNode()
             ,
             body: {
               "order_id":"${or['id']}",
-              "multiple":"$mul"
+           if(mul!=null)   "multiple":"$mul"
             },
             headers: {
               "Authorization":token
@@ -2479,7 +2519,7 @@ TextEditingController drname=TextEditingController();
           height: 200,
           child: AlertDialog(
             
-            title: Text("مضاعفة الطلب"),
+            title: Text("تعديل السعر"),
             content:  Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -2507,7 +2547,7 @@ TextEditingController drname=TextEditingController();
  borderRadius: BorderRadius.circular(10)
 
                         ),
-                        labelText: "مضاعفة الطلب",
+                        labelText: "السعر",
                       ),
                     ),
                   ),

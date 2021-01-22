@@ -229,6 +229,14 @@ return Container(
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
 children: [
+    Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Text("رقم الطلب: ${ord['id']}",
+    style: TextStyle(color: Colors.white,
+    fontWeight: FontWeight.bold),
+    ),
+  ),
+  Divider(color: Colors.white,),
   Padding(
     padding: const EdgeInsets.all(14.0),
     child: Text("رقم الهاتف: ${ord['phone']}",

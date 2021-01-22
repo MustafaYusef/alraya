@@ -401,7 +401,14 @@ color: Colors.white,
                ListTile(
                  onTap: (){
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                   Collectorsorders(),);}));
+                   Collectorsorders(),);})).then((value) {
+                      orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
+                   });
                    
                  },
                  leading: Icon(Icons.history),
@@ -427,7 +434,7 @@ color: Colors.white,
               //    leading: Icon(Icons.chat_outlined),
               //    title: Text("سجل المحادثات"),
               //  ),
-                  Divider(),
+             if(role==3)     Divider(),
                  ListTile(
                    onTap: (){
                      setState(() {
@@ -668,7 +675,7 @@ bool timeout=false;
 
   getOrdId(orid,man) async {
   
-
+timeout=false;
 
   setState(() {
     // loading=true;
@@ -687,10 +694,22 @@ bool timeout=false;
         loading = false;
         timeout = true;
       });
-      Navigator.pop(context);
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+    
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+   
+      });
+      timeout=true;
       return;
     });
-
      if (timeout) return;
     var pres = json.decode(res.body);
     print(pres);
