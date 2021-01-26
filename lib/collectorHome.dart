@@ -117,6 +117,8 @@ right: 10,
                             alignment: Alignment.centerLeft,
                             child: Stack(
                               children: [
+
+
                                 Image.asset(
                                   "assets/grad.png",
                                   height: 38,),
@@ -154,7 +156,14 @@ left: 10,
                            ), onTap: (){
 // Navigator.pop(context);
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-Notfs(notf: prof['notification'],),);}));
+Notfs(notf: prof['notification'],),);})).then((value){
+     orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
+});
 
 
                                     }),
@@ -377,6 +386,16 @@ color: Colors.white,
 
             ],),
           ),
+        if(menu)  Positioned.fill(
+child: InkWell(
+  onTap: (){
+    setState(() {
+      
+      menu=false;
+    });
+  },
+),
+          ),
        AnimatedPositioned(
          duration: Duration(milliseconds: 200),
          bottom: 0,
@@ -400,6 +419,10 @@ color: Colors.white,
                SizedBox(height: 15,),
                ListTile(
                  onTap: (){
+                    setState(() {
+      
+      menu=false;
+    });
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
                    Collectorsorders(),);})).then((value) {
                       orders=[];
@@ -422,8 +445,19 @@ color: Colors.white,
                   Divider(),
             if(role==3)        ListTile(
                  onTap: (){
+                    setState(() {
+      
+      menu=false;
+    });
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                   GovOrders(),);}));
+                   GovOrders(),);})).then((value) {
+                        orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
+                   });
                    
                  },
                  leading: Icon(Icons.history),
@@ -437,6 +471,9 @@ color: Colors.white,
              if(role==3)     Divider(),
                  ListTile(
                    onTap: (){
+      
+      menu=false;
+  
                      setState(() {
                        token=null;
                        role=null;
@@ -597,7 +634,14 @@ children: [
       
                                     onPressed: (){
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-ClientOrders(cl: ord,),);}));
+ClientOrders(cl: ord,),);})).then((value) {
+   orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
+});
 
       
       // signIn();
@@ -640,7 +684,14 @@ ClientOrders(cl: ord,),);}));
 
                                     onPressed: (){
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-ClientLoc(client: ord,),);}));
+ClientLoc(client: ord,),);})).then((value) {
+     orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
+});
 
       
       // signIn();
@@ -696,7 +747,12 @@ timeout=false;
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-    
+       orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
       });
       return;
     }).catchError((e){
@@ -705,7 +761,12 @@ timeout=false;
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-   
+      orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
       });
       timeout=true;
       return;
@@ -790,6 +851,12 @@ timeout=false;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
+           orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
       });
       return;
     }).catchError((e){
@@ -798,6 +865,12 @@ timeout=false;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
+           orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
       });
       timeout=true;
       return;

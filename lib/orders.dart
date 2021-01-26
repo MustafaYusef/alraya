@@ -321,9 +321,20 @@ color: Colors.white,
                     ),
                   ) ,),
                 ),
-          if(!loading)   ...orders.map((e){
-               return orderModel(e);
-             }).toList(),
+           if  ( orders.length>0  )...orders.map((e){
+                 return orderModel(e);
+               }).toList(),
+
+                if  ( orders.length<=0 &&!loading )
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Center(
+                    child: Text("لا توجد بيانات",style: TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.bold
+                    ,fontSize: 18
+                    )),
+                  ),
+                ),
 if(loading)
 Padding(
   padding: const EdgeInsets.only(
@@ -386,7 +397,7 @@ children: [
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text(" الحالة: ${ord['status']}",
+    child: Text(" الحالة: ${statobj[ord['status']]}",
     style: TextStyle(color: Colors.white,
     fontWeight: FontWeight.bold),
     ),

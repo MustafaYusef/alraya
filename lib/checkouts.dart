@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'main.dart';
+import 'nonet.dart';
 
 _launchURL(url) async {
   // const url = 'https://flutter.dev';
@@ -280,8 +281,8 @@ children: [
     fontWeight: FontWeight.bold),
     ),
   ),
-   Divider(color: Colors.white,),
-      Padding(
+  if(role!=0) Divider(color: Colors.white,),
+  if(role!=0)     Padding(
     padding: const EdgeInsets.all(14.0),
     child: Text("نسبة الاستقطاع: ${ord['percent']}",
     style: TextStyle(color: Colors.white,
@@ -412,15 +413,38 @@ orders=[];
 var res= 
 await http.get(
   link,headers: {"Authorization":token}
-).timeout(
-Duration(seconds: 45,),onTimeout:(){
-setState(() {
-  timeout=true;
-loading=false;
-});
-return ;
-}
-);
+).timeout(Duration(seconds: 30), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        getOrders(true);
+         orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+               orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+      
+        getOrders(true);
+      });
+      timeout=true;
+      return;
+    });
 if(timeout)
 return;
  if(first)

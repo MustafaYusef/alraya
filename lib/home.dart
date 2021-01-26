@@ -233,6 +233,14 @@ Notfs(notf: prof['notification'],),);}));
           
            child: Image.asset('assets/dc.png'),
           ),
+          if(menu)
+          Positioned.fill(
+child: InkWell(onTap: (){
+  setState(() {
+    menu=false;
+  });
+},),
+          ),
        AnimatedPositioned(
          duration: Duration(milliseconds: 200),
          bottom: 0,
@@ -256,6 +264,9 @@ Notfs(notf: prof['notification'],),);}));
                SizedBox(height: 15,),
                ListTile(
                  onTap: (){
+                   setState(() {
+                     menu=false;
+                   });
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
                    Orders(),);}));
                    
@@ -266,6 +277,9 @@ Notfs(notf: prof['notification'],),);}));
                Divider(),
                 ListTile(
                  onTap: (){
+                       setState(() {
+                     menu=false;
+                   });
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
                    Orders(status: "finished",),);}));
                    
@@ -275,6 +289,9 @@ Notfs(notf: prof['notification'],),);}));
                ),
                       ListTile(
                  onTap: (){
+                       setState(() {
+                     menu=false;
+                   });
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
                    Orders(status: "rejected_client",),);}));
                    
@@ -286,6 +303,9 @@ Notfs(notf: prof['notification'],),);}));
                Divider(),
                    ListTile(
                  onTap: (){
+                       setState(() {
+                     menu=false;
+                   });
                    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
                    Checkouts(),);}));
                    
@@ -304,6 +324,7 @@ Notfs(notf: prof['notification'],),);}));
                      setState(() {
                        token=null;
                        role=null;
+                       menu=false;
                      });
                      SharedPreferences.getInstance().then((s) {
      s.setString('token', null);

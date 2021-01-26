@@ -6,6 +6,8 @@ import 'package:sunmi_thermal_printer_example/succes.dart';
 
 import 'main.dart';
 import 'package:flutter/material.dart';
+
+import 'nonet.dart';
 //AIzaSyAbZOvdb_fUdBlC_ER2JpzhtQSwXN-NwGg
 class AddOrder extends StatefulWidget {
   @override
@@ -909,7 +911,7 @@ next();
 bool timeout=false;
 
   next() async {
-   
+   timeout=false;
     FocusScope.of(context).requestFocus(
 new FocusNode()
     );
@@ -1023,11 +1025,24 @@ return;
             headers: {
               "Authorization":token
             },
-        body:_bod).timeout(Duration(seconds: 30), onTimeout: () {
+        body:_bod).timeout(Duration(seconds: 25), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+     
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+       
+      });
+      timeout=true;
       return;
     });
 
