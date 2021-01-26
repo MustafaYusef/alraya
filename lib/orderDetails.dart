@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'main.dart';
 import 'package:flutter/material.dart';
+
+import 'nonet.dart';
 //AIzaSyAbZOvdb_fUdBlC_ER2JpzhtQSwXN-NwGg
 class OrderDetails extends StatefulWidget {
   final order;
@@ -1929,6 +1931,7 @@ sc                                  ),
 bool timeout=false;
 
   edit() async {
+    timeout=false;
     if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -1964,14 +1967,27 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-        body:_bod).timeout(Duration(seconds: 30), onTimeout: () {
+        body:_bod).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
-
      if (timeout) return;
     var pres = json.decode(res.body);
     print(pres);
@@ -2000,6 +2016,7 @@ new FocusNode()
 
 bool priceloading=false;
   editprice() async {
+    timeout=false;
     if(loading||loading2||priceloading)
      return;
     FocusScope.of(context).requestFocus(
@@ -2029,11 +2046,25 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-        body:_bod).timeout(Duration(seconds: 30), onTimeout: () {
+        body:_bod).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
         priceloading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
 
@@ -2064,6 +2095,7 @@ new FocusNode()
 
 
    cancelord() async {
+     timeout=false;
      if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -2089,11 +2121,25 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-      ).timeout(Duration(seconds: 30), onTimeout: () {
+      ).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
 
@@ -2124,6 +2170,7 @@ new FocusNode()
 
 
 collectorsubmitostore() async {
+  timeout=false;
      if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -2149,11 +2196,25 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-      ).timeout(Duration(seconds: 30), onTimeout: () {
+      ).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
 
@@ -2184,6 +2245,7 @@ Navigator.pop(context);
 
 
 collectorrejectedostore() async {
+  timeout=false;
      if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -2209,11 +2271,25 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-      ).timeout(Duration(seconds: 30), onTimeout: () {
+      ).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
 
@@ -2307,6 +2383,7 @@ Navigator.pop(context);
 
 ///driver submit tasleem
   submit() async {
+    timeout=false;
      if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -2332,11 +2409,25 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-      ).timeout(Duration(seconds: 30), onTimeout: () {
+      ).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
 
@@ -2369,6 +2460,7 @@ Navigator.pop(context);
 
 
  printb(mul) async {
+   timeout=false;
      if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -2398,11 +2490,25 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-      ).timeout(Duration(seconds: 30), onTimeout: () {
+      ).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
 
@@ -2412,9 +2518,9 @@ new FocusNode()
 
 
    
-mprint(or);
     if (res.statusCode==201) {
-    
+    mprint(or);
+
 
 // mprint(or);
      Scaffold.of(b).showSnackBar(
@@ -2434,6 +2540,7 @@ Navigator.pop(context);
   
 ///driver reject rajee
   rejectord() async {
+    timeout=false;
      if(loading||loading2)
      return;
     FocusScope.of(context).requestFocus(
@@ -2471,11 +2578,25 @@ new FocusNode()
             headers: {
               "Authorization":token
             },
-      ).timeout(Duration(seconds: 30), onTimeout: () {
+      ).timeout(Duration(seconds: 20), onTimeout: () {
       setState(() {
-        loading2 = false;
+        loading = false;
         timeout = true;
       });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+      
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+              
+      });
+      timeout=true;
       return;
     });
 

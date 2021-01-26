@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import 'package:http/http.dart' as http;
@@ -13,6 +14,7 @@ import 'package:sunmi_thermal_printer_example/nonet.dart';
 import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
 import 'main.dart';
 import 'orderDetails.dart';
@@ -26,6 +28,15 @@ class CollectorHome extends StatefulWidget {
 
 var prof;
 class _CollectorHomeState extends State<CollectorHome> {
+
+_launchURL(url) async {
+  // const url = 'https://flutter.dev';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
    ScrollController scr=ScrollController();
 bool search=false;
@@ -380,9 +391,26 @@ color: Colors.white,
                     ),
                   ) ,),
                 ),
-             ...orders.map((e){
-               return orderModel(e);
-             }).toList()
+          if(loading) 
+      Center(
+          child: CircularProgressIndicator(
+valueColor: AlwaysStoppedAnimation(Colors.white),
+          ),
+      ),
+      if  ( orders.length>0  )...orders.map((e){
+                 return orderModel(e);
+               }).toList(),
+
+                if  ( orders.length<=0 &&!loading )
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Center(
+                    child: Text("لا توجد بيانات",style: TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.bold
+                    ,fontSize: 18
+                    )),
+                  ),
+                )
 
             ],),
           ),
@@ -568,11 +596,86 @@ children: [
     ),
   ),
   Divider(color: Colors.white,),
-  Padding(
-    padding: const EdgeInsets.all(14.0),
-    child: Text("${ord['phone']}",
-    style: TextStyle(color: Colors.white,
-    fontWeight: FontWeight.bold),
+  Container(
+    width: double.maxFinite,
+    child: Stack(
+      children: [
+        Padding(
+         padding: const EdgeInsets.all(14.0),
+          child: Text("${ord['phone']}",
+          style: TextStyle(color: Colors.white,
+          fontWeight: FontWeight.bold),
+          ),
+        ),
+         Positioned(
+left: 0,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.message),
+                                        onPressed: (){
+
+                                          var xl;
+                                        
+                                             var pho=ord['phone'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+    print(true);
+    if(pho.startsWith("0"))
+    {
+    pho=pho.replaceFirst("0", "");
+    }
+    pho="+964"+pho;
+    // print(phone.text);
+    // Scaffold.of(b).showSnackBar(
+    // SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+    // return;
+}
+     if (Platform.isAndroid) {
+      // add the [https]
+      xl= "https://wa.me/$pho/?text= "; // new line
+    } else {
+      // add the [https]
+      xl= "https://api.whatsapp.com/send?phone=$pho&text= "; // new line
+    }
+    _launchURL(xl);
+                                        },
+                                        ),
+                                      ),
+
+                                        Positioned(
+left: 40,
+top: 0,
+bottom: 0,
+                                        child: IconButton(color: Colors.white,
+                                        icon: Icon(Icons.call),
+                                        onPressed: (){
+
+ var pho=ord['phone'];
+if(!pho.startsWith("00964"))
+{
+pho=pho.replaceFirst("00", "+");
+}
+print(pho);
+    if(!pho.startsWith("+964"))
+{
+    print(true);
+    if(pho.startsWith("0"))
+    {
+    pho=pho.replaceFirst("0", "");
+    }
+    pho="+964"+pho;
+}
+                                        _launchURL("tel:$pho");
+                                        },
+                                        ),
+                                      )
+      ],
     ),
   ),
   Divider(color: Colors.white,),
