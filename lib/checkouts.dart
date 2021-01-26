@@ -210,9 +210,26 @@ color: Colors.white,
                         ),
                       ) ,),
                     ),
+                         if(loading) 
+      Center(
+          child: CircularProgressIndicator(
+valueColor: AlwaysStoppedAnimation(Colors.white),
+          ),
+      ),
+      if  ( orders.length>0  )
                  ...orders.map((e){
                    return orderModel(e);
-                 }).toList()
+                 }).toList(),
+                 if  ( orders.length<=0 &&!loading )
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Center(
+                    child: Text("لا توجد بيانات",style: TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.bold
+                    ,fontSize: 18
+                    )),
+                  ),
+                )
 
                 ],),
               )

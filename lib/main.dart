@@ -19,6 +19,27 @@ var token;
 var role;
 var is_Active;
 
+var statobj={
+
+  "watting":'انتظار',
+
+"driver":'مع سائق',
+ 'collector':'مع جامع الطلبات',
+ 'collected':'تم جمع الطلب',
+'set_shippng_pirce':'تحديد سعر التوصيل',
+"store":"تم تسلم الطلب الى المكتب من قبل الجامع",
+"delivered":"تم تسلمه اللى الزبون",
+"finished":"انتهى" ,
+"canceled":"تم الالغاء الطلب",
+ "rejected": "تم رفض الطلب من الزبون",
+ "rejected_store":"راجع في المخزن",
+   'to_secend_store':"في الطريق الى المكتب الثاني",
+ 'in_secend_store':"في المخزن الثاني",
+ 'rejected_store_in_secend_store':"راجع في المخزن الثاني",
+'return_from_secend_store':  "راجع في الطريق الى مكتب الرئيسي",
+"secend_driver":  "مع سائق الثاني",
+ "rejected_client": "الراجع"
+};
 String host=
 "https://alraai.altathamun.com"
 ;
@@ -67,6 +88,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "الراية للتوصيل السريع",
 home: Directionality(
   textDirection: TextDirection.rtl,
   child: SignIn()),
@@ -178,9 +200,9 @@ List<int> values = imageBytes.buffer.asUint8List();
            ..printLR('المدينة', '${prn['city']}')
 ..printLR('العنوان', '${prn['address']}')
 ..printLR('السعر مع التوصيل', '${prn['price']}')
-..divider('${prn['notes']}')
+..divider()
 ..printCenter("ملاحظات")
-..printRight()
+..printRight('${prn['notes']}')
 ..divider()
 ..printLR('اسم العميل', '${prn['client']['name']}')
 ..printLR('رقم الهاتف', '${prn['client']['phone']}')

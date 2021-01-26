@@ -92,7 +92,7 @@ var or;
 
  notes.text="${or['notes']}";
   orderid.text="${or['id']}";
- orderstate.text="${or['status']}";
+ orderstate.text="${statobj[or['status']]}";
 editible=role==0;
 
   }
@@ -1672,7 +1672,7 @@ SizedBox(
   height: 20,
 ),
    if(role==2||role==3
-                   &&or['status']=='watting'
+                   &&(or['status']=='watting')
                     )                  MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
@@ -1696,7 +1696,7 @@ showmodal(context);
                                   valueColor: AlwaysStoppedAnimation(
 sc                                  ),
                                 ):
-                                 Text("طباعة مع تعديل السعر",
+                                 Text("طباعة مع تعديل التوصيل",
                                  style: TextStyle(
                                     color: sc,
                                     fontWeight: FontWeight.bold,

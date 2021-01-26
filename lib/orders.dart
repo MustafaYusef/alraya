@@ -541,8 +541,15 @@ await http.get(
     }).catchError((e){
       print(e);
       print('error');
+      
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
+               orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+      
         getOrders(true);
       });
       timeout=true;
