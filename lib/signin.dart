@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:sunmi_thermal_printer_example/Signup.dart';
 import 'package:sunmi_thermal_printer_example/driverHome.dart';
 import 'package:sunmi_thermal_printer_example/home.dart';
 import 'package:sunmi_thermal_printer_example/nonet.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'main.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +20,8 @@ class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
 }
-
+FirebaseMessaging messaging;
+var fcm;
 class _SignInState extends State<SignIn> {
 
   TextEditingController name=new TextEditingController();
@@ -32,10 +36,40 @@ class _SignInState extends State<SignIn> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Firebase.initializeApp().then((value) {
+    messaging = FirebaseMessaging.instance;
+    if(Platform.isIOS)
+initmsg();
+else
+{
+  messaging.getToken(
+
+  ).then((value) {
+    fcm=value;
+  });
+}
+    });
 checknet();
  
   }
+  
+initmsg()async{
+  NotificationSettings settings = await messaging.requestPermission(
+  alert: true,
+  announcement: false,
+  badge: true,
+  carPlay: false,
+  criticalAlert: false,
+  provisional: false,
+  sound: true,
+);
+ messaging.getToken(
 
+  ).then((value) {
+    fcm=value;
+  });
+print('User granted permission: ${settings.authorizationStatus}');
+}
   checknet() async {
 //     var connectivityResult = await (Connectivity().checkConnectivity());
 
@@ -325,7 +359,7 @@ return;
 //     SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
 // }
 
-
+print(fcm);
 print("sign");
      if (!formKey.currentState.validate()) {
       // If the form is valid, display a snackbar. In the real world,
@@ -357,7 +391,7 @@ print("sign");
         body: {
           "phone": "${name.text}",
           "password": pass.text,
-         "player_id": "a"
+         "player_id": "$fcm"
         }).timeout(Duration(seconds: 30), onTimeout: () {
           print("time");
       setState(() {

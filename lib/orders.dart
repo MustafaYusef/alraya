@@ -534,7 +534,7 @@ if(search&&searchc.text.length>0)
 var res= 
 await http.get(
   link,headers: {"Authorization":token}
-).timeout(Duration(seconds: 30), onTimeout: () {
+).timeout(Duration(seconds: 25), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;

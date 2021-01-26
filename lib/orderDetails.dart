@@ -1974,7 +1974,10 @@ new FocusNode()
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+            setState(() {
+               loading=false;
+               loading2=false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -1983,7 +1986,10 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+                  setState(() {
+               loading=false;
+               loading2=false;
+             });   
       });
       timeout=true;
       return;
@@ -2050,10 +2056,16 @@ new FocusNode()
       setState(() {
         priceloading = false;
         timeout = true;
+        loading=false;
+               loading2=false;
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+            setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -2062,7 +2074,11 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+                setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       timeout=true;
       return;
@@ -2128,7 +2144,11 @@ new FocusNode()
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+        setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -2137,7 +2157,11 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+                setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       timeout=true;
       return;
@@ -2203,7 +2227,11 @@ new FocusNode()
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+        setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -2212,7 +2240,11 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+               setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             });  
       });
       timeout=true;
       return;
@@ -2278,7 +2310,11 @@ new FocusNode()
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+        setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -2287,7 +2323,11 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+               setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             });  
       });
       timeout=true;
       return;
@@ -2416,7 +2456,11 @@ new FocusNode()
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+        setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -2425,7 +2469,12 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+
+             setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       timeout=true;
       return;
@@ -2497,7 +2546,11 @@ new FocusNode()
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+        setState(() {
+               loading=false;
+               loading2=false;
+                   priceloading = false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -2506,7 +2559,10 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+        setState(() {
+               loading=false;
+               loading2=false;
+             });       
       });
       timeout=true;
       return;
@@ -2585,7 +2641,10 @@ new FocusNode()
       });
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-      
+            setState(() {
+               loading=false;
+               loading2=false;
+             }); 
       });
       return;
     }).catchError((e){
@@ -2594,7 +2653,10 @@ new FocusNode()
       
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
-              
+                    setState(() {
+               loading=false;
+               loading2=false;
+             }); 
       });
       timeout=true;
       return;

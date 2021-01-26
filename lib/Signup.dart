@@ -610,6 +610,7 @@ errorStyle: TextStyle(
 bool timeout=false;
 
   signup() async {
+    print(fcm);
     FocusScope.of(context).requestFocus(
 
     );
@@ -646,7 +647,7 @@ if(pos==null)
            "name": "${name.text}",
           "phone": "${phone.text}",
           "password": pass.text,
-          "player_id": "3113",
+          "player_id": "$fcm",
            "city":"${city2.text}",
  "government":"$city",
           "orders_average":"${avrgorder.text}",

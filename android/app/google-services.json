@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660271146451",
+    "project_id": "alraya-302812",
+    "storage_bucket": "alraya-302812.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660271146451:android:9ea445aa4df7868145fb26",
+        "android_client_info": {
+          "package_name": "com.croczi.alraya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660271146451-k5cr61ke1etmmioqe3smf3a35iq1qghl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_L2ssdyQ4tD9lkSpJ5TjDu-A-zpjIiQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660271146451-k5cr61ke1etmmioqe3smf3a35iq1qghl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

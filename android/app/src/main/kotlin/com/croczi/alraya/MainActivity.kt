@@ -1,4 +1,4 @@
-package my.trilobyte.sunmi_thermal_printer_example
+package com.croczi.alraya
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
