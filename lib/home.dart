@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/addOrder.dart';
+import 'package:sunmi_thermal_printer_example/chats.dart';
 import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
@@ -247,7 +248,7 @@ child: InkWell(onTap: (){
          left: 0,
          right: 0,
          height:menu? 
-        350
+        420
          :0,
          child: Container(
            child:Material(
@@ -313,11 +314,16 @@ child: InkWell(onTap: (){
                  leading: Icon(Icons.list),
                  title: Text("الحسابات"),
                ),
-              //  Divider(),
-              //    ListTile(
-              //    leading: Icon(Icons.chat_outlined),
-              //    title: Text("سجل المحادثات"),
-              //  ),
+               Divider(),
+                 ListTile(
+                   onTap: (){
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     Chats(),);}));
+                     
+                   },
+                 leading: Icon(Icons.chat_outlined),
+                 title: Text("سجل المحادثات"),
+               ),
                   Divider(),
                  ListTile(
                    onTap: (){

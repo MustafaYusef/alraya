@@ -8,7 +8,9 @@ import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
+import 'chats.dart';
 import 'checkouts.dart';
+import 'loading.dart';
 import 'main.dart';
 import 'nonet.dart';
 import 'orderDetails.dart';
@@ -58,7 +60,9 @@ print(orders.length);
     print(is_Active);
     return Scaffold(
 
-      body: Container(
+      body:false?
+      Splash() :
+      Container(
         height: double.infinity,
         color: mc,
         child: InkWell(
@@ -453,11 +457,16 @@ valueColor: AlwaysStoppedAnimation(Colors.white),
                      leading: Icon(Icons.history),
                      title: Text("سجل الطلبات المنجزة"),
                    ),
-                  //  Divider(),
-                  //    ListTile(
-                  //    leading: Icon(Icons.chat_outlined),
-                  //    title: Text("سجل المحادثات"),
-                  //  ),
+                   Divider(),
+                     ListTile(
+                       onTap: (){
+                         Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                         Chats(),);}));
+                         
+                       },
+                     leading: Icon(Icons.chat_outlined),
+                     title: Text("سجل المحادثات"),
+                   ),
                                   Divider(),
 
                              ListTile(
@@ -801,7 +810,7 @@ timeout=false;
             headers: {
               "Authorization":token
             },
-       ).timeout(Duration(seconds: 3), onTimeout: () {
+       ).timeout(Duration(seconds: 15), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
