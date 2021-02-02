@@ -816,7 +816,8 @@ timeout=false;
         timeout = true;
       });
         print("timeout!");
-
+if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
@@ -825,6 +826,8 @@ timeout=false;
     }).catchError((e){
       print(e);
       print('error');
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
@@ -939,6 +942,8 @@ await http.get(
         loading = false;
         timeout = true;
       });
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getOrders(true);
@@ -952,7 +957,8 @@ await http.get(
     }).catchError((e){
       print(e);
       print('error');
-      
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
                orders=[];

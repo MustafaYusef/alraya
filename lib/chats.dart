@@ -31,7 +31,6 @@ IO.Socket socket;
   void initState() {
     // TODO: implement initState
     super.initState();
-
   getOrders(true);
       scr.addListener((){
 if(scr.offset>= scr.position.maxScrollExtent)
@@ -71,7 +70,24 @@ print(data);
 print('error');
  });
  socket.onConnectTimeout((data) {
+   if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
 print(data);
+print("time outtt");
+
+Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+NoNet(),);})
+).then((value) {
+   orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+      
+        getOrders(true);
+  socket.connect();
+});
+
 print('timeout');
  });
  
@@ -134,6 +150,8 @@ socket.dispose();  }
   var ind=0;
   @override
   Widget build(BuildContext context) {
+    // print(ModalRoute.of(context).);
+ 
     // print("s${socket.disconnected}"); 
     // if(socket.disconnected)
     // {
@@ -652,6 +670,8 @@ await http.get(
         loading = false;
         timeout = true;
       });
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getOrders(true);
@@ -665,7 +685,8 @@ await http.get(
     }).catchError((e){
       print(e);
       print('error');
-      
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
                orders=[];
