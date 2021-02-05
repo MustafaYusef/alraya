@@ -686,7 +686,7 @@ return;
       print(e);
       print('error');
       if(!mounted||!ModalRoute.of(context).isCurrent)
-return;
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
                orders=[];
@@ -698,7 +698,7 @@ return;
         getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
 if(timeout)
 return;

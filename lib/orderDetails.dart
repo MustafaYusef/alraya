@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:sunmi_thermal_printer_example/addorder2.dart';
+import 'package:sunmi_thermal_printer_example/chats.dart';
 import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/driverreject.dart';
 import 'package:sunmi_thermal_printer_example/succes.dart';
@@ -1738,7 +1739,46 @@ sc                                  ),
                                 ),
                                 ),
 SizedBox(
-  height: 30,
+  height: 0,
+),
+
+                     if(role==1&&or['status']=='watting')     
+                                  MaterialButton(
+                                  minWidth: double.infinity,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.circular(100),
+                                      top: Radius.circular(100)
+                                    )
+                                  ),
+                                  height: 60,
+                                  color: Colors.white,
+                                  onPressed: (){
+// signIn();
+// cancelord();
+// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// AddOrder2(),);}));
+rejectord();
+//to do 
+
+
+                                },child:
+                                loading2?
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+sc                                  ),
+                                ):
+                                 Text("راجع",
+                                 style: TextStyle(
+                                    color: sc,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),
+                                ),),
+
+                                  SizedBox(
+  height: 15,
 ),
 
                      if(role==1&&(or['status']=='watting'||or['status']=='driver'))     
@@ -1758,7 +1798,8 @@ SizedBox(
 // cancelord();
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // AddOrder2(),);}));
-rejectord();
+msgdialog(context);
+// rejectord();
 
                                 },child:
                                 loading2?
@@ -1766,15 +1807,13 @@ rejectord();
                                   valueColor: AlwaysStoppedAnimation(
 sc                                  ),
                                 ):
-                                 Text("راجع",
+                                 Text("بدأ محادثة",
                                  style: TextStyle(
                                     color: sc,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18
                                   ),
                                 ),),
-
-                                  
                           
                                              if(role==3&&
                                      (or['status']=='rejected_store'
@@ -1992,7 +2031,7 @@ new FocusNode()
              });   
       });
       timeout=true;
-      return;
+      return 1;
     });
      if (timeout) return;
     var pres = json.decode(res.body);
@@ -2081,7 +2120,7 @@ new FocusNode()
              }); 
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -2164,7 +2203,7 @@ new FocusNode()
              }); 
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -2247,7 +2286,7 @@ new FocusNode()
              });  
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -2330,7 +2369,7 @@ new FocusNode()
              });  
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -2477,7 +2516,7 @@ new FocusNode()
              }); 
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -2565,7 +2604,7 @@ new FocusNode()
              });       
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -2659,7 +2698,7 @@ new FocusNode()
              }); 
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -2871,5 +2910,202 @@ Navigator.of(context).pop();
                });
   }
 
+
+
+
+
+TextEditingController msgc=TextEditingController();
+bool loadingmsg=false;
+  msgdialog(c,){
+             showDialog(context: c,
+                builder: (context) {
+   // String contentText = "Content of Dialog";
+    return StatefulBuilder(
+      builder: (context, st) {
+        return SizedBox(
+          height: 200,
+          child: AlertDialog(
+            
+            title: Text("بدأ محادثة"),
+            content:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+            
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10),
+                    child: TextField(
+                     // maxLines: 6,
+                      //minLines: 2,
+                    
+                      controller: msgc,
+                   
+                    // keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                           disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                        border: OutlineInputBorder(
+ borderRadius: BorderRadius.circular(10)
+
+                        ),
+                        labelText: "الرسالة",
+                      ),
+                    ),
+                  ),
+
+            
+              ],
+            ), 
+            actions: <Widget>[
+              FlatButton(
+                textColor: mc,
+                onPressed: () => Navigator.pop(context),
+                child: Text("الغاء"),
+              ),
+              FlatButton(
+                
+                onPressed: () {
+                  // if(loading2)
+                  // return;
+
+             
+                  st(() {
+                    // loading2=true;
+                  });
+              // transfare(drname.text, drphone.text, gov);
+
+// printb(drname.text);
+  if(msgc.text.length<=0)
+        return;
+        sendmsg("${msgc.text}");
+        setState(() {
+       
+          msgc.text="";
+
+        });
+          st(() {
+            loadingmsg=true;
+                    
+                  });
+        // Navigator.of(context).pop();
+           
+                
+                },
+                textColor: sc,
+                child:loadingmsg? 
+                CircularProgressIndicator(
+               valueColor: AlwaysStoppedAnimation(mc),   
+                ):
+                Text(
+                // loadingmsg?"جار الارسال...":
+                  "ارسال"),
+              ),
+            ],
+          ),
+        );
+      },
+                                 );
+                 
+               });
+  }
+
+  sendmsg(msg) async {
+    timeout=false;
+     if(loading)
+     return;
+//     FocusScope.of(context).requestFocus(
+// new FocusNode()
+//     );
+
+    // if (!formKey.currentState.validate()) {
+    //   // If the form is valid, display a snackbar. In the real world,
+    //   // you'd often call a server or save the information in a database.
+
   
+    // return;
+    // }
+
+  // setState(() {
+  //   // loading=true;
+
+  // });
+  print(or['client']);
+  
+//  print({or['client']['name']['id']});
+  var res = await http.post(
+          //  "$host/users/auth/new"
+            "$host/users/chat/"
+            ,
+            headers: {
+              "Authorization":token
+            },
+            body: {
+              "msg":"$msg",
+              "user_id":"${or['client']['id']}"
+            }
+      ).timeout(Duration(seconds: 20), onTimeout: () {
+      setState(() {
+        loading = false;
+        timeout = true;
+      });
+       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+        setState(() {
+               loading=false;
+            loadingmsg=false;
+             }); 
+      });
+      return;
+    }).catchError((e){
+      print(e);
+      print('error');
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
+            loadingmsg=false;
+
+             setState(() {
+               loading=false;
+              //  loading2=false;
+              //      priceloading = false;
+             }); 
+      });
+      timeout=true;
+      return 1;
+    });
+
+     if (timeout) return;
+    var pres = json.decode(res.body);
+    print(pres);
+
+
+   
+loadingmsg=false;
+
+    if (res.statusCode==201) {
+  
+Navigator.pop(context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres['data']["msg"]),));
+// Navigator.pop(context);
+Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+    Chats(),);}));
+
+    } else {
+     Navigator.pop(context);
+    //  EDailog.errorDialog(pres["message"], false, context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    }
+    setState(() {
+      loading = false;
+    });
+
+  }
 }

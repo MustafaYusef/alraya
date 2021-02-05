@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/addOrder.dart';
+import 'package:sunmi_thermal_printer_example/chats.dart';
 import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/clientORders.dart';
 import 'package:sunmi_thermal_printer_example/collectorsorders.dart';
@@ -430,7 +431,7 @@ child: InkWell(
          left: 0,
          right: 0,
          height:menu? 
-        role==3?250: 180
+        role==3?285: 215
          :0,
          child: Container(
            child:Material(
@@ -465,11 +466,16 @@ child: InkWell(
                  leading: Icon(Icons.history),
                  title: Text("طلبات تم جمعها"),
                ),
-              //  Divider(),
-              //    ListTile(
-              //    leading: Icon(Icons.chat_outlined),
-              //    title: Text("سجل المحادثات"),
-              //  ),
+               Divider(),
+                 ListTile(
+                   onTap: (){
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     Chats(),);}));
+                     
+                   },
+                 leading: Icon(Icons.chat_outlined),
+                 title: Text("سجل المحادثات"),
+               ),
                   Divider(),
             if(role==3)        ListTile(
                  onTap: (){
@@ -864,7 +870,7 @@ return;
       print(e);
       print('error');
       if(!mounted||!ModalRoute.of(context).isCurrent)
-return;
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
       orders=[];
@@ -875,7 +881,7 @@ return;
  getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
      if (timeout) return;
     var pres = json.decode(res.body);
@@ -971,7 +977,7 @@ return;
       print(e);
       print('error');
       if(!mounted||!ModalRoute.of(context).isCurrent)
-return;
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
@@ -983,7 +989,7 @@ return;
  getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -1107,7 +1113,7 @@ return;
       print(e);
       print('error');
       if(!mounted||!ModalRoute.of(context).isCurrent)
-return;
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
                orders=[];
@@ -1119,7 +1125,7 @@ return;
         getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
 if(timeout)
 return;

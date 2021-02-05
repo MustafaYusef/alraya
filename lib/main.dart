@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'package:sunmi_thermal_printer/sunmi_thermal_printer.dart';
+import 'package:sunmi_thermal_printer_example/loading.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 
 Color sc=Color(0xFF003B4B);
@@ -63,6 +64,17 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initPlatformState();
     pr=mprint;
+    Future.delayed(const Duration(milliseconds: 3500), () {
+
+// Here you can write your code
+
+  setState(() {
+    del=false;
+    // print(del);
+    // Here you can write your code for open new view
+  });
+
+});
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -84,14 +96,23 @@ class _MyAppState extends State<MyApp> {
       _platformVersion = platformVersion;
     });
   }
-
+bool del=true;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "الراية للتوصيل السريع",
 home: Directionality(
   textDirection: TextDirection.rtl,
-  child: SignIn()),
+  child: Stack(
+    children: [
+      // Splash(),
+
+     (!del)? SignIn()
+     :
+
+Splash()
+    ],
+  )),
 
     );
        

@@ -681,7 +681,7 @@ await http.get(
         getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
 if(timeout)
 return;
@@ -763,7 +763,7 @@ sendmsg(msg) async {
              }); 
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;

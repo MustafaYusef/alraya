@@ -9,6 +9,7 @@ import 'package:sunmi_thermal_printer_example/home.dart';
 import 'package:sunmi_thermal_printer_example/nonet.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import 'loading.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -92,8 +93,11 @@ print('User granted permission: ${settings.authorizationStatus}');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: sc,
       resizeToAvoidBottomInset: false,
-          body:  Builder(
+          body:gettingUser?Container(
+            color: sc,
+          ):  Builder(
 
         builder: (context) {
           b=context;
@@ -407,6 +411,7 @@ print("sign");
 setState(() {
         loading = false;
         timeout = true;
+        gettingUser=false;
       });
     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
@@ -483,12 +488,13 @@ if(pres['statusCode']==403)
     var _tok = prefs.getString('token');
     role= prefs.getInt('role');
         // is_Active= prefs.getBool('is_Active');
-
+ gettingUser=false;
     // print('Pressed $counter times.');
     if (_tok != null) {
       token = _tok;
       // token="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGhvbmUiOiIxMjM0NTYyIiwiaWF0IjoxNjA3MzM1Nzg1LCJleHAiOjE3MDA2NDc3ODV9.voubH_10pDPogiXpYgGwuO5P3KLUhQC84e_LoorvJj8";
-      
+       gettingUser=false;
+
       role=role;
       // rule= prefs.getInt('role');
       print(token);
@@ -509,12 +515,16 @@ if(pres['statusCode']==403)
            break;
          default:
        }
+      
  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c) {
         return Directionality(textDirection: TextDirection.rtl, 
         child:_home);
       }));
-      gettingUser = false;
+    
     } else {
     print('no user');
+    setState(() {
+      
+    });
     }}
 }

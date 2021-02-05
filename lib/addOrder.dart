@@ -1043,7 +1043,7 @@ return;
        
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
