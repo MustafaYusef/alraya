@@ -8,7 +8,10 @@ import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
+import 'ban.dart';
+import 'chats.dart';
 import 'checkouts.dart';
+import 'loading.dart';
 import 'main.dart';
 import 'nonet.dart';
 import 'orderDetails.dart';
@@ -58,7 +61,10 @@ print(orders.length);
     print(is_Active);
     return Scaffold(
 
-      body: Container(
+      body:
+      // loading?
+      // Splash() :
+      Container(
         height: double.infinity,
         color: mc,
         child: InkWell(
@@ -414,7 +420,7 @@ valueColor: AlwaysStoppedAnimation(Colors.white),
            left: 0,
            right: 0,
            height:menu? 
-           220
+           290
            :0,
            child: Container(
              child:Material(
@@ -453,11 +459,16 @@ valueColor: AlwaysStoppedAnimation(Colors.white),
                      leading: Icon(Icons.history),
                      title: Text("سجل الطلبات المنجزة"),
                    ),
-                  //  Divider(),
-                  //    ListTile(
-                  //    leading: Icon(Icons.chat_outlined),
-                  //    title: Text("سجل المحادثات"),
-                  //  ),
+                   Divider(),
+                     ListTile(
+                       onTap: (){
+                         Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                         Chats(),);}));
+                         
+                       },
+                     leading: Icon(Icons.chat_outlined),
+                     title: Text("سجل المحادثات"),
+                   ),
                                   Divider(),
 
                              ListTile(
@@ -801,13 +812,14 @@ timeout=false;
             headers: {
               "Authorization":token
             },
-       ).timeout(Duration(seconds: 3), onTimeout: () {
+       ).timeout(Duration(seconds: 15), onTimeout: () {
       setState(() {
         loading = false;
         timeout = true;
       });
         print("timeout!");
-
+if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
@@ -816,12 +828,14 @@ timeout=false;
     }).catchError((e){
       print(e);
       print('error');
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
       });
       timeout=true;
-      return;
+      return 1;
     });
      if (timeout) return;
     var pres = json.decode(res.body);
@@ -835,6 +849,22 @@ print("done");
   print(prof['is_Active']);
   count=prof['notification'].length;
   is_Active=prof['is_Active'];
+
+  if(prof['is_ban']!=null&&prof['is_ban']==true)
+  {
+  Navigator.of(context).pushAndRemoveUntil(
+
+    MaterialPageRoute(builder: (c){return 
+    Directionality(textDirection: TextDirection.rtl,
+    child:Banned() ,);}),(r)=>false);  }
+  else
+
+  {
+
+  
+        
+ 
+  }
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // Success(),);}));
 
@@ -930,6 +960,8 @@ await http.get(
         loading = false;
         timeout = true;
       });
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getOrders(true);
@@ -943,7 +975,8 @@ await http.get(
     }).catchError((e){
       print(e);
       print('error');
-      
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
                orders=[];
@@ -955,7 +988,7 @@ await http.get(
         getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
 if(timeout)
 return;

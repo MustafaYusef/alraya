@@ -583,91 +583,91 @@ errorStyle: TextStyle(
                                   ),
                                 ),
 
-         Container(
-              margin:    
-           const EdgeInsets.only(
-                                    bottom: 15
-                                  ),
+//          Container(
+//               margin:    
+//            const EdgeInsets.only(
+//                                     bottom: 15
+//                                   ),
 
-              decoration: BoxDecoration(
-                // color: Colors.grey[200]
-                // ,
-                borderRadius: BorderRadius.circular(4),
-                border:Border.all(color: Colors.white,
-                width: 4)
-              ),
-              child:Theme(
-                data: ThemeData(
-                  canvasColor: sc
-                ),
-                              child: Center(
-                  child: DropdownButton<String>(
+//               decoration: BoxDecoration(
+//                 // color: Colors.grey[200]
+//                 // ,
+//                 borderRadius: BorderRadius.circular(4),
+//                 border:Border.all(color: Colors.white,
+//                 width: 4)
+//               ),
+//               child:Theme(
+//                 data: ThemeData(
+//                   canvasColor: sc
+//                 ),
+//                               child: Center(
+//                   child: DropdownButton<String>(
                     
-                    value: shiptype,
-                    icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
-                    iconSize: 24,
-                    elevation: 16,
-                    hint: Text("نوع النقل",
-                      style: TextStyle(color: Colors.white),),
-                    style: TextStyle(color: Colors.white),
-                    underline: Container(height: 1, color: Colors.transparent),
-                    onChanged: (String newValue) {
+//                     value: shiptype,
+//                     icon: Icon(Icons.keyboard_arrow_down,color: Colors.white,),
+//                     iconSize: 24,
+//                     elevation: 16,
+//                     hint: Text("نوع النقل",
+//                       style: TextStyle(color: Colors.white),),
+//                     style: TextStyle(color: Colors.white),
+//                     underline: Container(height: 1, color: Colors.transparent),
+//                     onChanged: (String newValue) {
 
-                      print(newValue=="بغداد");
-                      shiptype = newValue;
-                      var sshipprice=shipingprices.firstWhere((item)=>
-                      item['name']==newValue)['amount'];
-print(sshipprice);
-setState(() {
-  shipprice.text="$sshipprice";
-});
-                      // cities = States.js
-                      //     .firstWhere((item) => item["name"] == newValue)['data'];
-                      setState(() {});
-  //                   if(shippingPrices.length>0)
-  //                   {
-  //  if(city=="بغداد")
-  //    {
-  //      shipPrice=shippingPrices[0]["value"];
-  //    }
-  //    else
-  //    {
-  //             shipPrice=shippingPrices[1]["value"];
+//                       print(newValue=="بغداد");
+//                       shiptype = newValue;
+//                       var sshipprice=shipingprices.firstWhere((item)=>
+//                       item['name']==newValue)['amount'];
+// print(sshipprice);
+// setState(() {
+//   shipprice.text="$sshipprice";
+// });
+//                       // cities = States.js
+//                       //     .firstWhere((item) => item["name"] == newValue)['data'];
+//                       setState(() {});
+//   //                   if(shippingPrices.length>0)
+//   //                   {
+//   //  if(city=="بغداد")
+//   //    {
+//   //      shipPrice=shippingPrices[0]["value"];
+//   //    }
+//   //    else
+//   //    {
+//   //             shipPrice=shippingPrices[1]["value"];
 
-  //    }
-  //    if(price.text.length>0)
-  //     setState(() {
-  //                      shipingPrice.text=(int.tryParse(price.text)+shipPrice).toString();
-  //                    });
-  //                    else{
-  //                      setState(() {
-  //                         shipingPrice.text=shipPrice.toString();
-  //                      });
-  //                    }
-  //                   }
+//   //    }
+//   //    if(price.text.length>0)
+//   //     setState(() {
+//   //                      shipingPrice.text=(int.tryParse(price.text)+shipPrice).toString();
+//   //                    });
+//   //                    else{
+//   //                      setState(() {
+//   //                         shipingPrice.text=shipPrice.toString();
+//   //                      });
+//   //                    }
+//   //                   }
                     
-                    },
-                    items: shipingprices
-                        .map((f) {
-                          return f["name"];
-                        })
-                        .toList()
-                        .map<DropdownMenuItem<String>>((value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Container(
-                                  width: MediaQuery.of(context).size.width - 140,
-                                  child: Text(value)),
-                            ),
-                          );
-                        })
-                        .toList(),
-                  ),
-                ),
-              ),
-            ),
+//                     },
+//                     items: shipingprices
+//                         .map((f) {
+//                           return f["name"];
+//                         })
+//                         .toList()
+//                         .map<DropdownMenuItem<String>>((value) {
+//                           return DropdownMenuItem<String>(
+//                             value: value,
+//                             child: Directionality(
+//                               textDirection: TextDirection.rtl,
+//                               child: Container(
+//                                   width: MediaQuery.of(context).size.width - 140,
+//                                   child: Text(value)),
+//                             ),
+//                           );
+//                         })
+//                         .toList(),
+//                   ),
+//                 ),
+//               ),
+//             ),
                                  Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
@@ -1000,6 +1000,16 @@ return;
     return;
   }
 
+var prc=double.tryParse(price.text);
+if(prc!=null)
+{
+  if(prc>0&&prc<5000)
+  {
+    Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text("الرجاء قم بلتحقق من السعر"),));
+    return;
+  }
+}
   var _bod={
 "name":"${name.text}",
 "phone":"${phone.text}",
@@ -1009,7 +1019,7 @@ return;
 "price":"${price.text}",
 "address":"${address.text}",
 "notes":"${notes.text}",
-"shinnig_price":"${shipprice.text}",
+// "shinnig_price":"${shipprice.text}",
 
 
 
@@ -1043,7 +1053,7 @@ return;
        
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;

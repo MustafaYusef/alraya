@@ -3,10 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/addOrder.dart';
+import 'package:sunmi_thermal_printer_example/chats.dart';
 import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
+import 'ban.dart';
 import 'checkouts.dart';
 import 'main.dart';
 import 'nonet.dart';
@@ -247,7 +249,7 @@ child: InkWell(onTap: (){
          left: 0,
          right: 0,
          height:menu? 
-        350
+        420
          :0,
          child: Container(
            child:Material(
@@ -313,11 +315,16 @@ child: InkWell(onTap: (){
                  leading: Icon(Icons.list),
                  title: Text("الحسابات"),
                ),
-              //  Divider(),
-              //    ListTile(
-              //    leading: Icon(Icons.chat_outlined),
-              //    title: Text("سجل المحادثات"),
-              //  ),
+               Divider(),
+                 ListTile(
+                   onTap: (){
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     Chats(),);}));
+                     
+                   },
+                 leading: Icon(Icons.chat_outlined),
+                 title: Text("سجل المحادثات"),
+               ),
                   Divider(),
                  ListTile(
                    onTap: (){
@@ -371,6 +378,8 @@ timeout=false;
         loading = false;
         timeout = true;
       });
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
@@ -379,12 +388,14 @@ timeout=false;
     }).catchError((e){
       print(e);
       print('error');
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -400,6 +411,21 @@ timeout=false;
      count=prof['notification'].length;
 
   is_Active=prof['is_Active'];
+  if(prof['is_ban']!=null&&prof['is_ban']==true)
+  {
+  Navigator.of(context).pushAndRemoveUntil(
+
+    MaterialPageRoute(builder: (c){return 
+    Directionality(textDirection: TextDirection.rtl,
+    child:Banned() ,);}),(r)=>false);  }
+  else
+
+  {
+
+  
+        
+ 
+  }
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // Success(),);}));
 

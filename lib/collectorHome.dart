@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/addOrder.dart';
+import 'package:sunmi_thermal_printer_example/ban.dart';
+import 'package:sunmi_thermal_printer_example/chats.dart';
 import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/clientORders.dart';
 import 'package:sunmi_thermal_printer_example/collectorsorders.dart';
@@ -430,7 +432,7 @@ child: InkWell(
          left: 0,
          right: 0,
          height:menu? 
-        role==3?250: 180
+        role==3?285: 215
          :0,
          child: Container(
            child:Material(
@@ -465,11 +467,16 @@ child: InkWell(
                  leading: Icon(Icons.history),
                  title: Text("طلبات تم جمعها"),
                ),
-              //  Divider(),
-              //    ListTile(
-              //    leading: Icon(Icons.chat_outlined),
-              //    title: Text("سجل المحادثات"),
-              //  ),
+               Divider(),
+                 ListTile(
+                   onTap: (){
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     Chats(),);}));
+                     
+                   },
+                 leading: Icon(Icons.chat_outlined),
+                 title: Text("سجل المحادثات"),
+               ),
                   Divider(),
             if(role==3)        ListTile(
                  onTap: (){
@@ -848,6 +855,8 @@ timeout=false;
         loading = false;
         timeout = true;
       });
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
        orders=[];
@@ -861,7 +870,8 @@ timeout=false;
     }).catchError((e){
       print(e);
       print('error');
-      
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
       orders=[];
@@ -872,7 +882,7 @@ timeout=false;
  getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
      if (timeout) return;
     var pres = json.decode(res.body);
@@ -951,6 +961,8 @@ timeout=false;
         loading = false;
         timeout = true;
       });
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
@@ -965,6 +977,8 @@ timeout=false;
     }).catchError((e){
       print(e);
       print('error');
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getprof();
@@ -976,7 +990,7 @@ timeout=false;
  getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
 
      if (timeout) return;
@@ -991,6 +1005,21 @@ timeout=false;
 
   print(prof['is_Active']);
   is_Active=prof['is_Active'];
+  if(prof['is_ban']!=null&&prof['is_ban']==true)
+  {
+  Navigator.of(context).pushAndRemoveUntil(
+
+    MaterialPageRoute(builder: (c){return 
+    Directionality(textDirection: TextDirection.rtl,
+    child:Banned() ,);}),(r)=>false);  }
+  else
+
+  {
+
+  
+        
+ 
+  }
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // Success(),);}));
 
@@ -1084,6 +1113,8 @@ await http.get(
         loading = false;
         timeout = true;
       });
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return;
        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
         getOrders(true);
@@ -1097,7 +1128,8 @@ await http.get(
     }).catchError((e){
       print(e);
       print('error');
-      
+      if(!mounted||!ModalRoute.of(context).isCurrent)
+return 1;
       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
       NoNet(),);})).then((value) {
                orders=[];
@@ -1109,7 +1141,7 @@ await http.get(
         getOrders(true);
       });
       timeout=true;
-      return;
+      return 1;
     });
 if(timeout)
 return;

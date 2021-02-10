@@ -49,7 +49,13 @@ LatLng pos;
         Geolocator.getCurrentPosition().then((p){
 
 pos=LatLng(p.latitude,p.longitude);
+print(p);
+   },onError: (e){
+     print(e);
+ Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text("قم بتفعيل الموقع"),));
    });
+
    
   }
   @override
@@ -626,7 +632,16 @@ return;
 if(pos==null)
 {
     Scaffold.of(b).showSnackBar(
-    SnackBar(content: Text("قم بتحديد موقعك على الخريطة رجاءا"),));
+    SnackBar(content: Text("قم بتفعيل الموقع"),));
+
+     Geolocator.getCurrentPosition().then((p){
+
+pos=LatLng(p.latitude,p.longitude);
+print(p);
+   },onError: (e){
+     print(e);
+
+   });
   return;
 }
     // if (!formKey.currentState.validate()) {

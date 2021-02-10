@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'package:sunmi_thermal_printer/sunmi_thermal_printer.dart';
+// import 'package:sunmi_thermal_printer/sunmi_thermal_printer.dart';
+import 'package:sunmi_thermal_printer_example/loading.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 
 Color sc=Color(0xFF003B4B);
@@ -41,7 +42,8 @@ var statobj={
  "rejected_client": "الراجع"
 };
 String host=
-"https://alraai.altathamun.com"
+// "https://alraai.altathamun.com"
+"https://api.alrayaiq.com/"
 ;
 
 void main() => runApp(MyApp());
@@ -52,7 +54,7 @@ class MyApp extends StatefulWidget {
 }
 
 var pr;
-  SunmiThermalPrinter _printer;
+  // SunmiThermalPrinter _printer;
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
@@ -63,17 +65,28 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initPlatformState();
     pr=mprint;
+    Future.delayed(const Duration(milliseconds: 3500), () {
+
+// Here you can write your code
+
+  setState(() {
+    del=false;
+    // print(del);
+    // Here you can write your code for open new view
+  });
+
+});
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await SunmiThermalPrinter.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+    // try {
+    //   platformVersion = await SunmiThermalPrinter.platformVersion;
+    // } on PlatformException {
+    //   platformVersion = 'Failed to get platform version.';
+    // }
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -84,14 +97,23 @@ class _MyAppState extends State<MyApp> {
       _platformVersion = platformVersion;
     });
   }
-
+bool del=true;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "الراية للتوصيل السريع",
 home: Directionality(
   textDirection: TextDirection.rtl,
-  child: SignIn()),
+  child: Stack(
+    children: [
+      // Splash(),
+
+     (!del)? SignIn()
+     :
+
+Splash()
+    ],
+  )),
 
     );
        
@@ -126,7 +148,7 @@ mprint(var prn) async{
       print(prn);
 
  await _loadTestData(prn);
-                    _printer.exec();
+                    // _printer.exec();
 }
   String formatCurrency(num val, [int pad = 10]) =>
       currencyFormat.format(val).padLeft(pad);
@@ -167,53 +189,53 @@ mprint(var prn) async{
 ByteData imageBytes = await rootBundle.load('assets/logo.png');
 List<int> values = imageBytes.buffer.asUint8List();
 // img.Image photo;
-// photo = img.decodeImage(values);
-// int pixel = photo.getPixel(5, 0);
-    _printer = SunmiThermalPrinter()
-      // ..bitmap(img.Image.fromBytes(
-      //         36,
-      //         36,
-      //         (await rootBundle.load('assets/trilobyte.png'))
-      //             .buffer
-      //             .asUint8List())
-      //     .getBytes())
-      ..bold()
-      ..fontScale(2)
+// // photo = img.decodeImage(values);
+// // int pixel = photo.getPixel(5, 0);
+//     // _printer = SunmiThermalPrinter()
+//       // ..bitmap(img.Image.fromBytes(
+//       //         36,
+//       //         36,
+//       //         (await rootBundle.load('assets/trilobyte.png'))
+//       //             .buffer
+//       //             .asUint8List())
+//       //     .getBytes())
+//       ..bold()
+//       ..fontScale(2)
       
-      // ..bitmap(img.Image.fromBytes(
-        //       36,
-        //       36,
-        //       (await rootBundle.load('assets/logo.png'))
-        //           .buffer
-        //           .asUint8List())
-        //   .getBytes())
-      ..printCenter("شركة الراية")
-      ..printCenter("للتوصيل السريع")
-      ..bold()
-       ..fontScale(1)
-      ..printLR(' رقم الطلب #:', id)
-      ..printLR('التاريخ', "${prn['createdAt']}")
-      ..printLR('اسم الزبون', cashier)
-      ..printLR('رقم الهاتف', '${prn['phone']}')
-       ..printLR('الرقم الاحتياطي', '${prn['phone2']}')
-        ..printLR('المحافظة', '${prn['government']}')
-           ..printLR('المدينة', '${prn['city']}')
-..printLR('العنوان', '${prn['address']}')
-..printLR('السعر مع التوصيل', '${prn['price']}')
-..divider()
-..printCenter("ملاحظات")
-..printRight('${prn['notes']}')
-..divider()
-..printLR('اسم العميل', '${prn['client']['name']}')
-..printLR('رقم الهاتف', '${prn['client']['phone']}')
-      // ..divider()
-      // ..printLR(itemsHeaderLeft, itemsHeaderRight)
-      ..divider()..qr( '${prn['id']}',moduleSize: 10)
-       ..divider()
-       ..printCenter("شركة الراية للتوصيل السريع")
-       ..printRight("العنوان: بغداد-المنصور-الداوودي")
-       ..printRight("رقم الهاتف:  07806447000")
-       ;
+//       // ..bitmap(img.Image.fromBytes(
+//         //       36,
+//         //       36,
+//         //       (await rootBundle.load('assets/logo.png'))
+//         //           .buffer
+//         //           .asUint8List())
+//         //   .getBytes())
+//       ..printCenter("شركة الراية")
+//       ..printCenter("للتوصيل السريع")
+//       ..bold()
+//        ..fontScale(1)
+//       ..printLR(' رقم الطلب #:', id)
+//       ..printLR('التاريخ', "${prn['createdAt']}")
+//       ..printLR('اسم الزبون', cashier)
+//       ..printLR('رقم الهاتف', '${prn['phone']}')
+//        ..printLR('الرقم الاحتياطي', '${prn['phone2']}')
+//         ..printLR('المحافظة', '${prn['government']}')
+//            ..printLR('المدينة', '${prn['city']}')
+// ..printLR('العنوان', '${prn['address']}')
+// ..printLR('السعر مع التوصيل', '${prn['price']}')
+// ..divider()
+// ..printCenter("ملاحظات")
+// ..printRight('${prn['notes']}')
+// ..divider()
+// ..printLR('اسم العميل', '${prn['client']['name']}')
+// ..printLR('رقم الهاتف', '${prn['client']['phone']}')
+//       // ..divider()
+//       // ..printLR(itemsHeaderLeft, itemsHeaderRight)
+//       ..divider()..qr( '${prn['id']}',moduleSize: 10)
+//        ..divider()
+//        ..printCenter("شركة الراية للتوصيل السريع")
+//        ..printRight("العنوان: بغداد-المنصور-الداوودي")
+//        ..printRight("رقم الهاتف:  07806447000")
+//        ;
     // for (var item in items) {
     //   String amountStr = formatCurrency(item.afterDiscountValue);
     //   _printer
