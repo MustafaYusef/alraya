@@ -42,7 +42,8 @@ var statobj={
  "rejected_client": "الراجع"
 };
 String host=
-"https://alraai.altathamun.com"
+// "https://alraai.altathamun.com"
+"https://api.alrayaiq.com/"
 ;
 
 void main() => runApp(MyApp());

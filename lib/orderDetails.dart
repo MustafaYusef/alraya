@@ -1781,7 +1781,7 @@ sc                                  ),
   height: 15,
 ),
 
-                     if(role==1&&(or['status']=='watting'||or['status']=='driver'))     
+                     if((role!=0)&&(or['status']=='watting'||or['status']=='driver'))     
                                   MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,

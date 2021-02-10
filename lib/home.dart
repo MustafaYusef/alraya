@@ -8,6 +8,7 @@ import 'package:sunmi_thermal_printer_example/notfs.dart';
 import 'package:sunmi_thermal_printer_example/orders.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 import 'dart:math';
+import 'ban.dart';
 import 'checkouts.dart';
 import 'main.dart';
 import 'nonet.dart';
@@ -410,6 +411,21 @@ return 1;
      count=prof['notification'].length;
 
   is_Active=prof['is_Active'];
+  if(prof['is_ban']!=null&&prof['is_ban']==true)
+  {
+  Navigator.of(context).pushAndRemoveUntil(
+
+    MaterialPageRoute(builder: (c){return 
+    Directionality(textDirection: TextDirection.rtl,
+    child:Banned() ,);}),(r)=>false);  }
+  else
+
+  {
+
+  
+        
+ 
+  }
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // Success(),);}));
 

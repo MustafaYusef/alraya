@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/addOrder.dart';
+import 'package:sunmi_thermal_printer_example/ban.dart';
 import 'package:sunmi_thermal_printer_example/chats.dart';
 import 'package:sunmi_thermal_printer_example/clientLoc.dart';
 import 'package:sunmi_thermal_printer_example/clientORders.dart';
@@ -1004,6 +1005,21 @@ return 1;
 
   print(prof['is_Active']);
   is_Active=prof['is_Active'];
+  if(prof['is_ban']!=null&&prof['is_ban']==true)
+  {
+  Navigator.of(context).pushAndRemoveUntil(
+
+    MaterialPageRoute(builder: (c){return 
+    Directionality(textDirection: TextDirection.rtl,
+    child:Banned() ,);}),(r)=>false);  }
+  else
+
+  {
+
+  
+        
+ 
+  }
 // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 // Success(),);}));
 
