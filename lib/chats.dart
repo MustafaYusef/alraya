@@ -96,6 +96,7 @@ print(data);
 print('cr');
  });
   socket.onConnecting((data) {
+    
 print(data);
 print('conecting');
  });
@@ -104,6 +105,12 @@ print('conecting');
     //  socket.emit('msg', 'test');
     });
     socket.on('chat_msg', (data) {
+            print(data);
+print("id $id  ${data['user_id']}");
+
+      if(data['user_id']!=id)
+      return;
+print("id $id  ${data['user_id']}");
       print(data);
       print(data['msg']);
       if(addmsg!=null)

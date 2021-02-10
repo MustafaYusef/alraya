@@ -409,7 +409,7 @@ return 1;
   prof=pres['data']['profile'];
   print(prof['is_Active']);
      count=prof['notification'].length;
-
+id=prof['id'];
   is_Active=prof['is_Active'];
   if(prof['is_ban']!=null&&prof['is_ban']==true)
   {
