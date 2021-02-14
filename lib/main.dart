@@ -12,39 +12,36 @@ import 'package:intl/intl.dart' as intl;
 import 'package:sunmi_thermal_printer_example/loading.dart';
 import 'package:sunmi_thermal_printer_example/signin.dart';
 
-Color sc=Color(0xFF003B4B);
-Color mc=Color(0xFFB9512A);
+Color sc = Color(0xFF003B4B);
+Color mc = Color(0xFFB9512A);
 
 var token;
 
 var role;
 var is_Active;
 var id;
-var statobj={
-
-  "watting":'انتظار',
-
-"driver":'مع سائق',
- 'collector':'مع جامع الطلبات',
- 'collected':'تم جمع الطلب',
-'set_shippng_pirce':'تحديد سعر التوصيل',
-"store":"تم تسلم الطلب الى المكتب من قبل الجامع",
-"delivered":"تم تسلمه اللى الزبون",
-"finished":"انتهى" ,
-"canceled":"تم الالغاء الطلب",
- "rejected": "تم رفض الطلب من الزبون",
- "rejected_store":"راجع في المخزن",
-   'to_secend_store':"في الطريق الى المكتب الثاني",
- 'in_secend_store':"في المخزن الثاني",
- 'rejected_store_in_secend_store':"راجع في المخزن الثاني",
-'return_from_secend_store':  "راجع في الطريق الى مكتب الرئيسي",
-"secend_driver":  "مع سائق الثاني",
- "rejected_client": "الراجع"
+var statobj = {
+  "watting": 'انتظار',
+  "driver": 'مع سائق',
+  'collector': 'مع جامع الطلبات',
+  'collected': 'تم جمع الطلب',
+  'set_shippng_pirce': 'تحديد سعر التوصيل',
+  "store": "تم تسلم الطلب الى المكتب من قبل الجامع",
+  "delivered": "تم تسلمه اللى الزبون",
+  "finished": "انتهى",
+  "canceled": "تم الالغاء الطلب",
+  "rejected": "تم رفض الطلب من الزبون",
+  "rejected_store": "راجع في المخزن",
+  'to_secend_store': "في الطريق الى المكتب الثاني",
+  'in_secend_store': "في المخزن الثاني",
+  'rejected_store_in_secend_store': "راجع في المخزن الثاني",
+  'return_from_secend_store': "راجع في الطريق الى مكتب الرئيسي",
+  "secend_driver": "مع سائق الثاني",
+  "rejected_client": "الراجع"
 };
-String host=
-"https://alraai.altathamun.com"
+String host = "https://api.alrayaiq.com"
 // "https://api.alrayaiq.com/"
-;
+    ;
 
 void main() => runApp(MyApp());
 
@@ -54,28 +51,25 @@ class MyApp extends StatefulWidget {
 }
 
 var pr;
-  // SunmiThermalPrinter _printer;
+// SunmiThermalPrinter _printer;
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
-    pr=mprint;
+    pr = mprint;
     Future.delayed(const Duration(milliseconds: 3500), () {
-
 // Here you can write your code
 
-  setState(() {
-    del=false;
-    // print(del);
-    // Here you can write your code for open new view
-  });
-
-});
+      setState(() {
+        del = false;
+        // print(del);
+        // Here you can write your code for open new view
+      });
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -97,97 +91,92 @@ class _MyAppState extends State<MyApp> {
       _platformVersion = platformVersion;
     });
   }
-bool del=true;
+
+  bool del = true;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "الراية للتوصيل السريع",
-home: Directionality(
-  textDirection: TextDirection.rtl,
-  child: Stack(
-    children: [
-      // Splash(),
+      home: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Stack(
+            children: [
+              // Splash(),
 
-     (!del)? SignIn()
-     :
-
-Splash()
-    ],
-  )),
-
+              (!del) ? SignIn() : Splash()
+            ],
+          )),
     );
-       
+
     //  Scaffold(
-      //   appBar: AppBar(
-      //     title: const Text('Plugin example app'),
-      //   ),
-      //   body: Center(
-      //     child: Column(
-      //       children: [
-      //         Text('Running on: $_platformVersion\n'),
-      //         IconButton(
-      //           icon: Icon(Icons.print),
-      //           onPressed: () {
-      //             () async {
-      //               await _loadTestData();
-      //               _printer.exec();
-      //             }();
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
-   // );
+    //   appBar: AppBar(
+    //     title: const Text('Plugin example app'),
+    //   ),
+    //   body: Center(
+    //     child: Column(
+    //       children: [
+    //         Text('Running on: $_platformVersion\n'),
+    //         IconButton(
+    //           icon: Icon(Icons.print),
+    //           onPressed: () {
+    //             () async {
+    //               await _loadTestData();
+    //               _printer.exec();
+    //             }();
+    //           },
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // ),
+    // );
   }
-
 }
 
+mprint(var prn) async {
+  print(prn);
 
-mprint(var prn) async{
-      print(prn);
-
- await _loadTestData(prn);
-                    // _printer.exec();
+  await _loadTestData(prn);
+  // _printer.exec();
 }
-  String formatCurrency(num val, [int pad = 10]) =>
-      currencyFormat.format(val).padLeft(pad);
 
-  intl.NumberFormat currencyFormat = intl.NumberFormat.currency(name: 'MYR', symbol: '');
+String formatCurrency(num val, [int pad = 10]) =>
+    currencyFormat.format(val).padLeft(pad);
 
-  Future<void> _loadTestData(prn) async {
-    print(prn);
-    var header = 'شركة الرايه للبريد  السريع';
-    var id = '${prn['id']}';
-    var timestamp = '30-02-2020 23:59:59';
-    var cashier =  '${prn['name']}';
-    var itemsHeaderLeft = 'Item';
-    var itemsHeaderRight = 'Amount (RM)';
-    var items = [
-      TestItem(name: 'Your Soul', price: 6.66, quantity: 1),
-      TestItem(
-          name: 'Someone Else\'s Soul',
-          price: 1,
-          quantity: 666,
-          discount: '10%'),
-      TestItem(
-          name: 'Something Else Entirely',
-          price: 9000.01,
-          quantity: 1,
-          discount: '0.01'),
-    ];
-    num subtotal = 0;
-    for (var item in items) {
-      subtotal += item.afterDiscountValue;
-    }
-    var cent = (subtotal * 100) % 10;
-    var roundingCent = cent < 3 ? -cent : (cent < 8 ? 5 - cent : 10 - cent);
-    var total = subtotal + roundingCent / 100;
-    var cash = 10000;
-    var change = cash - total;
-    var footer = 'Please come again';
-ByteData imageBytes = await rootBundle.load('assets/logo.png');
-List<int> values = imageBytes.buffer.asUint8List();
+intl.NumberFormat currencyFormat =
+    intl.NumberFormat.currency(name: 'MYR', symbol: '');
+
+Future<void> _loadTestData(prn) async {
+  print(prn);
+  var header = 'شركة الرايه للبريد  السريع';
+  var id = '${prn['id']}';
+  var timestamp = '30-02-2020 23:59:59';
+  var cashier = '${prn['name']}';
+  var itemsHeaderLeft = 'Item';
+  var itemsHeaderRight = 'Amount (RM)';
+  var items = [
+    TestItem(name: 'Your Soul', price: 6.66, quantity: 1),
+    TestItem(
+        name: 'Someone Else\'s Soul', price: 1, quantity: 666, discount: '10%'),
+    TestItem(
+        name: 'Something Else Entirely',
+        price: 9000.01,
+        quantity: 1,
+        discount: '0.01'),
+  ];
+  num subtotal = 0;
+  for (var item in items) {
+    subtotal += item.afterDiscountValue;
+  }
+  var cent = (subtotal * 100) % 10;
+  var roundingCent = cent < 3 ? -cent : (cent < 8 ? 5 - cent : 10 - cent);
+  var total = subtotal + roundingCent / 100;
+  var cash = 10000;
+  var change = cash - total;
+  var footer = 'Please come again';
+  ByteData imageBytes = await rootBundle.load('assets/logo.png');
+  List<int> values = imageBytes.buffer.asUint8List();
 // img.Image photo;
 // // photo = img.decodeImage(values);
 // // int pixel = photo.getPixel(5, 0);
@@ -201,7 +190,7 @@ List<int> values = imageBytes.buffer.asUint8List();
 //       //     .getBytes())
 //       ..bold()
 //       ..fontScale(2)
-      
+
 //       // ..bitmap(img.Image.fromBytes(
 //         //       36,
 //         //       36,
@@ -236,41 +225,41 @@ List<int> values = imageBytes.buffer.asUint8List();
 //        ..printRight("العنوان: بغداد-المنصور-الداوودي")
 //        ..printRight("رقم الهاتف:  07806447000")
 //        ;
-    // for (var item in items) {
-    //   String amountStr = formatCurrency(item.afterDiscountValue);
-    //   _printer
-    //     ..printLR(
-    //         item.name.substring(
-    //             0, math.min(item.name.length, _printer.cpl - amountStr.length)),
-    //         amountStr)
-    //     ..println(
-    //         '  ${currencyFormat.format(item.price)} × ${item.quantity.toString()}');
-    //   if (item.discount != null) {
-    //     _printer
-    //       ..println(
-    //           '  Discount ${item.discount.endsWith('%') ? item.discount : currencyFormat.format(num.parse(item.discount))}');
-    //   }
-    // }
-    // _printer
-    //   ..divider()
-    //   ..printLR('Subtotal', formatCurrency(subtotal))
-    //   ..printLR('Rounding', formatCurrency(roundingCent / 100))
-    //   ..fontSize(height: 2)
-    //   ..printLR('Total', formatCurrency(total))
-    //   ..fontScale()
-    //   ..divider()
-    //   ..printLR('CASH', formatCurrency(cash))
-    //   ..printLR('Change', formatCurrency(change))
-    //   ..newLine()
-    //   ..qr('3b.my', moduleSize: 8)
-    //   ..newLine()
-    //   ..barcode( '${prn['id']}',
-    //       symbology: BarcodeSymbology.,
-    //       height: 32,
-    //       textPosition: BarcodeText.Bottom)
-    //   ..newLine()
-    //   ..printCenter(footer);
-  }
+  // for (var item in items) {
+  //   String amountStr = formatCurrency(item.afterDiscountValue);
+  //   _printer
+  //     ..printLR(
+  //         item.name.substring(
+  //             0, math.min(item.name.length, _printer.cpl - amountStr.length)),
+  //         amountStr)
+  //     ..println(
+  //         '  ${currencyFormat.format(item.price)} × ${item.quantity.toString()}');
+  //   if (item.discount != null) {
+  //     _printer
+  //       ..println(
+  //           '  Discount ${item.discount.endsWith('%') ? item.discount : currencyFormat.format(num.parse(item.discount))}');
+  //   }
+  // }
+  // _printer
+  //   ..divider()
+  //   ..printLR('Subtotal', formatCurrency(subtotal))
+  //   ..printLR('Rounding', formatCurrency(roundingCent / 100))
+  //   ..fontSize(height: 2)
+  //   ..printLR('Total', formatCurrency(total))
+  //   ..fontScale()
+  //   ..divider()
+  //   ..printLR('CASH', formatCurrency(cash))
+  //   ..printLR('Change', formatCurrency(change))
+  //   ..newLine()
+  //   ..qr('3b.my', moduleSize: 8)
+  //   ..newLine()
+  //   ..barcode( '${prn['id']}',
+  //       symbology: BarcodeSymbology.,
+  //       height: 32,
+  //       textPosition: BarcodeText.Bottom)
+  //   ..newLine()
+  //   ..printCenter(footer);
+}
 
 class TestItem {
   final String name;
