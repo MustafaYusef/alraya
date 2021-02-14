@@ -610,8 +610,8 @@ class _SignUpState extends State<SignUp> {
     print(_bod);
     var res = await http
         .post(
-            //  "$host/users/auth/new"
-            "https://api.alrayaiq.com/users/auth/new",
+             "$host/users/auth/new",
+            // "https://api.alrayaiq.com/users/auth/new",
             body: _bod)
         .timeout(Duration(seconds: 30), onTimeout: () {
       setState(() {

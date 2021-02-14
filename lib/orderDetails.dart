@@ -1674,7 +1674,7 @@ else
 SizedBox(
   height: 20,
 ),
-   if(role==2||role==3
+   if((role==2||role==3)
                    &&(or['status']=='watting')
                     )                  MaterialButton(
                                   minWidth: double.infinity,
