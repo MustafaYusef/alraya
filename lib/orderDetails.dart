@@ -30,6 +30,8 @@ class _OrderDetailsState extends State<OrderDetails> {
 
     TextEditingController phone =new TextEditingController();
     TextEditingController phone2 =new TextEditingController();
+    TextEditingController date =new TextEditingController();
+
 
         TextEditingController clientname =new TextEditingController();
         TextEditingController clientphone =new TextEditingController();
@@ -87,8 +89,10 @@ var or;
    if(role==0) mult.text="${or['multiple']}";
    if(role==0) shipprice.text="${or['shipping_price']}";
    if(role==0&&or['reject_msg']!=null) rejectedmsg.text="${or['reject_msg']}";
-   if(role==1) clientname.text="${or['client']['name']}";
-   if(role==1) clientphone.text="${or['client']['phone']}";
+   if(role!=0) clientname.text="${or['client']['name']}";
+   if(role!=0) clientphone.text="${or['client']['phone']}";
+    if(role==0)
+    date.text="${or['createdAt']}";
 
 
   name.text="${or['name']}";
@@ -1218,6 +1222,7 @@ errorStyle: TextStyle(
                                   ),
                                 ),
 
+
       if(role==0)      Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
@@ -1444,6 +1449,159 @@ errorStyle: TextStyle(
                                   ),  
                                   ),
                                 ),
+        if(role==0&&widget.order['is_payed'])
+   Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
+                                  child:  TextFormField(
+                                      enabled: false,
+                    style: TextStyle(color: Colors.white),
+
+                                     focusNode: pricef,
+                                          //   validator: (value) {
+                                          //   if (value.isEmpty) {
+                                          //     return 'الرجاء قم بأدخال السعر';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                          textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         notesf
+                                       );
+                                     },
+                                     initialValue: "تم المحاسبة",
+                                    // controller: date,
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                      // labelText: "التاريخ",
+                                  labelStyle: TextStyle(color: Colors.white),
+                                    // hintText: "سعر البضاعة مع التوصيل",
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color:Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
+                                if(role==0)
+   Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 15
+                                  ),
+                                  child:  TextFormField(
+                                      enabled: false,
+                    style: TextStyle(color: Colors.white),
+
+                                     focusNode: pricef,
+                                          //   validator: (value) {
+                                          //   if (value.isEmpty) {
+                                          //     return 'الرجاء قم بأدخال السعر';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                          textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         notesf
+                                       );
+                                     },
+                                    controller: date,
+                                  decoration: InputDecoration(   disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                      labelText: "التاريخ",
+                                  labelStyle: TextStyle(color: Colors.white),
+                                    // hintText: "سعر البضاعة مع التوصيل",
+                              focusColor: Colors.white,
+                              hintStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+errorStyle: TextStyle(
+                                  color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color:Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                    focusedBorder:  OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white
+                                      ,width: 4),
+                                      // borderRadius: BorderRadius.vertical(
+                                      //   top: Radius.circular(30)
+                                      // )
+                                    ),
+                                  ),  
+                                  ),
+                                ),
+
+
      if(role!=3&&role!=2 &&or['reject_msg']!=null&&or['reject_msg'].length>0)     Padding(
                                   padding: const EdgeInsets.only(
                                     bottom: 15
@@ -1781,7 +1939,9 @@ sc                                  ),
   height: 15,
 ),
 
-                     if((role!=0)&&(or['status']=='watting'||or['status']=='driver'))     
+                     if(role!=0
+                    
+                    )     
                                   MaterialButton(
                                   minWidth: double.infinity,
                                   elevation: 0,
@@ -1839,7 +1999,7 @@ collectorreturntocostumer();// Navigator.of(context).push(MaterialPageRoute(buil
                                   valueColor: AlwaysStoppedAnimation(
 sc                                  ),
                                 ):
-                                 Text("ارجاع للزبون",
+                                 Text("ارجاع للعميل",
                                  style: TextStyle(
                                     color: sc,
                                     fontWeight: FontWeight.bold,

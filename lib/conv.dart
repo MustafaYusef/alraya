@@ -33,7 +33,13 @@ TextEditingController searchc=new TextEditingController();
     // TODO: implement initState
     super.initState();
 addmsg=(msg){
-  if(msg['conversation_id']==widget.id&&msg['from_user_id']!=widget.ord['from']['id'])
+  print("cid ------ ${msg['conversation_id']}");
+    print("cid ---- ${widget.id}");
+    print('from user id ${msg['from_user_id']}');
+    print("from user id ${widget.ord['from']['id']}"
+);
+
+  if(msg['conversation_id']==widget.id&&msg['from_user_id']!=id)
   {
 setState(() {
    orders.insert(0,

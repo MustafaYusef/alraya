@@ -1005,7 +1005,7 @@ if(prc!=null)
 {
   if(prc>0&&prc<5000)
   {
-    Scaffold.of(b).showSnackBar(
+     Scaffold.of(b).showSnackBar(
     SnackBar(content: Text("اقل سعر مسموح به هو 5000"),));
     return;
   }

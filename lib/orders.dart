@@ -149,8 +149,8 @@ left: 10,
           ),
            if(widget.status==null)   Positioned(
             top: 125,
-            right: 20,
-            left: 20,
+            right: 10,
+            left: 10,
             child: 
             Container(
               height: 60,
@@ -171,17 +171,39 @@ setState(() {
  getOrders(true);
                     },
                     child:       Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: 100,
+                          width: 130,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("قيد المعالجة",
+                            child: Row(
+                              children: [
+                                Text("قيد المعالجة",
             style: TextStyle(
               color:ind==0? Colors.white:Colors.grey
               ,fontWeight: FontWeight.bold,
               fontSize: 17
             ),),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(100),
+                color: sc,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(" ${count[0]}",
+                style: TextStyle(
+                  color:ind==0? Colors.white:Colors.grey
+                  ,fontWeight: FontWeight.bold,
+                  fontSize: 12
+                ),),
+                            ),
+              ),
+            ),
+                              ],
+                            ),
                           ),
                         ),
                           VerticalDivider(
@@ -204,14 +226,32 @@ setState(() {
  timeout=false;
  getOrders(true);
                     },
-                    child:       Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("تم التوصيل",
+                    child:       Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("تم التوصيل",
             style: TextStyle(
               color:ind==1? Colors.white:Colors.grey
               ,fontWeight: FontWeight.bold,
               fontSize: 17
             ),),
+                        ),
+                        Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(100),
+                color: sc,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(" ${count[1]}",
+                style: TextStyle(
+                  color:ind==0? Colors.white:Colors.grey
+                  ,fontWeight: FontWeight.bold,
+                  fontSize: 12
+                ),),
+                            ),
+              ),
+                      ],
                     ) ,
                   ),
                 
@@ -239,7 +279,9 @@ setState(() {
                   ),
                           Expanded(
                                                       child: Center(
-                                                        child: Padding(
+                                                        child: Row(
+                                                          children: [
+                                                            Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text("راجع",
             style: TextStyle(
@@ -248,6 +290,22 @@ setState(() {
               fontSize: 17
             ),),
                             ),
+                            Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(100),
+                color: sc,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(" ${count[2]}",
+                style: TextStyle(
+                  color:ind==0? Colors.white:Colors.grey
+                  ,fontWeight: FontWeight.bold,
+                  fontSize: 12
+                ),),
+                            ),
+              ),
+                                                          ],
+                                                        ),
                                                       ),
                           ),
                         ],
@@ -386,14 +444,14 @@ children: [
     fontWeight: FontWeight.bold),
     ),
   ),
-  Divider(color: Colors.white,),
-  Padding(
-    padding: const EdgeInsets.all(14.0),
-    child: Text("رقم الهاتف: ${ord['phone']}",
-    style: TextStyle(color: Colors.white,
-    fontWeight: FontWeight.bold),
-    ),
-  ),
+  // Divider(color: Colors.white,),
+  // Padding(
+  //   padding: const EdgeInsets.all(14.0),
+  //   child: Text("رقم الهاتف: ${ord['phone']}",
+  //   style: TextStyle(color: Colors.white,
+  //   fontWeight: FontWeight.bold),
+  //   ),
+  // ),
   Divider(color: Colors.white,),
     Padding(
     padding: const EdgeInsets.all(14.0),
@@ -402,14 +460,28 @@ children: [
     fontWeight: FontWeight.bold),
     ),
   ),
-  Divider(color: Colors.white,),
-    Padding(
+  if( ord['is_payed']==true) Divider(color: Colors.white,),
+  if( "${ord['is_payed']}"=="true")   Padding(
     padding: const EdgeInsets.all(14.0),
-    child: Text("المدينة: ${ord['city']}",
-    style: TextStyle(color: Colors.white,
-    fontWeight: FontWeight.bold),
+    child: Row(
+      children: [
+        Text("  تم المحاسبة  ",
+        style: TextStyle(color: Colors.white,
+        fontWeight: FontWeight.bold),
+        ),    
+            Icon(Icons.check, color: Colors.white,),
+
+      ],
     ),
   ),
+  // Divider(color: Colors.white,),
+  //   Padding(
+  //   padding: const EdgeInsets.all(14.0),
+  //   child: Text("المدينة: ${ord['city']}",
+  //   style: TextStyle(color: Colors.white,
+  //   fontWeight: FontWeight.bold),
+  //   ),
+  // ),
 
    Align(
      alignment: Alignment.center,
@@ -471,6 +543,7 @@ int page=1;
 var maxCount=-1;
 bool lastPage=false;
 var timeout=false;
+var count=[0,0,0];
    void getOrders(bool first)async{
          String status;
   if(widget.status==null)   switch (ind) {
@@ -582,6 +655,11 @@ print(pres);
     maxCount=pres["data"]['data']["totalItems"];
     // print(orders[0]);
     // count=pres["data"]["totalItems"];
+    count[0]=pres["data"]['data']["wattingCount"];
+        count[1]=pres["data"]['data']["deliveredCount"];
+    count[2]=pres["data"]['data']["rejectedCount"];
+
+
     loading=false;
     });
 print("clients: $orders") ;  

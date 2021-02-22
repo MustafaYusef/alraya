@@ -276,7 +276,20 @@ children: [
     fontWeight: FontWeight.bold),
     ),
   ),
+if( ord['is_payed']==true) Divider(color: Colors.white,),
+  if( "${ord['is_payed']}"=="true")   Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Row(
+      children: [
+        Text("  تم المحاسبة  ",
+        style: TextStyle(color: Colors.white,
+        fontWeight: FontWeight.bold),
+        ),    
+            Icon(Icons.check, color: Colors.white,),
 
+      ],
+    ),
+  ),
    Align(
      alignment: Alignment.center,
         child: Container(

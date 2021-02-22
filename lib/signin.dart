@@ -21,287 +21,323 @@ class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
 }
-
 FirebaseMessaging messaging;
 var fcm;
-
 class _SignInState extends State<SignIn> {
-  TextEditingController name = new TextEditingController();
-  TextEditingController pass = new TextEditingController();
 
-  final formKey = GlobalKey<FormState>();
+  TextEditingController name=new TextEditingController();
+    TextEditingController pass =new TextEditingController();
+
+   final formKey = GlobalKey<FormState>();
   FocusNode namef = FocusNode();
   FocusNode passf = FocusNode();
-  BuildContext b;
+ BuildContext b;
 
-  @override
+@override
   void initState() {
     // TODO: implement initState
     super.initState();
     Firebase.initializeApp().then((value) {
-      messaging = FirebaseMessaging.instance;
-      if (Platform.isIOS)
-        initmsg();
-      else {
-        messaging.getToken().then((value) {
-          fcm = value;
-        });
-      }
-    });
-    checknet();
-  }
+    messaging = FirebaseMessaging.instance;
+    if(Platform.isIOS)
+initmsg();
+else
+{
+  messaging.getToken(
 
-  initmsg() async {
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-    messaging.getToken().then((value) {
-      fcm = value;
+  ).then((value) {
+    fcm=value;
+  });
+}
     });
-    print('User granted permission: ${settings.authorizationStatus}');
+checknet();
+ 
   }
+  
+initmsg()async{
+  NotificationSettings settings = await messaging.requestPermission(
+  alert: true,
+  announcement: false,
+  badge: true,
+  carPlay: false,
+  criticalAlert: false,
+  provisional: false,
+  sound: true,
+);
+ messaging.getToken(
 
+  ).then((value) {
+    fcm=value;
+  });
+print('User granted permission: ${settings.authorizationStatus}');
+}
   checknet() async {
 //     var connectivityResult = await (Connectivity().checkConnectivity());
 
 // if (connectivityResult == ConnectivityResult.none) {
 //   Navigator.of(context).push(MaterialPageRoute(builder:
-//    (c){return Directionality(textDirection: TextDirection.rtl,child: NoNet(),);})).then((value)
+//    (c){return Directionality(textDirection: TextDirection.rtl,child: NoNet(),);})).then((value) 
 //   {
 //     checknet();
 //   });
-
+  
 //   // I am connected to a mobile network.
 // }
 // else
 
 // {
-    getLogin();
+   getLogin();
 
 // }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: sc,
       resizeToAvoidBottomInset: false,
-      body: gettingUser
-          ? Container(
-              color: sc,
-            )
-          : Builder(builder: (context) {
-              b = context;
+          body:gettingUser?Container(
+            color: sc,
+          ):  Builder(
+
+        builder: (context) {
+          b=context;
               return Stack(
                 fit: StackFit.expand,
-                children: [
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                "assets/Background.png",
-                              ))),
-                    ),
+        children: [
+
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        "assets/Background.png",
+                        
+                      )
+                    )
                   ),
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Text(
-                              "تسجيل الدخول",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            ),
-                            TextFormField(
-                              style: TextStyle(color: Colors.white),
-                              keyboardType: TextInputType.phone,
-                              focusNode: namef,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'الرجاء قم بأدخال رقم الهاتف ';
-                                }
-                                return null;
-                              },
-                              controller: name,
-                              decoration: InputDecoration(
-                                helperText: "...9647712+",
-                                helperStyle: TextStyle(color: Colors.white),
-                                errorStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                hintText: "رقم الهاتف",
-                                focusColor: Colors.white,
-                                hintStyle: TextStyle(color: Colors.white),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: mc, width: 4),
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(30))),
-                                errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: mc, width: 4),
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(30))),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 4),
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(30))),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 4),
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(30))),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: TextFormField(
-                                style: TextStyle(color: Colors.white),
-                                focusNode: passf,
-                                validator: (value) {
+                ),
+              ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric( 
+                    horizontal: 15
+                  ),
+                  child: Form(
+                    key: formKey,
+                                  child: Column(
+                      children: [
+                        SizedBox(height: 50,),
+                        Text("تسجيل الدخول",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18
+                        ),
+                        ),
+                      TextFormField(
+                        style: TextStyle(color: Colors.white),
+keyboardType: TextInputType.phone,
+
+                           focusNode: namef,
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'الرجاء قم بأدخال رقم الهاتف ';
+                                        }
+                                        return null;
+                                      },
+                                      
+                        controller: name,
+                      decoration: InputDecoration(
+                         helperText: "...9647712+",
+                                    helperStyle: TextStyle(
+                                  color: Colors.white
+                              ) ,
+                        errorStyle:TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                    ),
+                        hintText: "رقم الهاتف",
+                    focusColor: Colors.white,
+                    hintStyle: TextStyle(
+                      color: Colors.white
+                    ),
+                    focusedErrorBorder:  OutlineInputBorder(
+                      
+                          borderSide: BorderSide(color: mc
+                          ,width: 4),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30)
+                          )
+                        ),
+                    errorBorder: OutlineInputBorder(
+                      
+                          borderSide: BorderSide(color: mc
+                          ,width: 4),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30)
+                          )
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white
+                          ,width: 4),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30)
+                          )
+                        ),
+                        focusedBorder:  OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white
+                          ,width: 4),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30)
+                          )
+                        ),
+                      ),  
+                      ),
+                      
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15
+                        ),
+                        child:  TextFormField(
+                                                  style: TextStyle(color: Colors.white),
+
+                           focusNode: passf,
+                                  validator: (value) {
                                   if (value.isEmpty) {
                                     return 'الرجاء قم بأدخال  كلمة المرور';
                                   }
                                   return null;
                                 },
-                                controller: pass,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  hintText: "كلمة المرور",
-                                  focusColor: Colors.white,
-                                  hintStyle: TextStyle(color: Colors.white),
-                                  errorStyle: TextStyle(color: Colors.white),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: mc, width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: mc, width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 4),
-                                    // borderRadius: BorderRadius.vertical(
-                                    //   top: Radius.circular(30)
-                                    // )
-                                  ),
-                                ),
-                              ),
-                            ),
-                            MaterialButton(
-                              minWidth: double.infinity,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(30))),
-                              height: 60,
-                              color: mc,
-                              onPressed: () {
-                                // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child:
-                                // Home(),);}));
-
-                                signIn();
-                              },
-                              child: loading
-                                  ? CircularProgressIndicator(
-                                      valueColor:
-                                          AlwaysStoppedAnimation(Colors.white),
-                                    )
-                                  : Text(
-                                      "تسجيل الدخول",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: InkWell(
-                                onTap: () {
-                                  // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child:
-                                  // ,);}));
-                                },
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (c) {
-                                      return Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: SignUp(),
-                                      );
-                                    }));
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "ليس لديك حساب؟",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          // fontSize: 18
-                                        ),
-                                      ),
-                                      Text(
-                                        " سجل الان ",
-                                        style: TextStyle(
-                                          color: mc,
-                                          fontWeight: FontWeight.bold,
-                                          // fontSize: 18
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                          
+                          controller: pass,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          
+                          hintText: "كلمة المرور",
+                    focusColor: Colors.white,
+                    hintStyle: TextStyle(
+                        color: Colors.white
+                    ),
+errorStyle: TextStyle(
+  
+                        color: Colors.white
+                    ),
+                    focusedErrorBorder:  OutlineInputBorder(
+                      
+                          borderSide: BorderSide(color: mc
+                          ,width: 4),
+                          // borderRadius: BorderRadius.vertical(
+                          //   top: Radius.circular(30)
+                          // )
+                        ),
+                    errorBorder: OutlineInputBorder(
+                      
+                          borderSide: BorderSide(color: mc
+                          ,width: 4),
+                          // borderRadius: BorderRadius.vertical(
+                          //   top: Radius.circular(30)
+                          // )
+                        ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white
+                            ,width: 4),
+                            // borderRadius: BorderRadius.vertical(
+                            //   top: Radius.circular(30)
+                            // )
+                          ),
+                          focusedBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white
+                            ,width: 4),
+                            // borderRadius: BorderRadius.vertical(
+                            //   top: Radius.circular(30)
+                            // )
+                          ),
+                        ),  
                         ),
                       ),
-                    ),
-                  )
-                ],
-              );
-            }),
+                      MaterialButton(
+                        minWidth: double.infinity,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(30)
+                          )
+                        ),
+                        height: 60,
+                        color: mc,
+                        onPressed: (){
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                          // Home(),);}));
+                          
+signIn();
+                      },child:loading?
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      )
+                      : Text("تسجيل الدخول",
+                       style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18
+                        ),
+                      ),),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: (){
+                            // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                            // ,);}));
+                            
+                          },
+                                            child: InkWell(
+                                              onTap: (){
+                                                Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                                                SignUp(),);}));
+                                                
+                                              },
+                                                                                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                            Text("ليس لديك حساب؟",
+                             style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            // fontSize: 18
+                            ),),
+                            Text(" سجل الان ",
+                             style: TextStyle(
+                              color: mc,
+                              fontWeight: FontWeight.bold,
+                            // fontSize: 18
+                            ),)
+                          ],),
+                                            ),
+                        ),
+                      )
+                    ],),
+                  ),
+                ),
+              )
+        ],
+      );
+            }
+          ),
     );
   }
 
-  bool loading = false;
+   bool loading = false;
   bool gettingUser = true;
   bool timeout = false;
   //  var rule;
   void signIn() async {
-    FocusScope.of(context).requestFocus(FocusNode());
+FocusScope.of(context).requestFocus(
+FocusNode()
+);
 
-    if (loading) return;
+if(loading)
+return;
+
 
 // if(!name.text.startsWith("00964"))
 // {
@@ -327,13 +363,14 @@ class _SignInState extends State<SignIn> {
 //     SnackBar(content: Text(" الرجاء قم بل تحقق من رقم الهاتف "),));
 // }
 
-    print(fcm);
-    print("sign");
-    if (!formKey.currentState.validate()) {
+print(fcm);
+print("sign");
+     if (!formKey.currentState.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
 
-      return;
+  
+    return;
     }
 //  if(phoneC.text[0]=="0")
 //    {
@@ -342,154 +379,156 @@ class _SignInState extends State<SignIn> {
 
 //    }
 
-    //  if("${code}${phoneC.text}".length!=14)
-    //  {
-    //       Scaffold.of(b).showSnackBar(
-    //   SnackBar(content: Text("الرجاء قم بلتحقق من رقم الهاتف"),));
-    //    return;
-    //  }
+  //  if("${code}${phoneC.text}".length!=14)
+  //  {
+  //       Scaffold.of(b).showSnackBar(
+  //   SnackBar(content: Text("الرجاء قم بلتحقق من رقم الهاتف"),));
+  //    return;
+  //  }
     timeout = false;
 
     //print(passc.text);
     setState(() {
       loading = true;
     });
-    var res = await http.post("$host/users/auth/login", body: {
-      "phone": "${name.text}",
-      "password": pass.text.toString(),
-      "player_id": "$fcm"
-    }).timeout(Duration(seconds: 30), onTimeout: () {
-      print("time");
+    var res = await http.post("$host/users/auth/login",
+        body: {
+          "phone": "${name.text}",
+          "password": pass.text,
+         "player_id": "$fcm"
+        }).timeout(Duration(seconds: 30), onTimeout: () {
+          print("time");
       setState(() {
         loading = false;
         timeout = true;
       });
-      Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: NoNet(),
-        );
-      })).then((value) {
+         Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
         // getprof();
       });
       return;
-    }).catchError((e) {
-      setState(() {
+    }).catchError((e){
+setState(() {
         loading = false;
         timeout = true;
-        gettingUser = false;
+        gettingUser=false;
       });
-      Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: NoNet(),
-        );
-      })).then((value) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+      NoNet(),);})).then((value) {
         // getprof();
       });
     });
     if (timeout) return;
     var pres = json.decode(res.body);
     print(pres);
-    Widget _home;
-    if (pres['statusCode'] == 403) {
-      Scaffold.of(b).showSnackBar(SnackBar(
-        content: Text(pres["message"]),
-      ));
-      setState(() {
-        loading = false;
-      });
-      return;
-    }
+Widget _home;
+if(pres['statusCode']==403)
+{
+    Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
+    setState(() {
+      loading=false;
+    });
+    return;
+}
     token = pres["data"]['data']["token"];
-    role = pres["data"]['data']["role"];
-    is_Active = pres["data"]['data']["is_Active"];
+     role=pres["data"]['data']["role"];
+     is_Active=pres["data"]['data']["is_Active"];
     // print(rule);
-    switch (role) {
-      case 0:
-        _home = Home();
-        break;
-      case 1:
-        _home = DriverHome();
-        break;
-      case 2:
-        _home = CollectorHome();
-        break;
-      case 3:
-        _home = CollectorHome();
-        break;
-      default:
-    }
+       switch (role) {
+         case 0:
+           _home=Home();
+           break;
+             case 1:
+           _home=DriverHome();
+           break;  
+               case 2:
+           _home=CollectorHome();
+           break;
+           case 3:
+           _home=CollectorHome();
+           break; 
+         default:
+       }
     if (token != null) {
+      
       print(token);
       await savepref();
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c) {
-        return Directionality(textDirection: TextDirection.rtl, child: _home);
+        return Directionality(textDirection: TextDirection.rtl,
+         child:_home);
       }));
     } else {
-      print(false);
+           print(false);
 
-      //   EDailog.errorDialog(pres["message"], false, context);
-      Scaffold.of(b).showSnackBar(SnackBar(
-        content: Text(pres["message"]),
-      ));
+   //   EDailog.errorDialog(pres["message"], false, context);
+     Scaffold.of(b).showSnackBar(
+    SnackBar(content: Text(pres["message"]),));
     }
     setState(() {
       loading = false;
     });
   }
 
-  savepref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  savepref() async{
+ SharedPreferences prefs = await SharedPreferences.getInstance();
     //int counter = (prefs.getInt('counter') ?? 0) + 1;
     // print('Pressed $counter times.');
     await prefs.setString('token', token);
     await prefs.setInt('role', role);
-    // await prefs.setBool('is_Active', is_Active);
+        // await prefs.setBool('is_Active', is_Active);
+
   }
 
   getLogin() async {
-    setState(() {
+    setState(() { 
       gettingUser = true;
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var _tok = prefs.getString('token');
-    role = prefs.getInt('role');
-    // is_Active= prefs.getBool('is_Active');
-    gettingUser = false;
+    role= prefs.getInt('role');
+        // is_Active= prefs.getBool('is_Active');
+ gettingUser=false;
     // print('Pressed $counter times.');
     if (_tok != null) {
       token = _tok;
       // token="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGhvbmUiOiIxMjM0NTYyIiwiaWF0IjoxNjA3MzM1Nzg1LCJleHAiOjE3MDA2NDc3ODV9.voubH_10pDPogiXpYgGwuO5P3KLUhQC84e_LoorvJj8";
-      gettingUser = false;
+       gettingUser=false;
 
-      role = role;
+      role=role;
       // rule= prefs.getInt('role');
       print(token);
-      print(role);
+      print("role $role");
+      // if(role==null)
+      // return;
       Widget _home;
-      switch (role) {
-        case 0:
-          _home = Home();
-          break;
-        case 1:
-          _home = DriverHome();
-          break;
-        case 2:
-          _home = CollectorHome();
-          break;
-        case 3:
-          _home = CollectorHome();
-          break;
-        default:
-      }
+            switch (role) {
+              
+         case 0:
+           _home=Home();
+           break;
+             case 1:
+           _home=DriverHome();
+           break;  
+             case 2:
+           _home=CollectorHome();
+           break;  
+           case 3:
+           _home=CollectorHome();
+           break;
+         default:           _home=Home();
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c) {
-        return Directionality(textDirection: TextDirection.rtl, child: _home);
+       }
+      
+ Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c) {
+        return Directionality(textDirection: TextDirection.rtl, 
+        child:_home);
       }));
+    
     } else {
-      print('no user');
-      setState(() {});
-    }
-  }
+    print('no user');
+    setState(() {
+      
+    });
+    }}
 }

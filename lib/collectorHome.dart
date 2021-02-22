@@ -44,6 +44,28 @@ _launchURL(url) async {
 bool search=false;
 TextEditingController searchc=new TextEditingController();
 
+DateTime currentBackPressTime;
+
+Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null || 
+        now.difference(currentBackPressTime) > Duration(seconds: 1)) {
+      if(menu)
+   {
+  setState(() {
+  menu=false;
+});
+     return Future.value(false);
+   }
+   
+      currentBackPressTime = now;
+// (msg: "exit_warning");
+
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
   bool menu=false;
   @override
   void initState() {
@@ -75,98 +97,99 @@ print(orders.length);
     print(is_Active);
     return Scaffold(
 
-      body: Container(
-        height: double.infinity,
-        color: mc,
-        child: Stack(children: [
-          Positioned(
-            top: 50,left: 0,
-            right: 0,
-            child: 
-            Container(
-              //color: Colors.green,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                     Align(
-                      alignment: Alignment.centerLeft,
-                      child: Stack(
-                        children: [
-                          Transform(
-                             alignment: Alignment.center,
+      body:WillPopScope(onWillPop: onWillPop,
+              child: Container(
+          height: double.infinity,
+          color: mc,
+          child: Stack(children: [
+            Positioned(
+              top: 50,left: 0,
+              right: 0,
+              child: 
+              Container(
+                //color: Colors.green,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                       Align(
+                        alignment: Alignment.centerLeft,
+                        child: Stack(
+                          children: [
+                            Transform(
+                               alignment: Alignment.center,
   transform: Matrix4.rotationY(pi),
-                            child: Image.asset(
-                              "assets/grad.png",
-                              
-                              height: 38,),
-                          ),
-                            Positioned(
+                              child: Image.asset(
+                                "assets/grad.png",
+                                
+                                height: 38,),
+                            ),
+                              Positioned(
 top: 0,
 right: 10,
-                             bottom: 0,
-                             // bottom: 0,
-                     child: InkWell(
-                                   onTap: (){
-                                     setState(() {
-                                       menu=!menu;
-                                     });
-                                   },
-                                            child: Center(
-                         child: Image.asset(
-                                     "assets/menu.png",
-                                     height: 28,
-                                       ),
+                               bottom: 0,
+                               // bottom: 0,
+                       child: InkWell(
+                                     onTap: (){
+                                       setState(() {
+                                         menu=!menu;
+                                       });
+                                     },
+                                              child: Center(
+                           child: Image.asset(
+                                       "assets/menu.png",
+                                       height: 28,
+                                         ),
+                         ),
                        ),
-                     ),
-                            )
-                        ],
-                      )),
-                  Center(child:  Image.asset(
-                            "assets/logo.png",
-                            height: 63,
-                            
-                              ),),
-                                  Align(
-                            alignment: Alignment.centerLeft,
-                            child: Stack(
-                              children: [
+                              )
+                          ],
+                        )),
+                    Center(child:  Image.asset(
+                              "assets/logo.png",
+                              height: 63,
+                              
+                                ),),
+                                    Align(
+                              alignment: Alignment.centerLeft,
+                              child: Stack(
+                                children: [
 
 
-                                Image.asset(
-                                  "assets/grad.png",
-                                  height: 38,),
-                                  Positioned(
+                                  Image.asset(
+                                    "assets/grad.png",
+                                    height: 38,),
+                                    Positioned(
 top: 0,
 left: 10,
-                                   bottom: 0,
-                                   // bottom: 0,
-                           child: InkWell(child: Stack(
-                             children: [
-                               Center(
-                                                                child: Icon(Icons.notifications,
-                                          color: Colors.white,),
-                               ),
-                          if(count>0)     Positioned(
-                                 right: 0,
-                                 top: 3,
-                                child: Container(
-                                  width: 12,
-                                  height: 12,
-                                  child: Center(
-                                    child: Text("$count",
-                                    style: TextStyle(color: Colors.white,
-                                    fontSize: 10),
-                                    
+                                     bottom: 0,
+                                     // bottom: 0,
+                             child: InkWell(child: Stack(
+                               children: [
+                                 Center(
+                                                                  child: Icon(Icons.notifications,
+                                            color: Colors.white,),
+                                 ),
+                            if(count>0)     Positioned(
+                                   right: 0,
+                                   top: 3,
+                                  child: Container(
+                                    width: 12,
+                                    height: 12,
+                                    child: Center(
+                                      child: Text("$count",
+                                      style: TextStyle(color: Colors.white,
+                                      fontSize: 10),
+                                      
+                                      ),
                                     ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(100)
-                                  ),
-                                ), 
-                               )
-                             ],
-                           ), onTap: (){
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(100)
+                                    ),
+                                  ), 
+                                 )
+                               ],
+                             ), onTap: (){
 // Navigator.pop(context);
 Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
 Notfs(notf: prof['notification'],),);})).then((value){
@@ -179,17 +202,17 @@ Notfs(notf: prof['notification'],),);})).then((value){
 });
 
 
-                                    }),
-                                  )
-                              ],
-                            )),
-                              //  SizedBox(width: 66,),
-              
-                  
-                ],
+                                      }),
+                                    )
+                                ],
+                              )),
+                                //  SizedBox(width: 66,),
+                
+                    
+                  ],
+                ),
               ),
             ),
-          ),
 //       Positioned(
 //             top: 125,
 //             right: 20,
@@ -234,7 +257,7 @@ Notfs(notf: prof['notification'],),);})).then((value){
 //                       ],
 //                     ) ,
 //                   ),
-                
+                  
 //                      InkWell(
 //                     onTap: (){
 // setState(() {
@@ -257,7 +280,7 @@ Notfs(notf: prof['notification'],),);})).then((value){
 //             ),),
 //                     ) ,
 //                   ),
-                
+                  
 //                       InkWell(
 //                     onTap: (){
 // setState(() {
@@ -312,7 +335,7 @@ Notfs(notf: prof['notification'],),);})).then((value){
 //            top: 130,
 //         left: 20,
 //           right: 20,
-          
+            
 //           child:      MaterialButton(
 //                         minWidth: double.infinity,
 //                         elevation: 0,
@@ -324,7 +347,7 @@ Notfs(notf: prof['notification'],),);})).then((value){
 //                         height: 60,
 //                         color: sc,
 //                         onPressed: (){
-                     
+                       
 //                       pr();    
 // // signIn();
 //                       },child:
@@ -341,240 +364,241 @@ Notfs(notf: prof['notification'],),);})).then((value){
 //                       ),
 //           // child: Text("asdad"),
 //           ),
-       Positioned(
-            top: 110,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: ListView(
-              // controller: scr,
-              children: [
-                AnimatedOpacity(
-                  duration: Duration(milliseconds: 170),
-                  opacity:search?1:0,
-                                  child: AnimatedContainer(
-                    height: search?60:0,
-                    duration: Duration(milliseconds: 200),
+         Positioned(
+              top: 110,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: ListView(
+                // controller: scr,
+                children: [
+                  AnimatedOpacity(
+                    duration: Duration(milliseconds: 170),
+                    opacity:search?1:0,
+                                    child: AnimatedContainer(
+                      height: search?60:0,
+                      duration: Duration(milliseconds: 200),
+                      
+                      child:
+                    Theme(data: ThemeData(primaryColor: Colors.white,),
                     
-                    child:
-                  Theme(data: ThemeData(primaryColor: Colors.white,),
-                  
-                                    child: TextField(
-                                      onEditingComplete: (){
-                                          orders=[];
+                                      child: TextField(
+                                        onEditingComplete: (){
+                                            orders=[];
  loading=true;
  page=1;
  maxCount=-1;
  lastPage=false;
  timeout=false;
  getOrders(true);
-                                      },
-                                      style: TextStyle(color: Colors.white),
-                                      controller: searchc,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                        color: Colors.white
-                      )),
-                      enabledBorder:  OutlineInputBorder(
+                                        },
+                                        style: TextStyle(color: Colors.white),
+                                        controller: searchc,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide(
+                          color: Colors.white
+                        )),
+                        enabledBorder:  OutlineInputBorder(
 borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                        color: Colors.white,
-                        
-                      )),
-                    
+                          borderSide: BorderSide(
+                          color: Colors.white,
+                          
+                        )),
+                      
 prefixIcon: Icon(Icons.search,
 color: Colors.white,
 // color: Colors.white,
 )
 // co
-                    ),
-                    ),
-                  ) ,),
-                ),
-          if(loading) 
-      Center(
-          child: CircularProgressIndicator(
-valueColor: AlwaysStoppedAnimation(Colors.white),
-          ),
-      ),
-      if  ( orders.length>0  )...orders.map((e){
-                 return orderModel(e);
-               }).toList(),
-
-                if  ( orders.length<=0 &&!loading )
-                Padding(
-                  padding: const EdgeInsets.only(top: 40),
-                  child: Center(
-                    child: Text("لا توجد بيانات",style: TextStyle(color: Colors.white,
-                    fontWeight: FontWeight.bold
-                    ,fontSize: 18
-                    )),
+                      ),
+                      ),
+                    ) ,),
                   ),
-                )
+            if(loading) 
+        Center(
+            child: CircularProgressIndicator(
+valueColor: AlwaysStoppedAnimation(Colors.white),
+            ),
+        ),
+        if  ( orders.length>0  )...orders.map((e){
+                   return orderModel(e);
+                 }).toList(),
 
-            ],),
-          ),
-        if(menu)  Positioned.fill(
+                  if  ( orders.length<=0 &&!loading )
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Center(
+                      child: Text("لا توجد بيانات",style: TextStyle(color: Colors.white,
+                      fontWeight: FontWeight.bold
+                      ,fontSize: 18
+                      )),
+                    ),
+                  )
+
+              ],),
+            ),
+          if(menu)  Positioned.fill(
 child: InkWell(
   onTap: (){
     setState(() {
-      
-      menu=false;
+        
+        menu=false;
     });
   },
 ),
-          ),
-       AnimatedPositioned(
-         duration: Duration(milliseconds: 200),
-         bottom: 0,
-         left: 0,
-         right: 0,
-         height:menu? 
-        role==3?285: 215
-         :0,
-         child: Container(
-           child:Material(
-             shape: RoundedRectangleBorder(
-               borderRadius: BorderRadius.vertical(
-                top: Radius.circular(25)
-               )
-             ),
-             elevation: 4,
-             color: Colors.white,
-             child: 
-           Column(
-             children: [
-               SizedBox(height: 15,),
-               ListTile(
-                 onTap: (){
-                    setState(() {
-      
-      menu=false;
-    });
-                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                   Collectorsorders(),);})).then((value) {
-                      orders=[];
- loading=true;
- page=1;
- maxCount=-1;
- lastPage=false;
- getOrders(true);
-                   });
-                   
-                 },
-                 leading: Icon(Icons.history),
-                 title: Text("طلبات تم جمعها"),
+            ),
+         AnimatedPositioned(
+           duration: Duration(milliseconds: 200),
+           bottom: 0,
+           left: 0,
+           right: 0,
+           height:menu? 
+          role==3?285: 215
+           :0,
+           child: Container(
+             child:Material(
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(25)
+                 )
                ),
-               Divider(),
+               elevation: 4,
+               color: Colors.white,
+               child: 
+             Column(
+               children: [
+                 SizedBox(height: 15,),
                  ListTile(
                    onTap: (){
-                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                     Chats(),);}));
-                     
-                   },
-                 leading: Icon(Icons.chat_outlined),
-                 title: Text("سجل المحادثات"),
-               ),
-                  Divider(),
-            if(role==3)        ListTile(
-                 onTap: (){
-                    setState(() {
-      
-      menu=false;
+                      setState(() {
+        
+        menu=false;
     });
-                   Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                   GovOrders(),);})).then((value) {
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     Collectorsorders(),);})).then((value) {
                         orders=[];
  loading=true;
  page=1;
  maxCount=-1;
  lastPage=false;
  getOrders(true);
-                   });
-                   
-                 },
-                 leading: Icon(Icons.history),
-                 title: Text("المحافظات"),
-               ),
-              //  Divider(),
-              //    ListTile(
-              //    leading: Icon(Icons.chat_outlined),
-              //    title: Text("سجل المحادثات"),
-              //  ),
-             if(role==3)     Divider(),
-                 ListTile(
-                   onTap: (){
-      
-      menu=false;
-  
-                     setState(() {
-                       token=null;
-                       role=null;
                      });
-                     SharedPreferences.getInstance().then((s) {
+                     
+                   },
+                   leading: Icon(Icons.history),
+                   title: Text("طلبات تم جمعها"),
+                 ),
+                 Divider(),
+                   ListTile(
+                     onTap: (){
+                       Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                       Chats(),);}));
+                       
+                     },
+                   leading: Icon(Icons.chat_outlined),
+                   title: Text("سجل المحادثات"),
+                 ),
+                    Divider(),
+              if(role==3)        ListTile(
+                   onTap: (){
+                      setState(() {
+        
+        menu=false;
+    });
+                     Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+                     GovOrders(),);})).then((value) {
+                          orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ getOrders(true);
+                     });
+                     
+                   },
+                   leading: Icon(Icons.history),
+                   title: Text("المحافظات"),
+                 ),
+                //  Divider(),
+                //    ListTile(
+                //    leading: Icon(Icons.chat_outlined),
+                //    title: Text("سجل المحادثات"),
+                //  ),
+               if(role==3)     Divider(),
+                   ListTile(
+                     onTap: (){
+        
+        menu=false;
+  
+                       setState(() {
+                         token=null;
+                         role=null;
+                       });
+                       SharedPreferences.getInstance().then((s) {
      s.setString('token', null);
      s.setInt('role', null);
      Navigator.pushAndRemoveUntil(context, 
      MaterialPageRoute(builder: (c){
 return SignIn();
      }), (route) => false);
-                     });
-                   },
-                 leading: Icon(Icons.account_circle),
-                 title: Text("تسجيل الخروج"),
-               ),
-             ],
-           ),),
-          // color: Colors.white,
+                       });
+                     },
+                   leading: Icon(Icons.account_circle),
+                   title: Text("تسجيل الخروج"),
+                 ),
+               ],
+             ),),
+            // color: Colors.white,
+           ),
          ),
-       ),
   if(role==3)     Positioned(
-         bottom: 20,
-         left: 20,
-         child: 
-         IconButton(
-           onPressed: ()async{
+           bottom: 20,
+           left: 20,
+           child: 
+           IconButton(
+             onPressed: ()async{
 String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-                                                    "#ff6666", 
-                                                    "Cancel", 
-                                                    true, 
-                                                    ScanMode.QR);
-                                                    print(barcodeScanRes);
-                          getOrdId(barcodeScanRes,false);
-                          //  getOrdId(136,false);
-           },
-           icon: Icon(Icons.qr_code_scanner_rounded,
-           color: Colors.white,),
-         )
-        //  Container(
-        //    color: Colors.green,
-        //    child: Text("adsa"),
-        //  ),
-       ),
+                                                      "#ff6666", 
+                                                      "Cancel", 
+                                                      true, 
+                                                      ScanMode.QR);
+                                                      print(barcodeScanRes);
+                            getOrdId(barcodeScanRes,false);
+                            //  getOrdId(136,false);
+             },
+             icon: Icon(Icons.qr_code_scanner_rounded,
+             color: Colors.white,),
+           )
+          //  Container(
+          //    color: Colors.green,
+          //    child: Text("adsa"),
+          //  ),
+         ),
 
 
 
-       if(role==3)     Positioned(
-         bottom: 20,
-         left: 75,
-         child: 
-         IconButton(
-           onPressed: ()async{
+         if(role==3)     Positioned(
+           bottom: 20,
+           left: 75,
+           child: 
+           IconButton(
+             onPressed: ()async{
 showinputmodal(context, "ادخال يدوي");
-                                                    // print(barcodeScanRes);
-                                                    // getOrdId(barcodeScanRes);
-           },
-           icon: Icon(Icons.edit,
-           color: Colors.white,),
+                                                      // print(barcodeScanRes);
+                                                      // getOrdId(barcodeScanRes);
+             },
+             icon: Icon(Icons.edit,
+             color: Colors.white,),
+           )
+          //  Container(
+          //    color: Colors.green,
+          //    child: Text("adsa"),
+          //  ),
          )
-        //  Container(
-        //    color: Colors.green,
-        //    child: Text("adsa"),
-        //  ),
-       )
-        ],),)
+          ],),),
+      )
     );
   }
 

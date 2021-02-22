@@ -26,11 +26,13 @@ class _ChatsState extends State<Chats> {
 bool search=false;
 TextEditingController searchc=new TextEditingController();
 
+bool concting=false;
 IO.Socket socket;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    
   getOrders(true);
       scr.addListener((){
 if(scr.offset>= scr.position.maxScrollExtent)
@@ -62,7 +64,7 @@ print(orders.length);
       .setTransports(['websocket']) // for Flutter or Dart VM
       // .setExtraHeaders({'foo': 'bar'}) // optional
       .build());
-
+concting=true;
  print("conected: ${socket.connected}");
  socket.connect();
  socket.onError((data) {
@@ -102,6 +104,10 @@ print('conecting');
  });
     socket.onConnect((_) {
       print('connect'); 
+      setState(() {
+        concting=false;
+        print('conctd done');
+      });
     //  socket.emit('msg', 'test');
     });
     socket.on('chat_msg', (data) {
@@ -481,10 +487,20 @@ Padding(
   Widget orderModel(ord){
 
     return ListTile(
+      
       onTap: (){
+        print("orddddd ${ord['id']}");
         Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
         Chat(id: ord['id'],ord: ord,),);})).then((value) {
           addmsg=null;
+          
+    orders=[];
+ loading=true;
+ page=1;
+ maxCount=-1;
+ lastPage=false;
+ timeout=false;
+    getOrders(true );
         });
         
       },

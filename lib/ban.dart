@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunmi_thermal_printer_example/main.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,19 @@ class Banned extends StatefulWidget {
 
 class _BannedState extends State<Banned> {
   bool loading=false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+       SharedPreferences.getInstance().then((s) {
+     s.setString('token', null);
+     s.setInt('role', null);
+//      Navigator.pushAndRemoveUntil(context, 
+//      MaterialPageRoute(builder: (c){
+// return SignIn();
+//      }), (route) => false);
+                       });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

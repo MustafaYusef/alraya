@@ -98,6 +98,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "الراية للتوصيل السريع",
+         builder: (BuildContext context, Widget child) {
+return MediaQuery(
+data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+child: child,
+);
+},
       home: Directionality(
           textDirection: TextDirection.rtl,
           child: Stack(
