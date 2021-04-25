@@ -240,13 +240,17 @@ Notfs(notf: prof['notification'],),);}));
                             // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
                             // Home(),);}));
                          Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-                         AddOrder(),);}));
-                            
+                         Orders(),);}));
+                          //addorder  
 // signIn();
                         },child:
-                        Icon(Icons.add_circle_outline,
-                        color: Colors.white,
-                        size: 36,)
+                        Text("طلباتي",
+                        style: TextStyle(color: Colors.white,
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold),)
+                        // Icon(Icons.add_circle_outline,
+                        // color: Colors.white,
+                        // size: 36,)
                         //  Text("تسجيل الدخول",
                         //  style: TextStyle(
                         //     color: Colors.white,

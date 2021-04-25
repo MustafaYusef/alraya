@@ -35,8 +35,9 @@ class _OrderDetailsState extends State<OrderDetails> {
 
         TextEditingController clientname =new TextEditingController();
         TextEditingController clientphone =new TextEditingController();
-
     TextEditingController state =new TextEditingController();
+
+    TextEditingController ordernum =new TextEditingController();
     TextEditingController city =new TextEditingController();
     TextEditingController address =new TextEditingController();
     TextEditingController price =new TextEditingController();
@@ -82,6 +83,8 @@ var or;
   print(or['status']);
   phone.text="${or['phone']}";
     phone2.text="${or['phone2']}";
+        ordernum.text="${or['order_number']}";
+
       state.text="${or['government']}";
         city.text="${or['city']}";
   address.text="${or['address']}";
@@ -175,21 +178,9 @@ left: 10,
                                style: TextStyle(color: Colors.white),
                                   //   focusNode: namef,
                                      textInputAction: TextInputAction.next,
-                                    //  onEditingComplete: (){
-                                    //    FocusScope.of(context)
-                                    //    .requestFocus(
-                                    //      phonef
-                                    //    );
-                                    //  },
-                                                // validator: (value) {
-                                                //   if (value.isEmpty) {
-                                                //     return 'الرجاء قم بأدخال اسم المستخدم';
-                                                //   }
-                                                //   return null;
-                                                // },
-                                                
+          
                                   controller: orderid,
-                                  enabled: editible,
+                                  enabled: false,
                                 decoration: InputDecoration(
                                   
                                   errorStyle:TextStyle(
@@ -244,6 +235,85 @@ left: 10,
                                   ),
                                 ),  
                                 ),
+                                
+                                 SizedBox(
+                                  height: 15,
+                                ),
+                             TextFormField(
+                                 enabled: false,
+                               style: TextStyle(color: Colors.white),
+                                     focusNode: namef,
+                                     textInputAction: TextInputAction.next,
+                                     onEditingComplete: (){
+                                       FocusScope.of(context)
+                                       .requestFocus(
+                                         phonef
+                                       );
+                                     },
+                                                validator: (value) {
+                                                  if (value.isEmpty) {
+                                                    return 'الرجاء قم بأدخال اسم المستخدم';
+                                                  }
+                                                  return null;
+                                                },
+                                                
+                                  controller: ordernum,
+                                  
+                                decoration: InputDecoration(
+                                     disabledBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    // borderRadius: BorderRadius.vertical(
+                                    //   top: Radius.circular(30)
+                                    // )
+                                  ),
+                                    labelText: "رقم الوصل",
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  errorStyle:TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold
+                              ),
+                                  hintText: "رقم الوصل",
+                              focusColor: Colors.white,
+                              
+                              hintStyle: TextStyle(
+                                color: Colors.white
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    borderRadius: BorderRadius.vertical(
+                                      // top: Radius.circular(30),
+                                      
+                                    )
+                                  ),
+                              errorBorder: OutlineInputBorder(
+                                
+                                    borderSide: BorderSide(color:Colors.white
+                                    ,width: 4),
+                                    borderRadius: BorderRadius.vertical(
+                                      // top: Radius.circular(30)
+                                    )
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    borderRadius: BorderRadius.vertical(
+                                      // top: Radius.circular(30)
+                                    )
+                                  ),
+                                  focusedBorder:  OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white
+                                    ,width: 4),
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(30)
+                                    )
+                                  ),
+                                ),  
+                                ),
+
                                 SizedBox(
                                   height: 15,
                                 ),
@@ -316,7 +386,7 @@ left: 10,
                                     borderSide: BorderSide(color: Colors.white
                                     ,width: 4),
                                     borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(30)
+                                      // top: Radius.circular(30)
                                     )
                                   ),
                                 ),  
@@ -1820,9 +1890,11 @@ else
                                     Colors.white
                                   ),
                                 ):
-                                 Text(or['status']=='watting'
-                                 ?"طباعة"
-                                 :"اعادة طباعة",
+                                 Text(
+                                  //  or['status']=='watting'?
+                                   "طباعة"
+                                //  :"اعادة طباعة",
+                                ,
                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

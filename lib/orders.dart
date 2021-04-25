@@ -460,6 +460,14 @@ children: [
     fontWeight: FontWeight.bold),
     ),
   ),
+   Divider(color: Colors.white,),
+    Padding(
+    padding: const EdgeInsets.all(14.0),
+    child: Text(" رقم الوصل: ${ord['order_number']}",
+    style: TextStyle(color: Colors.white,
+    fontWeight: FontWeight.bold),
+    ),
+  ),
   if( ord['is_payed']==true) Divider(color: Colors.white,),
   if( "${ord['is_payed']}"=="true")   Padding(
     padding: const EdgeInsets.all(14.0),
