@@ -62,7 +62,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   FocusNode passf = FocusNode();
  BuildContext b;
-bool editible;
+final bool editible=false;
 
 _launchURL(url) async {
   // const url = 'https://flutter.dev';
@@ -103,7 +103,7 @@ var or;
  notes.text="${or['notes']}";
   orderid.text="${or['id']}";
  orderstate.text="${statobj[or['status']]}";
-editible=role==0;
+// editible=role==0;
 
   }
   @override
@@ -318,7 +318,7 @@ left: 10,
                                   height: 15,
                                 ),
                              TextFormField(
-                                 enabled: editible,
+                                 enabled: false,
                                style: TextStyle(color: Colors.white),
                                      focusNode: namef,
                                      textInputAction: TextInputAction.next,
@@ -1754,76 +1754,76 @@ errorStyle: TextStyle(
                   &&or['status']!='finished'
                   &&or['status']!='canceled')
                   )
-                                MaterialButton(
-                                  minWidth: double.infinity,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(30)
-                                    )
-                                  ),
-                                  height: 60,
-                                  color: mc,
-                                  onPressed: (){
-// signIn();
-edit();
-// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-// AddOrder2(),);}));
+//                                 MaterialButton(
+//                                   minWidth: double.infinity,
+//                                   elevation: 0,
+//                                   shape: RoundedRectangleBorder(
+//                                     borderRadius: BorderRadius.vertical(
+//                                       bottom: Radius.circular(30)
+//                                     )
+//                                   ),
+//                                   height: 60,
+//                                   color: mc,
+//                                   onPressed: (){
+// // signIn();
+// edit();
+// // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// // AddOrder2(),);}));
 
-                                },child:
-                                loading?
-                                CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(
-                                    Colors.white
-                                  ),
-                                ):
-                                 Text("تعديل",
-                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),
-                                ),),
-SizedBox(
-height: 10,
-),
-      if(role==0&&(or['status']!='delivered'
-                  &&or['status']!='rejected_client'
-                  &&or['status']!='finished'
-                  &&or['status']!='watting'
-                   &&or['status']!='canceled'))
-                                MaterialButton(
-                                  minWidth: double.infinity,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(100),
-                                      top: Radius.circular(100)
-                                    )
-                                  ),
-                                  height: 60,
-                                  color: mc,
-                                  onPressed: (){
-// signIn();
-// editprice();
-editPricemodal(context);
-// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-// AddOrder2(),);}));
+//                                 },child:
+//                                 loading?
+//                                 CircularProgressIndicator(
+//                                   valueColor: AlwaysStoppedAnimation(
+//                                     Colors.white
+//                                   ),
+//                                 ):
+//                                  Text("تعديل",
+//                                  style: TextStyle(
+//                                     color: Colors.white,
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 18
+//                                   ),
+//                                 ),),
+// SizedBox(
+// height: 10,
+// ),
+//       if(role==0&&(or['status']!='delivered'
+//                   &&or['status']!='rejected_client'
+//                   &&or['status']!='finished'
+//                   &&or['status']!='watting'
+//                    &&or['status']!='canceled'))
+//                                 MaterialButton(
+//                                   minWidth: double.infinity,
+//                                   elevation: 0,
+//                                   shape: RoundedRectangleBorder(
+//                                     borderRadius: BorderRadius.vertical(
+//                                       bottom: Radius.circular(100),
+//                                       top: Radius.circular(100)
+//                                     )
+//                                   ),
+//                                   height: 60,
+//                                   color: mc,
+//                                   onPressed: (){
+// // signIn();
+// // editprice();
+// editPricemodal(context);
+// // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// // AddOrder2(),);}));
 
-                                },child:
-                                priceloading?
-                                CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(
-                                    Colors.white
-                                  ),
-                                ):
-                                 Text("تعديل السعر",
-                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),
-                                ),),
+//                                 },child:
+//                                 priceloading?
+//                                 CircularProgressIndicator(
+//                                   valueColor: AlwaysStoppedAnimation(
+//                                     Colors.white
+//                                   ),
+//                                 ):
+//                                  Text("تعديل السعر",
+//                                  style: TextStyle(
+//                                     color: Colors.white,
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 18
+//                                   ),
+//                                 ),),
 
                                  if(role==1&&(
                                    or['status']=='watting'||
@@ -2111,36 +2111,36 @@ sc                                  ),
                                 ),),
 
 
-                                  if(role==0&&or['status']=='watting')                  MaterialButton(
-                                  minWidth: double.infinity,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(100),
-                                      top: Radius.circular(100)
-                                    )
-                                  ),
-                                  height: 60,
-                                  color: Colors.white,
-                                  onPressed: (){
-// signIn();
-cancelord();
-// Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
-// AddOrder2(),);}));
+//                                   if(role==0&&or['status']=='watting')                  MaterialButton(
+//                                   minWidth: double.infinity,
+//                                   elevation: 0,
+//                                   shape: RoundedRectangleBorder(
+//                                     borderRadius: BorderRadius.vertical(
+//                                       bottom: Radius.circular(100),
+//                                       top: Radius.circular(100)
+//                                     )
+//                                   ),
+//                                   height: 60,
+//                                   color: Colors.white,
+//                                   onPressed: (){
+// // signIn();
+// cancelord();
+// // Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+// // AddOrder2(),);}));
 
-                                },child:
-                                loading2?
-                                CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(
-sc                                  ),
-                                ):
-                                 Text("الغاء الطلب",
-                                 style: TextStyle(
-                                    color: sc,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),
-                                ),),
+//                                 },child:
+//                                 loading2?
+//                                 CircularProgressIndicator(
+//                                   valueColor: AlwaysStoppedAnimation(
+// sc                                  ),
+//                                 ):
+//                                  Text("الغاء الطلب",
+//                                  style: TextStyle(
+//                                     color: sc,
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 18
+//                                   ),
+//                                 ),),
 
 
 

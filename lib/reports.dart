@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sunmi_thermal_printer_example/orderDetails.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart' as intl;
+import 'package:sunmi_thermal_printer_example/reportsOrders.dart';
 import 'main.dart';
 
 class Reports extends StatefulWidget {
@@ -382,26 +383,26 @@ Material(
 
 //                   ),
 //                 ),
-                orderModel('عدد الطلبات  تم تسليمها الى الزبون',orders['order_count']),
+                orderModel('عدد الطلبات الداخلة الى الشركة',orders['order_count'],"order_count"),
 
               orderModel('مبالغ الطلبات تم استلامها من الشركة'
-              ,orders['clinet_order_payed']),
+              ,orders['clinet_order_payed'],'clinet_order_payed'),
 
-         orderModel('مبالغ الطلبات المتبقية',
-         orders['clinet_order_Unpayed']),
+        //  orderModel('مبالغ الطلبات المتبقية',
+        //  orders['clinet_order_Unpayed']),
 
         //  orderModel('مجوع سعر التصويل',orders['shipping_price']),
 
          orderModel('عدد الطلبات التي تم استلام مبالغها',
-         orders['payed_orders_counts']),
+         orders['payed_orders_counts'],'payed_orders_counts'),
 
-         orderModel('عدد الطلبات التي لم يتم استلام مبالغها',orders['unpayed_orders_counts']),
-         orderModel('عدد الطبات  الراجع',orders['rejected_orders_counts']),
+         orderModel('عدد الطلبات التي لم يتم استلام مبالغها',orders['unpayed_orders_counts'],'unpayed_orders_counts'),
+         orderModel('عدد الطبات  الراجع',orders['rejected_orders_counts'],'rejected_orders_counts'),
         //  orderModel('  مبالغ الطلبات الراجع',orders['rejected_orders_amount']),
         //  orderModel('مبالغ الطلبات الراجع التي تم تسلمها اليك',
         //  orders['rejected_client_orders_amount']),
                 orderModel('عدد الطلبات الراجع التي تم تسلمها اليك',
-                orders['rejected_client_orders_count']),
+                orders['rejected_client_orders_count'],'rejected_client_orders_count'),
 
                 //  ...widget.notf.map((e){
                 //    print(e);
@@ -416,44 +417,72 @@ Material(
   }
 var from;
 var to;
-  Widget orderModel(txt,val) {
-    return GridTile(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Material(
-          color: sc,
-          borderRadius: BorderRadius.circular(8),
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(children: [
-               Row(
-                 children: [
-                   Expanded(
-                                        child: Text("$txt",
-                     style:
-                          TextStyle(color:
-                           Colors.white,
-                           fontSize: 17
-                            // fontWeight: FontWeight.bold
-                            ),
-              ),
-                   ),
-                 ],
-               ),
-               
-              Expanded(
-                              child: Center(
-                                child: 
-                                Text("$val",
-                 style:
-                      TextStyle(color: Colors.white, 
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
+  Widget orderModel(txt,val,String stat) {
+    return InkWell(
+      onTap: (){
+
+        
+DateTime now=DateTime.now();
+       String ffrom = 
+   intl.DateFormat('dd/MM/yyyy').format(now.subtract(
+     Duration(
+       days: 30
+     )
+   ));  
+   String fto = 
+   intl.DateFormat('dd/MM/yyyy').format(now);  
+if(from!=null&&to!=null)
+{
+fto=to;
+ffrom=from;
+}
+
+        Navigator.of(context).push(MaterialPageRoute(builder: (c){return Directionality(textDirection: TextDirection.rtl,child: 
+        ReportOrders(
+from: ffrom,to: fto,
+status: stat,
+        ),);}));
+        
+      },
+      child: GridTile(
+        
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Material(
+            color: sc,
+            borderRadius: BorderRadius.circular(8),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(children: [
+                 Row(
+                   children: [
+                     Expanded(
+                                          child: Text("$txt",
+                       style:
+                            TextStyle(color:
+                             Colors.white,
+                             fontSize: 17
+                              // fontWeight: FontWeight.bold
                               ),
-              )
-            ],),
+                ),
+                     ),
+                   ],
+                 ),
+                 
+                Expanded(
+                                child: Center(
+                                  child: 
+                                  Text("$val",
+                   style:
+                        TextStyle(color: Colors.white, 
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                                ),
+                )
+              ],),
+            ),
           ),
         ),
       ),
