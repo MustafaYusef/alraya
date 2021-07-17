@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
           color: mc,
           child: Stack(children: [
             Positioned(
-              top: 50,left: 0,
+              top: 35,left: 0,
               right: 0,
               child: 
               Container(
@@ -107,7 +107,7 @@ right: 10,
                         )),
                     Center(child:  Image.asset(
                               "assets/logo.png",
-                              height: 63,
+                              height: 90,
                               
                                 ),),
                                     Align(

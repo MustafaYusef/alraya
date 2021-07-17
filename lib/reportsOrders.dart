@@ -425,6 +425,8 @@ if(search&&searchc.text.length>0)
 //   var _sort=sort2[selectedSort];
 //   link+="&sort=$_sort";
 // }
+
+print(link);
 var res= 
 await http.get(
   link,headers: {"Authorization":token}
