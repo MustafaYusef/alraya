@@ -1748,12 +1748,12 @@ errorStyle: TextStyle(
                                 ),
 
  
-                  if(role==0
-                  &&(or['status']!='delivered'
-                  &&or['status']!='rejected_client'
-                  &&or['status']!='finished'
-                  &&or['status']!='canceled')
-                  )
+                  // if(role==0
+                  // &&(or['status']!='delivered'
+                  // &&or['status']!='rejected_client'
+                  // &&or['status']!='finished'
+                  // &&or['status']!='canceled')
+                  // )
 //                                 MaterialButton(
 //                                   minWidth: double.infinity,
 //                                   elevation: 0,
